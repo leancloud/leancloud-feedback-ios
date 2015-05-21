@@ -11,9 +11,6 @@
 #import "LCUtils.h"
 #import "LCUserFeedback_Internal.h"
 
-#define kUserFeedbackCache @"/1/feedback/cache/path"
-#define kMaxCacheAge 24*3600
-
 @interface LCUserFeedback()
 
 @property(nonatomic, retain) NSString *appSign;
@@ -60,6 +57,31 @@
     }
     
     return data;
+}
+
+-(instancetype)initWithDictionary:(NSDictionary*)dict {
+    self = [super init];
+    if (self && dict) {
+        self.contact = [dict objectForKey:@"contact"];
+        self.content = [dict objectForKey:@"content"];
+        self.status = [dict objectForKey:@"status"];
+        self.iid = [dict objectForKey:@"iid"];
+        self.remarks = [dict objectForKey:@"remarks"];
+        self.objectId = [dict objectForKey:@"objectId"];
+    }
+    return self;
+}
+
+
++(void)fetchFeedbackWithContact:(NSString*)contact withBlock:(AVIdResultBlock)block {
+    LCHttpClient *client = [LCHttpClient sharedInstance];
+    [client getObject:[LCUserFeedback myObjectPath] withParameters:[NSDictionary dictionaryWithObject:contact forKey:@"contact"] block:^(id object, NSError *error) {
+        if (error) {
+            [LCUtils callIdResultBlock:block object:nil error:error];
+        } else {
+            [LCUtils callIdResultBlock:block object:object error:nil];
+        }
+    }];
 }
 
 +(void)feedbackWithContent:(NSString *)content

@@ -41,7 +41,7 @@
         [self.contentView addSubview:_timestampLabel];
         
         _messageBackgroundView = [[UIImageView alloc] initWithFrame:self.textLabel.frame];
-        _messageBackgroundView.image = [[UIImage imageNamed:@"AVOSCloud.bundle/bg_1.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:16];
+        _messageBackgroundView.image = [[UIImage imageNamed:@"bg_1.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:16];
         [self.contentView insertSubview:_messageBackgroundView belowSubview:self.textLabel];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;

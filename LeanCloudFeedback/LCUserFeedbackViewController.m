@@ -66,7 +66,7 @@
 
 - (void)setupUI {
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *closeButtonImage = [UIImage imageNamed:@"AVOSCloud.bundle/back.png"];
+    UIImage *closeButtonImage = [UIImage imageNamed:@"back.png"];
     [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
     closeButton.frame = CGRectMake(0, 0, closeButtonImage.size.width, closeButtonImage.size.height);
     closeButton.autoresizingMask = UIViewAutoresizingFlexibleHeight;
@@ -123,22 +123,28 @@
         [_refreshControl beginRefreshing];
     }
     
-    [LCUserFeedback feedbackWithContent:_feedbackTitle contact:_contact create:NO withBlock:^(id object, NSError *error) {
+    [LCUserFeedback fetchFeedbackWithContact:_contact withBlock:^(id object, NSError *error) {
         if (!error) {
-            LCUserFeedback *feedback = (LCUserFeedback *)object;
-            _userFeedback = feedback;
-            [LCUserFeedbackThread fetchFeedbackThreadsInBackground:feedback withBlock:^(NSArray *objects, NSError *error) {
-                [_feedbackThreads removeAllObjects];
-                [_feedbackThreads addObjectsFromArray:objects];
-                
-                [_tableView reloadData];
+            NSArray* results = [(NSDictionary*)object objectForKey:@"results"];
+            if (results && results.count > 0) {
+                _userFeedback = [[LCUserFeedback alloc] initWithDictionary:results[0]];
+            }
+            if (_userFeedback) {
+                [LCUserFeedbackThread fetchFeedbackThreadsInBackground:_userFeedback withBlock:^(NSArray *objects, NSError *error) {
+                    [_feedbackThreads removeAllObjects];
+                    [_feedbackThreads addObjectsFromArray:objects];
+                    
+                    [_tableView reloadData];
+                    [_refreshControl endRefreshing];
+                    
+                    if (_shouldScrollToBottom) {
+                        _shouldScrollToBottom = NO;
+                        [self scrollToBottom];
+                    }
+                }];
+            } else {
                 [_refreshControl endRefreshing];
-                
-                if (_shouldScrollToBottom) {
-                    _shouldScrollToBottom = NO;
-                    [self scrollToBottom];
-                }
-            }];
+            }
         } else {
             [_refreshControl endRefreshing];
         }
@@ -150,7 +156,9 @@
 }
 
 - (void)closeButtonClicked:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{
+        ;
+    }];
 }
 
 - (void)sendButtonClicked:(id)sender {

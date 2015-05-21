@@ -15,10 +15,13 @@
 @property(nonatomic, retain) NSString *content;
 @property(nonatomic, retain) NSString *contact;
 
++(void)fetchFeedbackWithContact:(NSString*)contact withBlock:(AVIdResultBlock)block;
 +(void)feedbackWithContent:(NSString *)content contact:(NSString *)contact withBlock:(AVIdResultBlock)block;
 
 +(void)updateFeedback:(LCUserFeedback *)feedback withBlock:(AVIdResultBlock)block;
 
 +(void)deleteFeedback:(LCUserFeedback *)feedback withBlock:(AVIdResultBlock)block;
+
+-(instancetype)initWithDictionary:(NSDictionary*)dict;
 
 @end
