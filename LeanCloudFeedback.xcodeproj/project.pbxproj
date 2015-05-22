@@ -6,8 +6,27 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		5CC504C71B0EFCBA004D0CB1 /* UniversalFramework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5CC504CA1B0EFCBA004D0CB1 /* Build configuration list for PBXAggregateTarget "UniversalFramework" */;
+			buildPhases = (
+				5CC504CB1B0EFCC0004D0CB1 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = UniversalFramework;
+			productName = UniversalFramework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
-		4D84698CB095C3C17EA90B5D /* libPods-LeanCloudFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 494F43EB5A36F1125690A767 /* libPods-LeanCloudFeedback.a */; };
+		5CC504CD1B0EFE88004D0CB1 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC504CC1B0EFE88004D0CB1 /* AVOSCloud.framework */; };
+		5CC504CF1B0EFEA6004D0CB1 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC504CE1B0EFEA6004D0CB1 /* libicucore.dylib */; };
+		5CC504D11B0EFEAC004D0CB1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC504D01B0EFEAC004D0CB1 /* CoreLocation.framework */; };
+		5CC504D31B0EFEB4004D0CB1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC504D21B0EFEB4004D0CB1 /* CoreTelephony.framework */; };
+		5CC504D51B0EFEBB004D0CB1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC504D41B0EFEBB004D0CB1 /* SystemConfiguration.framework */; };
+		5CC504D71B0EFEDA004D0CB1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC504D61B0EFEDA004D0CB1 /* MobileCoreServices.framework */; };
 		5CCAE1011B09B0FE009276B9 /* LeanCloudFeedback.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE1001B09B0FE009276B9 /* LeanCloudFeedback.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5CCAE1071B09B0FE009276B9 /* LeanCloudFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CCAE0FB1B09B0FE009276B9 /* LeanCloudFeedback.framework */; };
 		5CCAE10E1B09B0FE009276B9 /* LeanCloudFeedbackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE10D1B09B0FE009276B9 /* LeanCloudFeedbackTests.m */; };
@@ -47,7 +66,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		494F43EB5A36F1125690A767 /* libPods-LeanCloudFeedback.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeanCloudFeedback.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CC504CC1B0EFE88004D0CB1 /* AVOSCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AVOSCloud.framework; sourceTree = "<group>"; };
+		5CC504CE1B0EFEA6004D0CB1 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		5CC504D01B0EFEAC004D0CB1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5CC504D21B0EFEB4004D0CB1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		5CC504D41B0EFEBB004D0CB1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5CC504D61B0EFEDA004D0CB1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5CCAE0FB1B09B0FE009276B9 /* LeanCloudFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LeanCloudFeedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CCAE0FF1B09B0FE009276B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CCAE1001B09B0FE009276B9 /* LeanCloudFeedback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeanCloudFeedback.h; sourceTree = "<group>"; };
@@ -77,8 +101,6 @@
 		5CCAE13D1B09C71E009276B9 /* btn_feedback_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_feedback_new@2x.png"; sourceTree = "<group>"; };
 		5CCAE13E1B09C71E009276B9 /* btn_feedback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_feedback@2x.png"; sourceTree = "<group>"; };
 		5CCAE13F1B09C71E009276B9 /* warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "warning@2x.png"; sourceTree = "<group>"; };
-		7C912D7DBC46596EA5BC391C /* Pods-LeanCloudFeedback.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeanCloudFeedback.release.xcconfig"; path = "Pods/Target Support Files/Pods-LeanCloudFeedback/Pods-LeanCloudFeedback.release.xcconfig"; sourceTree = "<group>"; };
-		939F49D4BF04100E786F1151 /* Pods-LeanCloudFeedback.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeanCloudFeedback.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeanCloudFeedback/Pods-LeanCloudFeedback.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +108,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D84698CB095C3C17EA90B5D /* libPods-LeanCloudFeedback.a in Frameworks */,
+				5CC504D71B0EFEDA004D0CB1 /* MobileCoreServices.framework in Frameworks */,
+				5CC504D51B0EFEBB004D0CB1 /* SystemConfiguration.framework in Frameworks */,
+				5CC504D31B0EFEB4004D0CB1 /* CoreTelephony.framework in Frameworks */,
+				5CC504D11B0EFEAC004D0CB1 /* CoreLocation.framework in Frameworks */,
+				5CC504CF1B0EFEA6004D0CB1 /* libicucore.dylib in Frameworks */,
+				5CC504CD1B0EFE88004D0CB1 /* AVOSCloud.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,7 +131,12 @@
 		56A155F7F6474AB06BF1EFA0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				494F43EB5A36F1125690A767 /* libPods-LeanCloudFeedback.a */,
+				5CC504D61B0EFEDA004D0CB1 /* MobileCoreServices.framework */,
+				5CC504D41B0EFEBB004D0CB1 /* SystemConfiguration.framework */,
+				5CC504D21B0EFEB4004D0CB1 /* CoreTelephony.framework */,
+				5CC504D01B0EFEAC004D0CB1 /* CoreLocation.framework */,
+				5CC504CE1B0EFEA6004D0CB1 /* libicucore.dylib */,
+				5CC504CC1B0EFE88004D0CB1 /* AVOSCloud.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -115,7 +147,6 @@
 				5CCAE0FD1B09B0FE009276B9 /* LeanCloudFeedback */,
 				5CCAE10A1B09B0FE009276B9 /* LeanCloudFeedbackTests */,
 				5CCAE0FC1B09B0FE009276B9 /* Products */,
-				F68CC949294BBDD0435B1F4A /* Pods */,
 				56A155F7F6474AB06BF1EFA0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -194,15 +225,6 @@
 			name = resources;
 			sourceTree = "<group>";
 		};
-		F68CC949294BBDD0435B1F4A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				939F49D4BF04100E786F1151 /* Pods-LeanCloudFeedback.debug.xcconfig */,
-				7C912D7DBC46596EA5BC391C /* Pods-LeanCloudFeedback.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -230,12 +252,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5CCAE1111B09B0FE009276B9 /* Build configuration list for PBXNativeTarget "LeanCloudFeedback" */;
 			buildPhases = (
-				5968C91A3B328FA09D60E40A /* Check Pods Manifest.lock */,
 				5CCAE0F61B09B0FE009276B9 /* Sources */,
 				5CCAE0F71B09B0FE009276B9 /* Frameworks */,
 				5CCAE0F81B09B0FE009276B9 /* Headers */,
 				5CCAE0F91B09B0FE009276B9 /* Resources */,
-				C56444104DC882E5F0489451 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -273,6 +293,9 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = LeanCloud;
 				TargetAttributes = {
+					5CC504C71B0EFCBA004D0CB1 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
 					5CCAE0FA1B09B0FE009276B9 = {
 						CreatedOnToolsVersion = 6.3.1;
 					};
@@ -295,6 +318,7 @@
 			targets = (
 				5CCAE0FA1B09B0FE009276B9 /* LeanCloudFeedback */,
 				5CCAE1051B09B0FE009276B9 /* LeanCloudFeedbackTests */,
+				5CC504C71B0EFCBA004D0CB1 /* UniversalFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -323,35 +347,18 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5968C91A3B328FA09D60E40A /* Check Pods Manifest.lock */ = {
+		5CC504CB1B0EFCC0004D0CB1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		C56444104DC882E5F0489451 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LeanCloudFeedback/Pods-LeanCloudFeedback-resources.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# This script is based on Jacob Van Order's answer on apple dev forums\n\n# https://devforums.apple.com/message/971277\n# See also http://spin.atomicobject.com/2011/12/13/building-a-universal-framework-for-ios/ for the start\n\n\n# To get this to work with a Xcode 6 Cocoa Touch Framework, create Framework\n# Then create a new Aggregate Target. Throw this script into a Build Script Phrase on the Aggregate\n\n\n######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=true\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nSIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nUNIVERSAL_LIBRARY_DIR=\"./build/${CONFIGURATION}-iphoneuniversal\"\n\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework\"\n\n\n######################\n# Build Frameworks\n######################\n\nxcodebuild -project ${PROJECT_NAME}.xcodeproj -sdk iphonesimulator -target ${PROJECT_NAME} -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator | echo\n\nxcodebuild -project ${PROJECT_NAME}.xcodeproj -sdk iphoneos -target ${PROJECT_NAME} -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos | echo\n\n#xcodebuild -target ${PROJECT_NAME} ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" | echo\n\n#xcodebuild -target ${PROJECT_NAME} ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphonesimulator  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" | echo\n\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make fat universal binary\n######################\n\nlipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\nchmod -x \"${FRAMEWORK}/${FRAMEWORK_NAME}\"\n\nopen \"${UNIVERSAL_LIBRARY_DIR}/\"\n######################\n# On Release, copy the result to desktop folder\n######################\n\n#if [ \"${CONFIGURATION}\" == \"Release\" ]; then\n#mkdir \"${HOME}/Desktop/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/\"\n#cp -r \"${FRAMEWORK}\" \"${HOME}/Desktop/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/\"\n#fi\n\n\n######################\n# If needed, open the Framework folder\n######################\n\n#if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n#if [ \"${CONFIGURATION}\" == \"Release\" ]; then\n#open \"${HOME}/Desktop/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/\"\n#else\n#open \"${UNIVERSAL_LIBRARY_DIR}/\"\n#fi\n#fi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -390,6 +397,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		5CC504C81B0EFCBA004D0CB1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5CC504C91B0EFCBA004D0CB1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		5CCAE10F1B09B0FE009276B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -480,7 +501,6 @@
 		};
 		5CCAE1121B09B0FE009276B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 939F49D4BF04100E786F1151 /* Pods-LeanCloudFeedback.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -488,6 +508,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = LeanCloudFeedback/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -499,7 +523,6 @@
 		};
 		5CCAE1131B09B0FE009276B9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C912D7DBC46596EA5BC391C /* Pods-LeanCloudFeedback.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -507,6 +530,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = LeanCloudFeedback/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -549,6 +576,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5CC504CA1B0EFCBA004D0CB1 /* Build configuration list for PBXAggregateTarget "UniversalFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CC504C81B0EFCBA004D0CB1 /* Debug */,
+				5CC504C91B0EFCBA004D0CB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5CCAE0F51B09B0FE009276B9 /* Build configuration list for PBXProject "LeanCloudFeedback" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
