@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPo-Uu-1eb">
-                                <rect key="frame" x="116" y="200" width="368" height="30"/>
+                                <rect key="frame" x="66" y="200" width="468" height="30"/>
                                 <state key="normal" title="点击进入反馈页面">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -29,8 +29,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="QPo-Uu-1eb" secondAttribute="trailing" constant="100" id="20h-gH-Ndy"/>
-                            <constraint firstItem="QPo-Uu-1eb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="100" id="3Kq-9J-iWQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="QPo-Uu-1eb" secondAttribute="trailing" constant="50" id="20h-gH-Ndy"/>
+                            <constraint firstItem="QPo-Uu-1eb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="50" id="3Kq-9J-iWQ"/>
                             <constraint firstItem="QPo-Uu-1eb" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="180" id="A5M-tS-hE5"/>
                         </constraints>
                     </view>

@@ -14,6 +14,11 @@
 		5CC504F21B0F01D3004D0CB1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CC504F11B0F01D3004D0CB1 /* Images.xcassets */; };
 		5CC504F51B0F01D3004D0CB1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CC504F31B0F01D3004D0CB1 /* LaunchScreen.xib */; };
 		5CC505011B0F01D3004D0CB1 /* LeanCloudFeedbackDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC505001B0F01D3004D0CB1 /* LeanCloudFeedbackDemoTests.m */; };
+		5CC5051F1B0F0598004D0CB1 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC5051E1B0F0598004D0CB1 /* libicucore.dylib */; };
+		5CC505211B0F05A0004D0CB1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505201B0F05A0004D0CB1 /* CoreLocation.framework */; };
+		5CC505231B0F05A8004D0CB1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505221B0F05A8004D0CB1 /* CoreTelephony.framework */; };
+		5CC505251B0F05B0004D0CB1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505241B0F05B0004D0CB1 /* MobileCoreServices.framework */; };
+		5CC505271B0F05B8004D0CB1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505261B0F05B8004D0CB1 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,19 +29,26 @@
 			remoteGlobalIDString = 5CC504E01B0F01D3004D0CB1;
 			remoteInfo = LeanCloudFeedbackDemo;
 		};
-		5CC505101B0F0220004D0CB1 /* PBXContainerItemProxy */ = {
+		5CC505331B0F0D76004D0CB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5CC5050A1B0F0220004D0CB1 /* LeanCloudFeedback.xcodeproj */;
+			containerPortal = 5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 5CCAE0FB1B09B0FE009276B9;
 			remoteInfo = LeanCloudFeedback;
 		};
-		5CC505121B0F0220004D0CB1 /* PBXContainerItemProxy */ = {
+		5CC505351B0F0D76004D0CB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5CC5050A1B0F0220004D0CB1 /* LeanCloudFeedback.xcodeproj */;
+			containerPortal = 5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 5CCAE1061B09B0FE009276B9;
 			remoteInfo = LeanCloudFeedbackTests;
+		};
+		5CC5053B1B0F1366004D0CB1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5CCAE0FA1B09B0FE009276B9;
+			remoteInfo = LeanCloudFeedback;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -54,7 +66,12 @@
 		5CC504FA1B0F01D3004D0CB1 /* LeanCloudFeedbackDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeanCloudFeedbackDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CC504FF1B0F01D3004D0CB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CC505001B0F01D3004D0CB1 /* LeanCloudFeedbackDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeanCloudFeedbackDemoTests.m; sourceTree = "<group>"; };
-		5CC5050A1B0F0220004D0CB1 /* LeanCloudFeedback.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LeanCloudFeedback.xcodeproj; path = ../LeanCloudFeedback.xcodeproj; sourceTree = "<group>"; };
+		5CC5051E1B0F0598004D0CB1 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		5CC505201B0F05A0004D0CB1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5CC505221B0F05A8004D0CB1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		5CC505241B0F05B0004D0CB1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5CC505261B0F05B8004D0CB1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LeanCloudFeedback.xcodeproj; path = ../LeanCloudFeedback.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +79,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CC505271B0F05B8004D0CB1 /* SystemConfiguration.framework in Frameworks */,
+				5CC505251B0F05B0004D0CB1 /* MobileCoreServices.framework in Frameworks */,
+				5CC505231B0F05A8004D0CB1 /* CoreTelephony.framework in Frameworks */,
+				5CC505211B0F05A0004D0CB1 /* CoreLocation.framework in Frameworks */,
+				5CC5051F1B0F0598004D0CB1 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +100,12 @@
 		5CC504D81B0F01D3004D0CB1 = {
 			isa = PBXGroup;
 			children = (
-				5CC5050A1B0F0220004D0CB1 /* LeanCloudFeedback.xcodeproj */,
+				5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */,
+				5CC505261B0F05B8004D0CB1 /* SystemConfiguration.framework */,
+				5CC505241B0F05B0004D0CB1 /* MobileCoreServices.framework */,
+				5CC505221B0F05A8004D0CB1 /* CoreTelephony.framework */,
+				5CC505201B0F05A0004D0CB1 /* CoreLocation.framework */,
+				5CC5051E1B0F0598004D0CB1 /* libicucore.dylib */,
 				5CC504E31B0F01D3004D0CB1 /* LeanCloudFeedbackDemo */,
 				5CC504FD1B0F01D3004D0CB1 /* LeanCloudFeedbackDemoTests */,
 				5CC504E21B0F01D3004D0CB1 /* Products */,
@@ -135,11 +162,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5CC5050B1B0F0220004D0CB1 /* Products */ = {
+		5CC5052E1B0F0D76004D0CB1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5CC505111B0F0220004D0CB1 /* LeanCloudFeedback.framework */,
-				5CC505131B0F0220004D0CB1 /* LeanCloudFeedbackTests.xctest */,
+				5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */,
+				5CC505361B0F0D76004D0CB1 /* LeanCloudFeedbackTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -158,6 +185,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5CC5053C1B0F1366004D0CB1 /* PBXTargetDependency */,
 			);
 			name = LeanCloudFeedbackDemo;
 			productName = LeanCloudFeedbackDemo;
@@ -213,8 +241,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 5CC5050B1B0F0220004D0CB1 /* Products */;
-					ProjectRef = 5CC5050A1B0F0220004D0CB1 /* LeanCloudFeedback.xcodeproj */;
+					ProductGroup = 5CC5052E1B0F0D76004D0CB1 /* Products */;
+					ProjectRef = 5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -226,18 +254,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		5CC505111B0F0220004D0CB1 /* LeanCloudFeedback.framework */ = {
+		5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = LeanCloudFeedback.framework;
-			remoteRef = 5CC505101B0F0220004D0CB1 /* PBXContainerItemProxy */;
+			remoteRef = 5CC505331B0F0D76004D0CB1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5CC505131B0F0220004D0CB1 /* LeanCloudFeedbackTests.xctest */ = {
+		5CC505361B0F0D76004D0CB1 /* LeanCloudFeedbackTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = LeanCloudFeedbackTests.xctest;
-			remoteRef = 5CC505121B0F0220004D0CB1 /* PBXContainerItemProxy */;
+			remoteRef = 5CC505351B0F0D76004D0CB1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -288,6 +316,11 @@
 			isa = PBXTargetDependency;
 			target = 5CC504E01B0F01D3004D0CB1 /* LeanCloudFeedbackDemo */;
 			targetProxy = 5CC504FB1B0F01D3004D0CB1 /* PBXContainerItemProxy */;
+		};
+		5CC5053C1B0F1366004D0CB1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LeanCloudFeedback;
+			targetProxy = 5CC5053B1B0F1366004D0CB1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -394,7 +427,17 @@
 		5CC505051B0F01D3004D0CB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/fengjunwen/Work/Meiwei/leancloud/leancloud-feedback-ios",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = LeanCloudFeedbackDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -404,7 +447,17 @@
 		5CC505061B0F01D3004D0CB1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/fengjunwen/Work/Meiwei/leancloud/leancloud-feedback-ios",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = LeanCloudFeedbackDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -464,6 +517,7 @@
 				5CC505061B0F01D3004D0CB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5CC505071B0F01D3004D0CB1 /* Build configuration list for PBXNativeTarget "LeanCloudFeedbackDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +526,7 @@
 				5CC505091B0F01D3004D0CB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -35,7 +35,9 @@
     feedbackViewController.contact = contact;
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedbackViewController];
-    [viewController presentModalViewController:navigationController animated:YES];
+    [viewController presentViewController:navigationController animated:YES completion:^{
+        ;
+    }];
 }
 
 - (void)syncFeedbackThreadsWithBlock:(NSString *)title contact:(NSString *)contact block:(AVArrayResultBlock)block {

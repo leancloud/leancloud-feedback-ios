@@ -50,7 +50,7 @@
         self.textLabel.frame = textLabelFrame;
         
         _messageBackgroundView = [[UIImageView alloc] initWithFrame:self.textLabel.frame];
-        _messageBackgroundView.image = [[UIImage imageNamed:@"bg_2.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:16];
+        _messageBackgroundView.image = [[UIImage imageNamed:@"LeanCloudFeedback/bg_2.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:16];
         [self.contentView insertSubview:_messageBackgroundView belowSubview:self.textLabel];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;

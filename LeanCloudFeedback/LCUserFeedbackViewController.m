@@ -66,7 +66,7 @@
 
 - (void)setupUI {
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *closeButtonImage = [UIImage imageNamed:@"back.png"];
+    UIImage *closeButtonImage = [UIImage imageNamed:@"LeanCloudFeedback/back.png"];
     [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
     closeButton.frame = CGRectMake(0, 0, closeButtonImage.size.width, closeButtonImage.size.height);
     closeButton.autoresizingMask = UIViewAutoresizingFlexibleHeight;
@@ -191,6 +191,9 @@
                         }
                     }];
                     
+                } else {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error description] delegate:nil cancelButtonTitle:@"I Know" otherButtonTitles:nil, nil];
+                    [alertView show];
                 }
             }];
         } else {

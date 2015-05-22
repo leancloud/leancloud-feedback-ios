@@ -61,12 +61,15 @@
 -(void)updateHeaders {
     
     NSString *timestamp=[NSString stringWithFormat:@"%.0f",1000*[[NSDate date] timeIntervalSince1970]];
-    NSString *sign=[LCUtils calMD5:[NSString stringWithFormat:@"%@%@",timestamp,self.applicationKey]];
+    NSString *sign=[LCUtils calMD5:[NSString stringWithFormat:@"%@%@",timestamp,[AVOSCloud getClientKey]]];
     NSString *headerValue=[NSString stringWithFormat:@"%@,%@",sign,timestamp];
     
     [_clientImpl setDefaultHeader:@"x-avoscloud-request-sign" value:headerValue];
-    [_clientImpl setDefaultHeader:self.applicationIdField value:self.applicationId];
-    [_clientImpl setDefaultHeader:self.applicationKeyField value:self.applicationKey];
+    NSLog(@"set http header: x-avoscloud-request-sign = %@", headerValue);
+    [_clientImpl setDefaultHeader:self.applicationIdField value:[AVOSCloud getApplicationId]];
+    NSLog(@"set http header: %@ = %@", self.applicationIdField, [AVOSCloud getApplicationId]);
+    [_clientImpl setDefaultHeader:self.applicationKeyField value:[AVOSCloud getClientKey]];
+    NSLog(@"set http header: %@ = %@", self.applicationKeyField, [AVOSCloud getClientKey]);
     [_clientImpl setDefaultHeader:@"Accept" value:@"application/json"];
 }
 

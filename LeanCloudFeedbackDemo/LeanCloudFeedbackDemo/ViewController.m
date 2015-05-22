@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "LeanCloudFeedback/LeanCloudFeedback.h"
+#import <LeanCloudFeedback/LeanCloudFeedback.h>
 
 @interface ViewController ()
 
