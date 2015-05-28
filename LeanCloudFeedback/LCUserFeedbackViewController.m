@@ -67,6 +67,9 @@
 - (void)setupUI {
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *closeButtonImage = [UIImage imageNamed:@"LeanCloudFeedback/back.png"];
+    if (!closeButtonImage) {
+        closeButtonImage = [UIImage imageNamed:@"back.png"];
+    }
     [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
     closeButton.frame = CGRectMake(0, 0, closeButtonImage.size.width, closeButtonImage.size.height);
     closeButton.autoresizingMask = UIViewAutoresizingFlexibleHeight;

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C6C34731B16FB6E001DDE6E /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C6C346D1B16FB6E001DDE6E /* back@2x.png */; };
+		5C6C34741B16FB6E001DDE6E /* bg_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C6C346E1B16FB6E001DDE6E /* bg_1@2x.png */; };
+		5C6C34751B16FB6E001DDE6E /* bg_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C6C346F1B16FB6E001DDE6E /* bg_2@2x.png */; };
+		5C6C34761B16FB6E001DDE6E /* btn_feedback_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C6C34701B16FB6E001DDE6E /* btn_feedback_new@2x.png */; };
+		5C6C34771B16FB6E001DDE6E /* btn_feedback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C6C34711B16FB6E001DDE6E /* btn_feedback@2x.png */; };
+		5C6C34781B16FB6E001DDE6E /* warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C6C34721B16FB6E001DDE6E /* warning@2x.png */; };
 		5CC504E71B0F01D3004D0CB1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC504E61B0F01D3004D0CB1 /* main.m */; };
 		5CC504EA1B0F01D3004D0CB1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC504E91B0F01D3004D0CB1 /* AppDelegate.m */; };
 		5CC504ED1B0F01D3004D0CB1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC504EC1B0F01D3004D0CB1 /* ViewController.m */; };
@@ -53,6 +59,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C6C346D1B16FB6E001DDE6E /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "back@2x.png"; path = "../LeanCloudFeedback/back@2x.png"; sourceTree = "<group>"; };
+		5C6C346E1B16FB6E001DDE6E /* bg_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg_1@2x.png"; path = "../LeanCloudFeedback/bg_1@2x.png"; sourceTree = "<group>"; };
+		5C6C346F1B16FB6E001DDE6E /* bg_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg_2@2x.png"; path = "../LeanCloudFeedback/bg_2@2x.png"; sourceTree = "<group>"; };
+		5C6C34701B16FB6E001DDE6E /* btn_feedback_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn_feedback_new@2x.png"; path = "../LeanCloudFeedback/btn_feedback_new@2x.png"; sourceTree = "<group>"; };
+		5C6C34711B16FB6E001DDE6E /* btn_feedback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn_feedback@2x.png"; path = "../LeanCloudFeedback/btn_feedback@2x.png"; sourceTree = "<group>"; };
+		5C6C34721B16FB6E001DDE6E /* warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "warning@2x.png"; path = "../LeanCloudFeedback/warning@2x.png"; sourceTree = "<group>"; };
 		5CC504E11B0F01D3004D0CB1 /* LeanCloudFeedbackDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeanCloudFeedbackDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CC504E51B0F01D3004D0CB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CC504E61B0F01D3004D0CB1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -100,6 +112,12 @@
 		5CC504D81B0F01D3004D0CB1 = {
 			isa = PBXGroup;
 			children = (
+				5C6C346D1B16FB6E001DDE6E /* back@2x.png */,
+				5C6C346E1B16FB6E001DDE6E /* bg_1@2x.png */,
+				5C6C346F1B16FB6E001DDE6E /* bg_2@2x.png */,
+				5C6C34701B16FB6E001DDE6E /* btn_feedback_new@2x.png */,
+				5C6C34711B16FB6E001DDE6E /* btn_feedback@2x.png */,
+				5C6C34721B16FB6E001DDE6E /* warning@2x.png */,
 				5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */,
 				5CC505261B0F05B8004D0CB1 /* SystemConfiguration.framework */,
 				5CC505241B0F05B0004D0CB1 /* MobileCoreServices.framework */,
@@ -275,6 +293,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C6C34731B16FB6E001DDE6E /* back@2x.png in Resources */,
+				5C6C34741B16FB6E001DDE6E /* bg_1@2x.png in Resources */,
+				5C6C34751B16FB6E001DDE6E /* bg_2@2x.png in Resources */,
+				5C6C34761B16FB6E001DDE6E /* btn_feedback_new@2x.png in Resources */,
+				5C6C34771B16FB6E001DDE6E /* btn_feedback@2x.png in Resources */,
+				5C6C34781B16FB6E001DDE6E /* warning@2x.png in Resources */,
 				5CC504F01B0F01D3004D0CB1 /* Main.storyboard in Resources */,
 				5CC504F51B0F01D3004D0CB1 /* LaunchScreen.xib in Resources */,
 				5CC504F21B0F01D3004D0CB1 /* Images.xcassets in Resources */,

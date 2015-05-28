@@ -42,6 +42,9 @@
         
         _messageBackgroundView = [[UIImageView alloc] initWithFrame:self.textLabel.frame];
         _messageBackgroundView.image = [[UIImage imageNamed:@"LeanCloudFeedback/bg_1.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:16];
+        if (!_messageBackgroundView.image) {
+            _messageBackgroundView.image = [[UIImage imageNamed:@"bg_1.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:16];
+        }
         [self.contentView insertSubview:_messageBackgroundView belowSubview:self.textLabel];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
