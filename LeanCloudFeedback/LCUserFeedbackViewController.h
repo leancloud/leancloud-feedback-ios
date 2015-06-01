@@ -1,9 +1,8 @@
 //
-//  AVUserFeedbackViewController.h
-//  paas
+//  LCUserFeedbackViewController.h
 //
 //  Created by yang chaozhong on 4/24/14.
-//  Copyright (c) 2014 AVOS. All rights reserved.
+//  Copyright (c) 2014 LeanCloud. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

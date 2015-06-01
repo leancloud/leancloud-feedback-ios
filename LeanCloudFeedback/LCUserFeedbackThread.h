@@ -1,32 +1,27 @@
 //
-//  AVUserFeedbackThread.h
-//  paas
+//  LCUserFeedbackThread.h
+//  Feedback
 //
 //  Created by yang chaozhong on 4/21/14.
-//  Copyright (c) 2014 AVOS. All rights reserved.
+//  Copyright (c) 2014 LeanCloud. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <AVOSCloud/AVConstants.h>
-#import "LCUserFeedback.h"
 
 @interface LCUserFeedbackThread : NSObject
 
-@property(nonatomic, retain) LCUserFeedback *feedback;
+@property(nonatomic, retain) NSString *objectId;
 @property(nonatomic, retain) NSString *content;
-@property(nonatomic, retain) NSString *type;
-@property(nonatomic, retain) NSString *createAt;
+@property(nonatomic, retain) NSString *contact;
 
-+ (instancetype)feedbackThread:(NSString *)content
-                         type:(NSString *)type
-                 withFeedback:(LCUserFeedback *)feedback;
++(void)fetchFeedbackWithContact:(NSString*)contact withBlock:(AVIdResultBlock)block;
++(void)feedbackWithContent:(NSString *)content contact:(NSString *)contact withBlock:(AVIdResultBlock)block;
 
-+ (void)saveFeedbackThread:(LCUserFeedbackThread *)feedbackThread;
++(void)updateFeedback:(LCUserFeedbackThread *)feedback withBlock:(AVIdResultBlock)block;
 
-+ (void)saveFeedbackThread:(LCUserFeedbackThread *)feedbackThread withBlock:(AVIdResultBlock)block;
++(void)deleteFeedback:(LCUserFeedbackThread *)feedback withBlock:(AVIdResultBlock)block;
 
-+ (void)saveFeedbackThreadInBackground:(LCUserFeedbackThread *)feedbackThread withBlock:(AVIdResultBlock)block;
-
-+ (void)fetchFeedbackThreadsInBackground:(LCUserFeedback *)feedback withBlock:(AVArrayResultBlock)block;
+-(instancetype)initWithDictionary:(NSDictionary*)dict;
 
 @end

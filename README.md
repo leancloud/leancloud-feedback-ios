@@ -28,20 +28,20 @@ LeanCloud Feedback 模块是 [LeanCloud](https://leancloud.cn) 开源的一个�
 ```
 
 ## 核心概念
-### LCUserFeedback
-表示一个用户提交过来的所有反馈信息，与用户一一对应。一个用户只有一个 LCUserFeedback，LCUserFeedback 内部主要记录有如下信息：
+### LCFeedbackReply
+FeedbackReply 代表了反馈系统中间，用户或者开发者的每一次回复。不同的类型可以通过 ReplyType 属性来指定。FeedbackReply 内部主要记录有如下信息：
+
+* content，反馈的文本内容
+* replyType，类型标识，表明是用户提交的，还是开发者回复的
+* attachment，反馈对应的附件信息
+
+### LCFeedbackThread
+代表了用户与开发者的整个交流过程，与用户一一对应。一个用户只有一个 FeedbackThread，一个 FeedbackThread 内含有多个 FeedbackReply。FeedbackThread 内部主要记录有如下信息：
 
 * contact，用户联系方式
-* content，用户反馈的主题
-* status，状态
-* remarks，开发者可以添加的其他内容
-
-### LCUserFeedbackThread
-表示用户提交的一条反馈意见。一个用户可以提交多条反馈意见，并且就一个功能或者问题，可能会和开发者有多次反馈沟通（每一次沟通会对应一个 LCUserFeedbackThread）。所以 LCUserFeedbackThread 和 LCUserFeedback 存在多对一的关系。LCUserFeedbackThread 内部主要记录有如下信息：
-
-* feedback，所属的 LCUserFeedback
-* content，反馈的文本内容
-* type，状态
+* content，用户第一次反馈的文本
+* status，当前状态：open 还是 close
+* remarks，预留字段，开发者可以用来标记的一些其他信息
 
 
 ## 如何编译

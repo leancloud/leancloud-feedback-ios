@@ -1,16 +1,16 @@
 //
-//  AVUserFeedback_Internal.h
-//  AVOS
+//  LCUserFeedbackThread_Internal.h
+//  Feedback
 //
-//  Created by Qihe Bian on 11/3/14.
-//
+//  Created by Feng Junwen on 5/18/15.
+//  Copyright (c) 2015 LeanCloud. All rights reserved.
 //
 
 #ifndef AVOS_AVUserFeedback_Internal_h
 #define AVOS_AVUserFeedback_Internal_h
-#import "LCUserFeedback.h"
+#import "LCUserFeedbackThread.h"
 
-@interface LCUserFeedback()
+@interface LCUserFeedbackThread()
 +(void)feedbackWithContent:(NSString *)content
                    contact:(NSString *)contact
                     create:(BOOL)create

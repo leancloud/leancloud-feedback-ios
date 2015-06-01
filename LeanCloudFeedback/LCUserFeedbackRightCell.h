@@ -1,9 +1,8 @@
 //
-//  AVUserFeedbackRightCell.h
-//  paas
+//  LCUserFeedbackRightCell.h
 //
 //  Created by yang chaozhong on 4/25/14.
-//  Copyright (c) 2014 AVOS. All rights reserved.
+//  Copyright (c) 2014 LeanCloud. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

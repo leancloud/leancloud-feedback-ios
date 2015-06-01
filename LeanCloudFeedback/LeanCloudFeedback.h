@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LCUserFeedback.h"
+#import "LCUserFeedbackReply.h"
 #import "LCUserFeedbackAgent.h"
 #import "LCUserFeedbackThread.h"
 

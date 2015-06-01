@@ -1,17 +1,17 @@
 //
-//  AVUserFeedbackViewController.m
-//  paas
+//  LCUserFeedbackViewController.m
+//  Feedback
 //
 //  Created by yang chaozhong on 4/24/14.
-//  Copyright (c) 2014 AVOS. All rights reserved.
+//  Copyright (c) 2014 LeanCloud. All rights reserved.
 //
 
 #import "LCUserFeedbackViewController.h"
 #import "LCUserFeedbackLeftCell.h"
 #import "LCUserFeedbackRightCell.h"
-#import "LCUserFeedback.h"
-#import "LCUserFeedback_Internal.h"
 #import "LCUserFeedbackThread.h"
+#import "LCUserFeedbackThread_Internal.h"
+#import "LCUserFeedbackReply.h"
 
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
@@ -21,9 +21,9 @@
 #define TAG_InputFiled 2
 
 @interface LCUserFeedbackViewController () <UITableViewDelegate, UITableViewDataSource> {
-    NSMutableArray *_feedbackThreads;
+    NSMutableArray *_feedbackReplies;
     UIRefreshControl *_refreshControl;
-    LCUserFeedback *_userFeedback;
+    LCUserFeedbackThread *_userFeedback;
     
     BOOL _shouldScrollToBottom;
 }
@@ -50,7 +50,7 @@
 {
     [super viewDidLoad];
     
-    _feedbackThreads = [[NSMutableArray alloc] init];
+    _feedbackReplies = [[NSMutableArray alloc] init];
     
     [self setupUI];
 }
@@ -126,16 +126,16 @@
         [_refreshControl beginRefreshing];
     }
     
-    [LCUserFeedback fetchFeedbackWithContact:_contact withBlock:^(id object, NSError *error) {
+    [LCUserFeedbackThread fetchFeedbackWithContact:_contact withBlock:^(id object, NSError *error) {
         if (!error) {
             NSArray* results = [(NSDictionary*)object objectForKey:@"results"];
             if (results && results.count > 0) {
-                _userFeedback = [[LCUserFeedback alloc] initWithDictionary:results[0]];
+                _userFeedback = [[LCUserFeedbackThread alloc] initWithDictionary:results[0]];
             }
             if (_userFeedback) {
-                [LCUserFeedbackThread fetchFeedbackThreadsInBackground:_userFeedback withBlock:^(NSArray *objects, NSError *error) {
-                    [_feedbackThreads removeAllObjects];
-                    [_feedbackThreads addObjectsFromArray:objects];
+                [LCUserFeedbackReply fetchFeedbackThreadsInBackground:_userFeedback withBlock:^(NSArray *objects, NSError *error) {
+                    [_feedbackReplies removeAllObjects];
+                    [_feedbackReplies addObjectsFromArray:objects];
                     
                     [_tableView reloadData];
                     [_refreshControl endRefreshing];
@@ -170,16 +170,16 @@
             if (self.tableViewHeader.text.length > 0) {
                 _contact = self.tableViewHeader.text;
             }
-            [LCUserFeedback feedbackWithContent:_feedbackTitle contact:_contact create:YES withBlock:^(id object, NSError *error) {
+            [LCUserFeedbackThread feedbackWithContent:_feedbackTitle contact:_contact create:YES withBlock:^(id object, NSError *error) {
                 if (!error) {
-                    LCUserFeedback *feedback = (LCUserFeedback *)object;
+                    LCUserFeedbackThread *feedback = (LCUserFeedbackThread *)object;
                     _userFeedback = feedback;
-                    LCUserFeedbackThread *feedbackThread = [LCUserFeedbackThread feedbackThread:self.inputTextField.text
+                    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackThread:self.inputTextField.text
                                                                                            type:@"user"
                                                                                    withFeedback:_userFeedback];
-                    [LCUserFeedbackThread saveFeedbackThread:feedbackThread withBlock:^(id object, NSError *error) {
+                    [LCUserFeedbackReply saveFeedbackThread:feedbackReply withBlock:^(id object, NSError *error) {
                         if (!error) {
-                            [_feedbackThreads addObject:feedbackThread];
+                            [_feedbackReplies addObject:feedbackReply];
                             [_tableView reloadData];
                             if ([_inputTextField isFirstResponder]) {
                                 [_inputTextField resignFirstResponder];
@@ -200,10 +200,10 @@
                 }
             }];
         } else {
-            LCUserFeedbackThread *feedbackThread = [LCUserFeedbackThread feedbackThread:self.inputTextField.text type:@"user" withFeedback:_userFeedback];
-            [LCUserFeedbackThread saveFeedbackThread:feedbackThread withBlock:^(id object, NSError *error) {
+            LCUserFeedbackReply *feedbackThread = [LCUserFeedbackReply feedbackThread:self.inputTextField.text type:@"user" withFeedback:_userFeedback];
+            [LCUserFeedbackReply saveFeedbackThread:feedbackThread withBlock:^(id object, NSError *error) {
                 if (!error) {
-                    [_feedbackThreads addObject:feedbackThread];
+                    [_feedbackReplies addObject:feedbackThread];
                     [_tableView reloadData];
                     if ([_inputTextField isFirstResponder]) {
                         [_inputTextField resignFirstResponder];
@@ -292,7 +292,7 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if (textField.tag == TAG_TABLEView_Header && [textField.text length] > 0 && _userFeedback) {
         _userFeedback.contact = textField.text;
-        [LCUserFeedback updateFeedback:_userFeedback withBlock:^(id object, NSError *error) {
+        [LCUserFeedbackThread updateFeedback:_userFeedback withBlock:^(id object, NSError *error) {
             // do something...
         }];
     }
@@ -312,7 +312,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_feedbackThreads count];
+    return [_feedbackReplies count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -338,7 +338,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *content = ((LCUserFeedbackThread *)_feedbackThreads[indexPath.row]).content;
+    NSString *content = ((LCUserFeedbackReply *)_feedbackReplies[indexPath.row]).content;
     
     CGSize labelSize = [content sizeWithFont:[UIFont systemFontOfSize:12.0f]
                            constrainedToSize:CGSizeMake(226.0f, MAXFLOAT)
@@ -349,15 +349,15 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    LCUserFeedbackThread *feedbackThread = _feedbackThreads[indexPath.row];
+    LCUserFeedbackReply *feedbackReply = _feedbackReplies[indexPath.row];
     
-    if ([feedbackThread.type isEqualToString:@"dev"]) {
+    if ([feedbackReply.type isEqualToString:@"dev"]) {
         LCUserFeedbackLeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedbackCellLeft"];
         if (cell == nil) {
             cell = [[LCUserFeedbackLeftCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"feedbackCellLeft"];
         }
-        cell.textLabel.text = feedbackThread.content;
-        cell.timestampLabel.text = [self formatDateString:feedbackThread.createAt];
+        cell.textLabel.text = feedbackReply.content;
+        cell.timestampLabel.text = [self formatDateString:feedbackReply.createAt];
         return cell;
     } else {
         LCUserFeedbackRightCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedbackCellRight"];
@@ -365,8 +365,8 @@
             cell = [[LCUserFeedbackRightCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"feedbackCellRight"];
         }
         
-        cell.textLabel.text = feedbackThread.content;
-        cell.timestampLabel.text = [self formatDateString:feedbackThread.createAt];
+        cell.textLabel.text = feedbackReply.content;
+        cell.timestampLabel.text = [self formatDateString:feedbackReply.createAt];
         return cell;
     }
 }
