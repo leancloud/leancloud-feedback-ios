@@ -170,7 +170,6 @@
 				5CCAE1341B09C1F2009276B9 /* LCUtils.h */,
 				5CCAE1171B09B323009276B9 /* LCUserFeedbackAgent.m */,
 				5CCAE1181B09B323009276B9 /* LCUserFeedbackThread.m */,
-				5CCAE1191B09B323009276B9 /* LCUserFeedbackViewController.m */,
 				5CCAE11A1B09B323009276B9 /* LCUserFeedbackThread_Internal.h */,
 				5CCAE11B1B09B323009276B9 /* LCUserFeedbackThread.h */,
 				5CCAE11C1B09B323009276B9 /* LCUserFeedbackAgent.h */,
@@ -181,6 +180,7 @@
 				5CCAE1211B09B323009276B9 /* LCUserFeedbackReply.h */,
 				5CCAE1221B09B323009276B9 /* LCUserFeedbackReply.m */,
 				5CCAE1231B09B323009276B9 /* LCUserFeedbackViewController.h */,
+				5CCAE1191B09B323009276B9 /* LCUserFeedbackViewController.m */,
 				5CCAE1001B09B0FE009276B9 /* LeanCloudFeedback.h */,
 				5CCAE0FE1B09B0FE009276B9 /* Supporting Files */,
 			);
