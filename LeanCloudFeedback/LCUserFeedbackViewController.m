@@ -134,6 +134,10 @@
             }
             if (_userFeedback) {
                 [LCUserFeedbackReply fetchFeedbackThreadsInBackground:_userFeedback withBlock:^(NSArray *objects, NSError *error) {
+                    if (!error) {
+                        NSString *localKey = [NSString stringWithFormat:@"feedback_%@", _contact];
+                        [[NSUserDefaults standardUserDefaults] setObject:@(objects.count) forKey:localKey];
+                    }
                     [_feedbackReplies removeAllObjects];
                     [_feedbackReplies addObjectsFromArray:objects];
                     

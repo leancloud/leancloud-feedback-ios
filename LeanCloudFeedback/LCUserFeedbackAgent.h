@@ -42,4 +42,11 @@
  */
 - (void)postFeedbackThread:(NSString *)content block:(AVIdResultBlock)block;
 
+/**
+ *  统计未读反馈数目，可用来设置小红点，提醒用户查看反馈
+ *  @param contact 同上，用户反馈的联系人，需要与 showConversations:title:contact 上的一致
+ *  @param block 结果回调。
+ */
+- (void)countUnreadFeedbackThreadsWithContact:(NSString *)contact block:(AVIntegerResultBlock)block;
+
 @end
