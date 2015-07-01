@@ -121,11 +121,21 @@
     [self enqueueHTTPRequestOperation:operation];
 }
 
+- (NSDictionary *)whereDictionaryFromConditions:(NSDictionary *)conditions {
+    NSDictionary *where = [NSDictionary dictionary];
+    if (conditions.count>0) {
+        NSData *data = [NSJSONSerialization dataWithJSONObject:conditions options:0 error:nil];
+        NSString *conditionString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        where = @{@"where":conditionString};
+    }
+    return where;
+}
+
 -(void)getObject:(NSString *)path
   withParameters:(NSDictionary *)parameters
            block:(AVIdResultBlock)block {
     
-    NSMutableURLRequest *request = [self createRequest:@"GET" path:path parameters:parameters];
+    NSMutableURLRequest *request = [self createRequest:@"GET" path:path parameters:[self whereDictionaryFromConditions:parameters]];
     
     [self goRequest:request saveResult:NO block:block retryTimes:0];
 }
