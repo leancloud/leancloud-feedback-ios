@@ -70,8 +70,9 @@ xcodebuild -target UniversalFramework -config Release
 
 
 ## 如何运行 demo
-在 LeanCloudFeedbackDemo 目录下，直接用 xcode 打开 LeanCloudFeedbackDemo.xcodeproj 工程即可。
+在 LeanCloudFeedbackDemo 目录下，直接用 xcode 打开 LeanCloudFeedbackDemo.xcodeproj 工程。LeanChatFeedback Framework 是一个动态库，需要在 Demo 中的 Embeded Libraries 引入进来。设置如下，之后便可在真机和模拟器运行。
 
+![image](https://cloud.githubusercontent.com/assets/5022872/8520619/7ea1b9f8-240e-11e5-8b15-9f775f526d8f.png)
 
 ## 在我的项目中如何使用这一组件
 为了调试方便，我们推荐大家直接把本项目的源代码加入自己工程来使用 feedback 组件。
