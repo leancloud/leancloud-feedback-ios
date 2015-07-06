@@ -25,6 +25,7 @@
 		5CC505231B0F05A8004D0CB1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505221B0F05A8004D0CB1 /* CoreTelephony.framework */; };
 		5CC505251B0F05B0004D0CB1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505241B0F05B0004D0CB1 /* MobileCoreServices.framework */; };
 		5CC505271B0F05B8004D0CB1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505261B0F05B8004D0CB1 /* SystemConfiguration.framework */; };
+		704717B41B4A6F1600F6ADDC /* LeanCloudFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				704717B41B4A6F1600F6ADDC /* LeanCloudFeedback.framework in Frameworks */,
 				5CC505271B0F05B8004D0CB1 /* SystemConfiguration.framework in Frameworks */,
 				5CC505251B0F05B0004D0CB1 /* MobileCoreServices.framework in Frameworks */,
 				5CC505231B0F05A8004D0CB1 /* CoreTelephony.framework in Frameworks */,
@@ -455,7 +457,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/fengjunwen/Work/Meiwei/leancloud/leancloud-feedback-ios",
+					"$(PROJECT_DIR)",
+					..,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(OBJROOT)/UninstalledProducts/include\"",
@@ -475,7 +478,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/fengjunwen/Work/Meiwei/leancloud/leancloud-feedback-ios",
+					"$(PROJECT_DIR)",
+					..,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(OBJROOT)/UninstalledProducts/include\"",
