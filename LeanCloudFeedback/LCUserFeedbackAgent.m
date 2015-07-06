@@ -41,12 +41,16 @@
 }
 
 - (void)syncFeedbackThreadsWithBlock:(NSString *)title contact:(NSString *)contact block:(AVArrayResultBlock)block {
-    [LCUserFeedbackThread feedbackWithContent:title contact:contact withBlock:^(id object, NSError *error) {
+    [LCUserFeedbackThread fetchFeedbackWithContact:contact withBlock:^(id object, NSError *error) {
         if (!error) {
-            self.userFeedback = (LCUserFeedbackThread *)object;
-            [LCUserFeedbackReply fetchFeedbackThreadsInBackground:_userFeedback withBlock:^(NSArray *objects, NSError *error) {
-                [LCUtils callArrayResultBlock:block array:objects error:error];
-            }];
+            if (object) {
+                self.userFeedback = (LCUserFeedbackThread *)object;
+                [LCUserFeedbackReply fetchFeedbackThreadsInBackground:_userFeedback withBlock:^(NSArray *objects, NSError *error) {
+                    [LCUtils callArrayResultBlock:block array:objects error:error];
+                }];
+            } else {
+                [LCUtils callArrayResultBlock:block array:[NSArray array] error:nil];
+            }
         } else {
             [LCUtils callIdResultBlock:block object:object error:error];
         }
