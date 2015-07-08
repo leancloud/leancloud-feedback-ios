@@ -41,10 +41,16 @@
 }
 
 - (void)syncFeedbackThreadsWithBlock:(NSString *)title contact:(NSString *)contact block:(AVArrayResultBlock)block {
+    [self syncFeedbackThreadsWithContact:contact block:block];
+}
+
+- (void)syncFeedbackThreadsWithContact:(NSString *)contact block:(AVArrayResultBlock)block {
     [LCUserFeedbackThread fetchFeedbackWithContact:contact withBlock:^(id object, NSError *error) {
         if (!error) {
             if (object) {
-                self.userFeedback = (LCUserFeedbackThread *)object;
+                NSDictionary *dict = [[object objectForKey:@"results"] firstObject];
+                self.userFeedback = [[LCUserFeedbackThread alloc] initWithDictionary:dict];
+
                 [LCUserFeedbackReply fetchFeedbackThreadsInBackground:_userFeedback withBlock:^(NSArray *objects, NSError *error) {
                     [LCUtils callArrayResultBlock:block array:objects error:error];
                 }];
@@ -58,15 +64,23 @@
 }
 
 - (void)postFeedbackThread:(NSString *)content block:(AVIdResultBlock)block {
-    if (_userFeedback) {
+    [self postFeedbackThread:content contact:nil block:block];
+}
+
+- (void)postFeedbackThread:(NSString *)content contact:(NSString *)contact block:(AVIdResultBlock)block {
+    if ([_userFeedback objectId]) {
         LCUserFeedbackReply *feedbackThread = [LCUserFeedbackReply feedbackThread:content type:@"user" withFeedback:_userFeedback];
         [LCUserFeedbackReply saveFeedbackThread:feedbackThread withBlock:^(id object, NSError *error) {
             [LCUtils callIdResultBlock:block object:object error:error];
         }];
     } else {
-        [LCUserFeedbackThread feedbackWithContent:content contact:nil withBlock:^(id object, NSError *error) {
-            self.userFeedback = (LCUserFeedbackThread *)object;
-            [self postFeedbackThread:content block:block];
+        [LCUserFeedbackThread feedbackWithContent:content contact:contact withBlock:^(id object, NSError *error) {
+            if (object && !error) {
+                self.userFeedback = (LCUserFeedbackThread *)object;
+                [self postFeedbackThread:content contact:contact block:block];
+            } else {
+                [LCUtils callIdResultBlock:block object:nil error:error];
+            }
         }];
     }
 }

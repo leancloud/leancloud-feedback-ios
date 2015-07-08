@@ -27,20 +27,36 @@
 - (void)showConversations:(UIViewController *)viewController title:(NSString *)title contact:(NSString *)contact;
 
 /**
- *  从服务端同步反馈回复
- *  @param title 反馈标题, 当用户没有创建过用户反馈时，需要传入这个参数用于创建用户反馈。
+ *  从服务端同步反馈回复，按照 contact 同步。
+ *  @param title 该字段已废弃，应该传 nil。
  *  @param contact 联系方式，邮箱或qq。
- *  @param block 结果回调
+ *  @param block 结果回调。
  *  @discussion 可以在 block 中处理反馈数据 (AVUserFeedbackThread 数组)，然后将其传入自定义用户反馈界面。
  */
-- (void)syncFeedbackThreadsWithBlock:(NSString *)title contact:(NSString *)contact block:(AVArrayResultBlock)block;
+- (void)syncFeedbackThreadsWithBlock:(NSString *)title contact:(NSString *)contact block:(AVArrayResultBlock)block AVDeprecated("Use -syncFeedbackThreadsWithContact:block: instead");
+
+/**
+ *  从服务端同步反馈回复，按照 contact 同步。
+ *  @param contact 联系方式，邮箱或qq。
+ *  @param block 结果回调。
+ *  @discussion 可以在 block 中处理反馈数据 (AVUserFeedbackThread 数组)，然后将其传入自定义用户反馈界面。
+ */
+- (void)syncFeedbackThreadsWithContact:(NSString *)contact block:(AVArrayResultBlock)block;
 
 /**
  *  发送用户反馈
  *  @param content 同上，用户反馈内容。
- *  @param block 结果回调
+ *  @param block 结果回调。
  */
-- (void)postFeedbackThread:(NSString *)content block:(AVIdResultBlock)block;
+- (void)postFeedbackThread:(NSString *)content block:(AVIdResultBlock)block AVDeprecated("Use -postFeedbackThread:contact:block: instead");
+
+/**
+ *  发送用户反馈
+ *  @param content 同上，用户反馈内容。
+ *  @param contact 联系方式，邮箱或qq。
+ *  @param block 结果回调。
+ */
+- (void)postFeedbackThread:(NSString *)content contact:(NSString *)contact block:(AVIdResultBlock)block;
 
 /**
  *  统计未读反馈数目，可用来设置小红点，提醒用户查看反馈
