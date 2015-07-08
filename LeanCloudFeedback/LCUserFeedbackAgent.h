@@ -21,8 +21,8 @@
 /**
  *  打开默认用户反馈界面
  *  @param viewController 默认的用户反馈界面将会展示在 viewController 之上，可以设置为当前的 viewController，比如 self。
- *  @param title 反馈标题
- *  @param contact 联系方式，邮箱或qq.
+ *  @param title 反馈标题，如果传 nil，默认将 thread 中的第一条反馈消息作为标题。
+ *  @param contact 联系方式，邮箱或qq。
  */
 - (void)showConversations:(UIViewController *)viewController title:(NSString *)title contact:(NSString *)contact;
 
