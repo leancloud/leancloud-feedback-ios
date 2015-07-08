@@ -169,16 +169,19 @@
 }
 
 - (void)sendButtonClicked:(id)sender {
-    if ([self.inputTextField.text length] > 0) {
+    NSString *content = self.inputTextField.text;
+
+    if (content > 0) {
         if (!_userFeedback) {
             if (self.tableViewHeader.text.length > 0) {
                 _contact = self.tableViewHeader.text;
             }
-            [LCUserFeedbackThread feedbackWithContent:_feedbackTitle contact:_contact create:YES withBlock:^(id object, NSError *error) {
+            NSString *title = _feedbackTitle ?: content;
+            [LCUserFeedbackThread feedbackWithContent:title contact:_contact create:YES withBlock:^(id object, NSError *error) {
                 if (!error) {
                     LCUserFeedbackThread *feedback = (LCUserFeedbackThread *)object;
                     _userFeedback = feedback;
-                    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackThread:self.inputTextField.text
+                    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackThread:content
                                                                                            type:@"user"
                                                                                    withFeedback:_userFeedback];
                     [LCUserFeedbackReply saveFeedbackThread:feedbackReply withBlock:^(id object, NSError *error) {
@@ -204,7 +207,7 @@
                 }
             }];
         } else {
-            LCUserFeedbackReply *feedbackThread = [LCUserFeedbackReply feedbackThread:self.inputTextField.text type:@"user" withFeedback:_userFeedback];
+            LCUserFeedbackReply *feedbackThread = [LCUserFeedbackReply feedbackThread:content type:@"user" withFeedback:_userFeedback];
             [LCUserFeedbackReply saveFeedbackThread:feedbackThread withBlock:^(id object, NSError *error) {
                 if (!error) {
                     [_feedbackReplies addObject:feedbackThread];

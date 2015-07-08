@@ -27,7 +27,7 @@
 
 - (IBAction)startFeedbackView:(id)sender {
     LCUserFeedbackAgent *agent = [LCUserFeedbackAgent sharedInstance];
-    [agent showConversations:self title:@"提点意见" contact:@"goodman@leancloud.cn"];
+    [agent showConversations:self title:nil contact:@"goodman@leancloud.cn"];
 }
 
 @end
