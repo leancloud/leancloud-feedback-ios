@@ -7,25 +7,21 @@
 
 #import <Foundation/Foundation.h>
 #import <AVOSCloud/AVConstants.h>
-#import "LCUserFeedbackThread.h"
+
+@class LCUserFeedbackThread;
 
 @interface LCUserFeedbackReply : NSObject
 
 @property(nonatomic, retain) LCUserFeedbackThread *feedback;
-@property(nonatomic, retain) NSString *content;
-@property(nonatomic, retain) NSString *type;
-@property(nonatomic, retain) NSString *createAt;
 
-+ (instancetype)feedbackThread:(NSString *)content
-                         type:(NSString *)type
-                 withFeedback:(LCUserFeedbackThread *)feedback;
+@property(nonatomic, copy) NSString *content;
+@property(nonatomic, copy) NSString *type;
+@property(nonatomic, copy, readonly) NSString *createAt;
 
-+ (void)saveFeedbackThread:(LCUserFeedbackReply *)feedbackThread;
++ (instancetype)feedbackReplyWithContent:(NSString *)content type:(NSString *)type;
 
-+ (void)saveFeedbackThread:(LCUserFeedbackReply *)feedbackThread withBlock:(AVIdResultBlock)block;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
-+ (void)saveFeedbackThreadInBackground:(LCUserFeedbackReply *)feedbackThread withBlock:(AVIdResultBlock)block;
-
-+ (void)fetchFeedbackThreadsInBackground:(LCUserFeedbackThread *)feedback withBlock:(AVArrayResultBlock)block;
+- (NSDictionary *)dictionary;
 
 @end
