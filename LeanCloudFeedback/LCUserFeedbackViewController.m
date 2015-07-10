@@ -125,31 +125,37 @@
     _refreshControl = [[UIRefreshControl alloc] init];
     [_refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
     [_tableView addSubview:_refreshControl];
-    
+}
+
+- (void)fetchRepliesWithBlock:(AVArrayResultBlock)block {
+    [LCUserFeedbackThread fetchFeedbackWithBlock:^(LCUserFeedbackThread *feedback, NSError *error) {
+        if (error) {
+            block(nil, error);
+        } else {
+            if (feedback) {
+                _userFeedback = feedback;
+                [_userFeedback fetchFeedbackRepliesInBackgroundWithBlock:block];
+            } else {
+                block([NSArray array], nil);
+            }
+        }
+    }];
 }
 
 - (void)loadFeedbackThreads {
     if (![_refreshControl isRefreshing]) {
         [_refreshControl beginRefreshing];
     }
-    [LCUserFeedbackThread fetchFeedbackWithBlock:^(LCUserFeedbackThread *feedback, NSError *error) {
+    [self fetchRepliesWithBlock:^(NSArray *objects, NSError *error) {
+        [_refreshControl endRefreshing];
         if ([self filterError:error]) {
-            if (feedback) {
-                _userFeedback = feedback;
-                [LCUserFeedbackReply fetchFeedbackThreadsInBackground:_userFeedback withBlock:^(NSArray *objects, NSError *error) {
-                    [_feedbackReplies removeAllObjects];
-                    [_feedbackReplies addObjectsFromArray:objects];
-                    
-                    [_tableView reloadData];
-                    [_refreshControl endRefreshing];
-                    
-                    [self scrollToBottom];
-                }];
-            } else {
-                [_refreshControl endRefreshing];
+            if (objects.count > 0) {
+                [_feedbackReplies removeAllObjects];
+                [_feedbackReplies addObjectsFromArray:objects];
+                
+                [_tableView reloadData];
+                [self scrollToBottom];
             }
-        } else {
-            [_refreshControl endRefreshing];
         }
     }];
 }
@@ -174,19 +180,34 @@
     }
 }
 
+- (NSString *)currentContact {
+    NSString *contact = self.tableViewHeader.text;
+    return contact.length > 0 ? contact : _contact;
+}
+
+- (void)disableSendButton {
+    self.sendButton.enabled = NO;
+}
+
+- (void)enableSendButton {
+    self.sendButton.enabled = YES;
+}
+
 - (void)sendButtonClicked:(id)sender {
+    NSString *contact = [self currentContact];
     NSString *content = self.inputTextField.text;
 
-    if (content > 0) {
+    if (contact.length && content.length) {
+        [self disableSendButton];
+        
         if (!_userFeedback) {
-            if (self.tableViewHeader.text.length > 0) {
-                _contact = self.tableViewHeader.text;
-            }
             NSString *title = _feedbackTitle ?: content;
             [LCUserFeedbackThread feedbackWithContent:title contact:_contact create:YES withBlock:^(id object, NSError *error) {
                 if ([self filterError:error]) {
                     _userFeedback = object;
                     [self createFeedbackReplyWithFeedback:_userFeedback content:content];
+                } else {
+                    [self enableSendButton];
                 }
             }];
         } else {
@@ -196,11 +217,13 @@
 }
 
 - (void)createFeedbackReplyWithFeedback:(LCUserFeedbackThread *)feedback content:(NSString *)content {
-    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackThread:content type:@"user" withFeedback:_userFeedback];
-    [LCUserFeedbackReply saveFeedbackThread:feedbackReply withBlock:^(id object, NSError *error) {
+    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithContent:content type:@"user"];
+    [_userFeedback saveFeedbackReplyInBackground:feedbackReply withBlock:^(id object, NSError *error) {
         if ([self filterError:error]) {
             [_feedbackReplies addObject:feedbackReply];
-            [_tableView reloadData];
+            [self.tableView reloadData];
+            [self scrollToBottom];
+            
             if ([_inputTextField isFirstResponder]) {
                 [_inputTextField resignFirstResponder];
             }
@@ -208,10 +231,8 @@
             if ([_inputTextField.text length] > 0) {
                 _inputTextField.text = @"";
             }
-            
-            [self scrollToBottom];
-            [self.tableView reloadData];
         }
+        [self enableSendButton];
     }];
 }
 

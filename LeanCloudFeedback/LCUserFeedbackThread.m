@@ -7,25 +7,32 @@
 //
 
 #import "LCUserFeedbackThread.h"
+#import "LCUserFeedbackThread_Internal.h"
+#import "LCUserFeedbackReply.h"
 #import "LCHttpClient.h"
 #import "LCUtils.h"
-#import "LCUserFeedbackThread_Internal.h"
 
 static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
 
 @interface LCUserFeedbackThread()
 
-@property(nonatomic, retain) NSString *appSign;
-@property(nonatomic, retain) NSString *status;
-@property(nonatomic, retain) NSString *remarks;
-@property(nonatomic, retain) NSString *iid;
+@property(nonatomic, copy) NSString *appSign;
+@property(nonatomic, copy) NSString *status;
+@property(nonatomic, copy) NSString *remarks;
+@property(nonatomic, copy) NSString *iid;
 
 @end
 
+#define LC_FEEDBACK_BASE_URL @"https://api.leancloud.cn/1.1/feedback"
+
 @implementation LCUserFeedbackThread
 
-+(NSString *)myObjectPath {
-    return @"https://api.leancloud.cn/1.1/feedback";
++ (NSString *)objectPath {
+    return LC_FEEDBACK_BASE_URL;
+}
+
+- (NSString *)threadsPath {
+    return [NSString stringWithFormat:@"%@/%@/threads", LC_FEEDBACK_BASE_URL, self.objectId];
 }
 
 - (instancetype)init {
@@ -81,7 +88,7 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
         block(nil, nil);
     } else {
         LCHttpClient *client = [LCHttpClient sharedInstance];
-        [client getObject:[LCUserFeedbackThread myObjectPath] withParameters:@{@"objectId":feedbackObjectId} block:^(id object, NSError *error) {
+        [client getObject:[LCUserFeedbackThread objectPath] withParameters:@{@"objectId":feedbackObjectId} block:^(id object, NSError *error) {
             if (error) {
                 [LCUtils callIdResultBlock:block object:nil error:error];
             } else {
@@ -99,7 +106,7 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
 
 +(void)fetchFeedbackWithContact:(NSString*)contact withBlock:(AVIdResultBlock)block {
     LCHttpClient *client = [LCHttpClient sharedInstance];
-    [client getObject:[LCUserFeedbackThread myObjectPath] withParameters:[NSDictionary dictionaryWithObject:contact forKey:@"contact"] block:^(id object, NSError *error) {
+    [client getObject:[LCUserFeedbackThread objectPath] withParameters:[NSDictionary dictionaryWithObject:contact forKey:@"contact"] block:^(id object, NSError *error) {
         if (error) {
             [LCUtils callIdResultBlock:block object:nil error:error];
         } else {
@@ -118,7 +125,7 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
         feedback.contact = contact;
         
         LCHttpClient *client = [LCHttpClient sharedInstance];
-        [client postObject:[LCUserFeedbackThread myObjectPath] withParameters:[feedback postData] block:^(id object, NSError *error) {
+        [client postObject:[LCUserFeedbackThread objectPath] withParameters:[feedback postData] block:^(id object, NSError *error) {
             if (!error) {
                 feedback.objectId = [(NSDictionary *)object objectForKey:@"objectId"];
                 [[NSUserDefaults standardUserDefaults] setObject:feedback.objectId forKey:kLCUserFeedbackObjectId];
@@ -140,7 +147,7 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
 
 
 +(void)updateFeedback:(LCUserFeedbackThread *)feedback withBlock:(AVIdResultBlock)block {
-    [[LCHttpClient sharedInstance] putObject:[NSString stringWithFormat:@"%@/%@", [LCUserFeedbackThread myObjectPath], feedback.objectId]
+    [[LCHttpClient sharedInstance] putObject:[NSString stringWithFormat:@"%@/%@", [LCUserFeedbackThread objectPath], feedback.objectId]
                               withParameters:[feedback postData]
                                        block:^(id object, NSError *error) {
                                            [LCUtils callIdResultBlock:block object:object error:error];
@@ -148,12 +155,46 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
 }
 
 +(void)deleteFeedback:(LCUserFeedbackThread *)feedback withBlock:(AVIdResultBlock)block {
-    [[LCHttpClient sharedInstance] deleteObject:[NSString stringWithFormat:@"%@/%@", [LCUserFeedbackThread myObjectPath], feedback.objectId]
+    [[LCHttpClient sharedInstance] deleteObject:[NSString stringWithFormat:@"%@/%@", [LCUserFeedbackThread objectPath], feedback.objectId]
                                  withParameters:nil
                                           block:^(id object, NSError *error) {
                                               [LCUtils callIdResultBlock:block object:object error:error];
                                           }];
 }
 
+- (NSDictionary *)parametersWithFeedbackReply:(LCUserFeedbackReply *)feedbackReply {
+    NSMutableDictionary *parameters = [[feedbackReply dictionary] mutableCopy];
+
+    parameters[@"feedback"] = self.objectId;
+
+    return [parameters copy];
+}
+
+- (void)saveFeedbackReplyInBackground:(LCUserFeedbackReply *)feedbackReply withBlock:(AVIdResultBlock)block {
+    if (!self.objectId) return;
+
+    [[LCHttpClient sharedInstance] postObject:[self threadsPath]
+                               withParameters:[self parametersWithFeedbackReply:feedbackReply]
+                                        block:^(id object, NSError *error)
+    {
+        [LCUtils callIdResultBlock:block object:object error:error];
+    }];
+}
+
+- (void)fetchFeedbackRepliesInBackgroundWithBlock:(AVArrayResultBlock)block {
+    [[LCHttpClient sharedInstance] getObject:[self threadsPath]
+                              withParameters:nil
+                                       block:^(id object, NSError *error)
+    {
+        NSArray *results = [object objectForKey:@"results"];
+        NSMutableArray *replies = [NSMutableArray arrayWithCapacity:[results count]];
+
+        for (NSDictionary *dictionary in results) {
+            [replies addObject:[[LCUserFeedbackReply alloc] initWithDictionary:dictionary]];
+        }
+
+        [LCUtils callArrayResultBlock:block array:replies error:error];
+    }];
+}
 
 @end

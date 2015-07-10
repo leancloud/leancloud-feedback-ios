@@ -51,7 +51,7 @@
                 NSDictionary *dict = [[object objectForKey:@"results"] firstObject];
                 self.userFeedback = [[LCUserFeedbackThread alloc] initWithDictionary:dict];
 
-                [LCUserFeedbackReply fetchFeedbackThreadsInBackground:_userFeedback withBlock:^(NSArray *objects, NSError *error) {
+                [self.userFeedback fetchFeedbackRepliesInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     [LCUtils callArrayResultBlock:block array:objects error:error];
                 }];
             } else {
@@ -69,8 +69,8 @@
 
 - (void)postFeedbackThread:(NSString *)content contact:(NSString *)contact block:(AVIdResultBlock)block {
     if ([_userFeedback objectId]) {
-        LCUserFeedbackReply *feedbackThread = [LCUserFeedbackReply feedbackThread:content type:@"user" withFeedback:_userFeedback];
-        [LCUserFeedbackReply saveFeedbackThread:feedbackThread withBlock:^(id object, NSError *error) {
+        LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithContent:content type:@"user"];
+        [self.userFeedback saveFeedbackReplyInBackground:feedbackReply withBlock:^(id object, NSError *error) {
             [LCUtils callIdResultBlock:block object:object error:error];
         }];
     } else {
@@ -94,12 +94,12 @@
                 block(0, nil);
             } else {
                 NSString *localKey = [NSString stringWithFormat:@"feedback_%@", feedback.objectId];
-                [LCUserFeedbackReply fetchFeedbackThreadsInBackground:feedback withBlock:^(NSArray *feedbackReplies, NSError *error) {
+                [feedback fetchFeedbackRepliesInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     if (error) {
                         block(0 ,error);
                     } else {
                         NSUInteger lastThreadsCounts = [[[NSUserDefaults standardUserDefaults] objectForKey:localKey] intValue];
-                        NSUInteger unreadCount = feedbackReplies.count - lastThreadsCounts;
+                        NSUInteger unreadCount = objects.count - lastThreadsCounts;
                         block(unreadCount, nil);
                     }
                 }];
