@@ -12,6 +12,7 @@
 #import "LCUserFeedbackThread.h"
 #import "LCUserFeedbackThread_Internal.h"
 #import "LCUserFeedbackReply.h"
+#import "LCUserFeedbackAgent.h"
 
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
@@ -24,8 +25,6 @@
     NSMutableArray *_feedbackReplies;
     UIRefreshControl *_refreshControl;
     LCUserFeedbackThread *_userFeedback;
-    
-    BOOL _shouldScrollToBottom;
 }
 
 @property(nonatomic, strong) UITableView *tableView;
@@ -59,9 +58,17 @@
     [super viewDidAppear:animated];
     
     [self keyboardWillHide:nil];
-    
-    _shouldScrollToBottom = YES;
+
     [self loadFeedbackThreads];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    // 记录最后阅读时，看到了多少条反馈
+    if (_userFeedback !=nil && _feedbackReplies.count > 0) {
+        NSString *localKey = [NSString stringWithFormat:@"feedback_%@", _userFeedback.objectId];
+        [[NSUserDefaults standardUserDefaults] setObject:@(_feedbackReplies.count) forKey:localKey];
+    }
 }
 
 - (void)setupUI {
@@ -130,20 +137,13 @@
             if (feedback) {
                 _userFeedback = feedback;
                 [LCUserFeedbackReply fetchFeedbackThreadsInBackground:_userFeedback withBlock:^(NSArray *objects, NSError *error) {
-                    if (!error) {
-                        NSString *localKey = [NSString stringWithFormat:@"feedback_%@", _userFeedback.objectId];
-                        [[NSUserDefaults standardUserDefaults] setObject:@(objects.count) forKey:localKey];
-                    }
                     [_feedbackReplies removeAllObjects];
                     [_feedbackReplies addObjectsFromArray:objects];
                     
                     [_tableView reloadData];
                     [_refreshControl endRefreshing];
                     
-                    if (_shouldScrollToBottom) {
-                        _shouldScrollToBottom = NO;
-                        [self scrollToBottom];
-                    }
+                    [self scrollToBottom];
                 }];
             } else {
                 [_refreshControl endRefreshing];
@@ -196,29 +196,23 @@
 }
 
 - (void)createFeedbackReplyWithFeedback:(LCUserFeedbackThread *)feedback content:(NSString *)content {
-    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackThread:content
-                                                                        type:@"user"
-                                                                withFeedback:_userFeedback];
+    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackThread:content type:@"user" withFeedback:_userFeedback];
     [LCUserFeedbackReply saveFeedbackThread:feedbackReply withBlock:^(id object, NSError *error) {
         if ([self filterError:error]) {
-            [self reloadWithNewFeedbackReply:feedbackReply];
+            [_feedbackReplies addObject:feedbackReply];
+            [_tableView reloadData];
+            if ([_inputTextField isFirstResponder]) {
+                [_inputTextField resignFirstResponder];
+            }
+            
+            if ([_inputTextField.text length] > 0) {
+                _inputTextField.text = @"";
+            }
+            
+            [self scrollToBottom];
+            [self.tableView reloadData];
         }
     }];
-}
-
-- (void)reloadWithNewFeedbackReply:(LCUserFeedbackReply *)feedbackReply {
-    [_feedbackReplies addObject:feedbackReply];
-    [_tableView reloadData];
-    if ([_inputTextField isFirstResponder]) {
-        [_inputTextField resignFirstResponder];
-    }
-    
-    if ([_inputTextField.text length] > 0) {
-        _inputTextField.text = @"";
-    }
-    
-    _shouldScrollToBottom = YES;
-    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning

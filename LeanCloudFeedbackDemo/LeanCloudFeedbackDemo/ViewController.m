@@ -11,6 +11,8 @@
 
 @interface ViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *unreadTipLabel;
+
 @end
 
 @implementation ViewController
@@ -18,6 +20,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.unreadTipLabel.text = nil;
+    [[LCUserFeedbackAgent sharedInstance] countUnreadFeedbackThreadsWithBlock:^(NSInteger number, NSError *error) {
+        if (!error) {
+            self.unreadTipLabel.text = [NSString stringWithFormat:@"您有 %ld 条未读反馈", number];
+        } else {
+            self.unreadTipLabel.text = nil;
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,6 +38,8 @@
 - (IBAction)startFeedbackView:(id)sender {
     LCUserFeedbackAgent *agent = [LCUserFeedbackAgent sharedInstance];
     [agent showConversations:self title:nil contact:@"goodman@leancloud.cn"];
+    
+    self.unreadTipLabel.text = nil;
 }
 
 @end

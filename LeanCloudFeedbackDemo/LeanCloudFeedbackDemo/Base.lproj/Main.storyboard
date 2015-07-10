@@ -26,14 +26,25 @@
                                     <action selector="startFeedbackView:" destination="x5A-6p-PRh" eventType="touchUpInside" id="vkQ-RW-QrT"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RtB-H5-hHH">
+                                <rect key="frame" x="279" y="270" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="8.3534512430000007e-05" blue="0.1777411643" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="QPo-Uu-1eb" secondAttribute="trailing" constant="50" id="20h-gH-Ndy"/>
                             <constraint firstItem="QPo-Uu-1eb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="50" id="3Kq-9J-iWQ"/>
+                            <constraint firstAttribute="centerX" secondItem="RtB-H5-hHH" secondAttribute="centerX" id="6sL-Zj-UWh"/>
                             <constraint firstItem="QPo-Uu-1eb" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="180" id="A5M-tS-hE5"/>
+                            <constraint firstItem="RtB-H5-hHH" firstAttribute="top" secondItem="QPo-Uu-1eb" secondAttribute="bottom" constant="40" id="ccA-Xo-ej1"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="unreadTipLabel" destination="RtB-H5-hHH" id="Rra-gX-m5T"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
