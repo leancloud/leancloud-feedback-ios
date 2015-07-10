@@ -22,8 +22,8 @@ typedef void (^LCUserFeedbackBlock)(LCUserFeedbackThread *feedback, NSError *err
 @property(nonatomic, copy) NSString *contact;
 
 +(void)fetchFeedbackWithBlock:(LCUserFeedbackBlock)block;
-+(void)fetchFeedbackWithContact:(NSString*)contact withBlock:(AVIdResultBlock)block;
-+(void)feedbackWithContent:(NSString *)content contact:(NSString *)contact withBlock:(AVIdResultBlock)block;
++(void)fetchFeedbackWithContact:(NSString*)contact withBlock:(AVIdResultBlock)block AVDeprecated("Use + fetchFeedbackWithBlock: instead");
++(void)feedbackWithContent:(NSString *)content contact:(NSString *)contact withBlock:(AVIdResultBlock)block AVDeprecated("Use + fetchFeedbackWithBlock: instead");
 
 +(void)updateFeedback:(LCUserFeedbackThread *)feedback withBlock:(AVIdResultBlock)block;
 
