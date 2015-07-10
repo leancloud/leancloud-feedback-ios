@@ -125,17 +125,13 @@
     if (![_refreshControl isRefreshing]) {
         [_refreshControl beginRefreshing];
     }
-    
-    [LCUserFeedbackThread fetchFeedbackWithContact:_contact withBlock:^(id object, NSError *error) {
-        if (!error) {
-            NSArray* results = [(NSDictionary*)object objectForKey:@"results"];
-            if (results && results.count > 0) {
-                _userFeedback = [[LCUserFeedbackThread alloc] initWithDictionary:results[0]];
-            }
-            if (_userFeedback) {
+    [LCUserFeedbackThread fetchFeedbackWithBlock:^(LCUserFeedbackThread *feedback, NSError *error) {
+        if ([self filterError:error]) {
+            if (feedback) {
+                _userFeedback = feedback;
                 [LCUserFeedbackReply fetchFeedbackThreadsInBackground:_userFeedback withBlock:^(NSArray *objects, NSError *error) {
                     if (!error) {
-                        NSString *localKey = [NSString stringWithFormat:@"feedback_%@", _contact];
+                        NSString *localKey = [NSString stringWithFormat:@"feedback_%@", _userFeedback.objectId];
                         [[NSUserDefaults standardUserDefaults] setObject:@(objects.count) forKey:localKey];
                     }
                     [_feedbackReplies removeAllObjects];
@@ -168,6 +164,16 @@
     }];
 }
 
+- (BOOL)filterError:(NSError *)error {
+    if (error) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error description] delegate:nil cancelButtonTitle:@"I Know" otherButtonTitles:nil, nil];
+        [alertView show];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
 - (void)sendButtonClicked:(id)sender {
     NSString *content = self.inputTextField.text;
 
@@ -178,54 +184,41 @@
             }
             NSString *title = _feedbackTitle ?: content;
             [LCUserFeedbackThread feedbackWithContent:title contact:_contact create:YES withBlock:^(id object, NSError *error) {
-                if (!error) {
-                    LCUserFeedbackThread *feedback = (LCUserFeedbackThread *)object;
-                    _userFeedback = feedback;
-                    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackThread:content
-                                                                                           type:@"user"
-                                                                                   withFeedback:_userFeedback];
-                    [LCUserFeedbackReply saveFeedbackThread:feedbackReply withBlock:^(id object, NSError *error) {
-                        if (!error) {
-                            [_feedbackReplies addObject:feedbackReply];
-                            [_tableView reloadData];
-                            if ([_inputTextField isFirstResponder]) {
-                                [_inputTextField resignFirstResponder];
-                            }
-                            
-                            if ([_inputTextField.text length] > 0) {
-                                _inputTextField.text = @"";
-                            }
-                            
-                            _shouldScrollToBottom = YES;
-                            [self loadFeedbackThreads];
-                        }
-                    }];
-                    
-                } else {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error description] delegate:nil cancelButtonTitle:@"I Know" otherButtonTitles:nil, nil];
-                    [alertView show];
+                if ([self filterError:error]) {
+                    _userFeedback = object;
+                    [self createFeedbackReplyWithFeedback:_userFeedback content:content];
                 }
             }];
         } else {
-            LCUserFeedbackReply *feedbackThread = [LCUserFeedbackReply feedbackThread:content type:@"user" withFeedback:_userFeedback];
-            [LCUserFeedbackReply saveFeedbackThread:feedbackThread withBlock:^(id object, NSError *error) {
-                if (!error) {
-                    [_feedbackReplies addObject:feedbackThread];
-                    [_tableView reloadData];
-                    if ([_inputTextField isFirstResponder]) {
-                        [_inputTextField resignFirstResponder];
-                    }
-                    
-                    if ([_inputTextField.text length] > 0) {
-                        _inputTextField.text = @"";
-                    }
-                    
-                    _shouldScrollToBottom = YES;
-                    [self loadFeedbackThreads];
-                }
-            }];
+            [self createFeedbackReplyWithFeedback:_userFeedback content:content];
         }
     }
+}
+
+- (void)createFeedbackReplyWithFeedback:(LCUserFeedbackThread *)feedback content:(NSString *)content {
+    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackThread:content
+                                                                        type:@"user"
+                                                                withFeedback:_userFeedback];
+    [LCUserFeedbackReply saveFeedbackThread:feedbackReply withBlock:^(id object, NSError *error) {
+        if ([self filterError:error]) {
+            [self reloadWithNewFeedbackReply:feedbackReply];
+        }
+    }];
+}
+
+- (void)reloadWithNewFeedbackReply:(LCUserFeedbackReply *)feedbackReply {
+    [_feedbackReplies addObject:feedbackReply];
+    [_tableView reloadData];
+    if ([_inputTextField isFirstResponder]) {
+        [_inputTextField resignFirstResponder];
+    }
+    
+    if ([_inputTextField.text length] > 0) {
+        _inputTextField.text = @"";
+    }
+    
+    _shouldScrollToBottom = YES;
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning

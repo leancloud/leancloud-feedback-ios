@@ -9,12 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <AVOSCloud/AVConstants.h>
 
+@class LCUserFeedbackThread;
+
+typedef void (^LCUserFeedbackBlock)(LCUserFeedbackThread *feedback, NSError *error);
+
 @interface LCUserFeedbackThread : NSObject
 
 @property(nonatomic, retain) NSString *objectId;
 @property(nonatomic, retain) NSString *content;
 @property(nonatomic, retain) NSString *contact;
 
++(void)fetchFeedbackWithBlock:(LCUserFeedbackBlock)block;
 +(void)fetchFeedbackWithContact:(NSString*)contact withBlock:(AVIdResultBlock)block;
 +(void)feedbackWithContent:(NSString *)content contact:(NSString *)contact withBlock:(AVIdResultBlock)block;
 

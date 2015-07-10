@@ -11,6 +11,8 @@
 #import "LCUtils.h"
 #import "LCUserFeedbackThread_Internal.h"
 
+static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
+
 @interface LCUserFeedbackThread()
 
 @property(nonatomic, retain) NSString *appSign;
@@ -72,6 +74,28 @@
     return self;
 }
 
++(void)fetchFeedbackWithBlock:(LCUserFeedbackBlock)block {
+    NSString *feedbackObjectId = [[NSUserDefaults standardUserDefaults] objectForKey:kLCUserFeedbackObjectId];
+    if (feedbackObjectId == nil) {
+        // do not create empty feedback
+        block(nil, nil);
+    } else {
+        LCHttpClient *client = [LCHttpClient sharedInstance];
+        [client getObject:[LCUserFeedbackThread myObjectPath] withParameters:@{@"objectId":feedbackObjectId} block:^(id object, NSError *error) {
+            if (error) {
+                [LCUtils callIdResultBlock:block object:nil error:error];
+            } else {
+                NSArray* results = [(NSDictionary*)object objectForKey:@"results"];
+                if (results.count == 0) {
+                    [LCUtils callIdResultBlock:block object:nil error:nil];
+                } else {
+                    LCUserFeedbackThread *feedback = [[LCUserFeedbackThread alloc] initWithDictionary:results[0]];
+                    [LCUtils callIdResultBlock:block object:feedback error:nil];
+                }
+            }
+        }];
+    }
+}
 
 +(void)fetchFeedbackWithContact:(NSString*)contact withBlock:(AVIdResultBlock)block {
     LCHttpClient *client = [LCHttpClient sharedInstance];
@@ -97,7 +121,7 @@
         [client postObject:[LCUserFeedbackThread myObjectPath] withParameters:[feedback postData] block:^(id object, NSError *error) {
             if (!error) {
                 feedback.objectId = [(NSDictionary *)object objectForKey:@"objectId"];
-                
+                [[NSUserDefaults standardUserDefaults] setObject:feedback.objectId forKey:kLCUserFeedbackObjectId];
                 [LCUtils callIdResultBlock:block object:feedback error:error];
             } else {
                 [LCUtils callIdResultBlock:block object:nil error:error];
@@ -130,5 +154,6 @@
                                               [LCUtils callIdResultBlock:block object:object error:error];
                                           }];
 }
+
 
 @end
