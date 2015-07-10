@@ -170,10 +170,14 @@
     }];
 }
 
+- (void)alertWithTitle:(NSString *)title message:(NSString *)message {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+    [alertView show];
+}
+
 - (BOOL)filterError:(NSError *)error {
     if (error) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error description] delegate:nil cancelButtonTitle:@"I Know" otherButtonTitles:nil, nil];
-        [alertView show];
+        [self alertWithTitle:@"出错了" message:[error description]];
         return NO;
     } else {
         return YES;
@@ -196,12 +200,12 @@
 - (void)sendButtonClicked:(id)sender {
     NSString *contact = [self currentContact];
     NSString *content = self.inputTextField.text;
-
-    if (contact.length && content.length) {
+    if (content.length) {
         [self disableSendButton];
         
         if (!_userFeedback) {
             NSString *title = _feedbackTitle ?: content;
+            _contact = contact;
             [LCUserFeedbackThread feedbackWithContent:title contact:_contact create:YES withBlock:^(id object, NSError *error) {
                 if ([self filterError:error]) {
                     _userFeedback = object;
@@ -308,7 +312,9 @@
     if (textField.tag == TAG_TABLEView_Header && [textField.text length] > 0 && _userFeedback) {
         _userFeedback.contact = textField.text;
         [LCUserFeedbackThread updateFeedback:_userFeedback withBlock:^(id object, NSError *error) {
-            // do something...
+            if ([self filterError:error]) {
+                [self alertWithTitle:@"提示" message:@"更改成功"];
+            }
         }];
     }
 }

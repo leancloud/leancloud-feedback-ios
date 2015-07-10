@@ -37,7 +37,8 @@
 
 - (IBAction)startFeedbackView:(id)sender {
     LCUserFeedbackAgent *agent = [LCUserFeedbackAgent sharedInstance];
-    [agent showConversations:self title:nil contact:@"goodman@leancloud.cn"];
+//    [agent showConversations:self title:nil contact:@"goodman@leancloud.cn"];
+    [agent showConversations:self title:nil contact:nil];
     
     self.unreadTipLabel.text = nil;
 }
