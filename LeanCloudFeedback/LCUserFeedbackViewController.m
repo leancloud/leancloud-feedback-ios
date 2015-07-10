@@ -133,17 +133,17 @@
                 _userFeedback = [[LCUserFeedbackThread alloc] initWithDictionary:results[0]];
             }
             if (_userFeedback) {
-                [LCUserFeedbackReply fetchFeedbackThreadsInBackground:_userFeedback withBlock:^(NSArray *objects, NSError *error) {
+                [_userFeedback fetchFeedbackRepliesInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     if (!error) {
                         NSString *localKey = [NSString stringWithFormat:@"feedback_%@", _contact];
                         [[NSUserDefaults standardUserDefaults] setObject:@(objects.count) forKey:localKey];
                     }
                     [_feedbackReplies removeAllObjects];
                     [_feedbackReplies addObjectsFromArray:objects];
-                    
+
                     [_tableView reloadData];
                     [_refreshControl endRefreshing];
-                    
+
                     if (_shouldScrollToBottom) {
                         _shouldScrollToBottom = NO;
                         [self scrollToBottom];
@@ -168,60 +168,78 @@
     }];
 }
 
+- (void)insertFeedbackReply:(LCUserFeedbackReply *)feedbackReply {
+    [_feedbackReplies addObject:feedbackReply];
+    [_tableView reloadData];
+
+    if ([_inputTextField isFirstResponder]) {
+        [_inputTextField resignFirstResponder];
+    }
+
+    if ([_inputTextField.text length] > 0) {
+        _inputTextField.text = @"";
+    }
+
+    _shouldScrollToBottom = YES;
+
+    [self loadFeedbackThreads];
+}
+
+- (void)showError:(NSError *)error {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error description] delegate:nil cancelButtonTitle:@"I Know" otherButtonTitles:nil, nil];
+    [alertView show];
+}
+
+- (NSString *)currentContact {
+    NSString *contact = self.tableViewHeader.text;
+    return contact.length > 0 ? contact : _contact;
+}
+
+- (void)disableSendButton {
+    self.sendButton.enabled = NO;
+}
+
+- (void)enableSendButton {
+    self.sendButton.enabled = YES;
+}
+
 - (void)sendButtonClicked:(id)sender {
+    NSString *contact = [self currentContact];
     NSString *content = self.inputTextField.text;
 
-    if (content > 0) {
+    if (contact.length && content.length) {
+        [self disableSendButton];
+
+        LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithContent:content type:@"user"];
+
         if (!_userFeedback) {
-            if (self.tableViewHeader.text.length > 0) {
-                _contact = self.tableViewHeader.text;
-            }
             NSString *title = _feedbackTitle ?: content;
-            [LCUserFeedbackThread feedbackWithContent:title contact:_contact create:YES withBlock:^(id object, NSError *error) {
+
+            [LCUserFeedbackThread feedbackWithContent:title contact:contact create:YES withBlock:^(id object, NSError *error) {
                 if (!error) {
-                    LCUserFeedbackThread *feedback = (LCUserFeedbackThread *)object;
-                    _userFeedback = feedback;
-                    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackThread:content
-                                                                                           type:@"user"
-                                                                                   withFeedback:_userFeedback];
-                    [LCUserFeedbackReply saveFeedbackThread:feedbackReply withBlock:^(id object, NSError *error) {
+                    _userFeedback = (LCUserFeedbackThread *)object;
+                    [_userFeedback saveFeedbackReplyInBackground:feedbackReply withBlock:^(id object, NSError *error) {
+                        [self enableSendButton];
+
                         if (!error) {
-                            [_feedbackReplies addObject:feedbackReply];
-                            [_tableView reloadData];
-                            if ([_inputTextField isFirstResponder]) {
-                                [_inputTextField resignFirstResponder];
-                            }
-                            
-                            if ([_inputTextField.text length] > 0) {
-                                _inputTextField.text = @"";
-                            }
-                            
-                            _shouldScrollToBottom = YES;
-                            [self loadFeedbackThreads];
+                            [self insertFeedbackReply:feedbackReply];
+                        } else {
+                            [self showError:error];
                         }
                     }];
-                    
                 } else {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error description] delegate:nil cancelButtonTitle:@"I Know" otherButtonTitles:nil, nil];
-                    [alertView show];
+                    [self enableSendButton];
+                    [self showError:error];
                 }
             }];
         } else {
-            LCUserFeedbackReply *feedbackThread = [LCUserFeedbackReply feedbackThread:content type:@"user" withFeedback:_userFeedback];
-            [LCUserFeedbackReply saveFeedbackThread:feedbackThread withBlock:^(id object, NSError *error) {
+            [_userFeedback saveFeedbackReplyInBackground:feedbackReply withBlock:^(id object, NSError *error) {
+                [self enableSendButton];
+
                 if (!error) {
-                    [_feedbackReplies addObject:feedbackThread];
-                    [_tableView reloadData];
-                    if ([_inputTextField isFirstResponder]) {
-                        [_inputTextField resignFirstResponder];
-                    }
-                    
-                    if ([_inputTextField.text length] > 0) {
-                        _inputTextField.text = @"";
-                    }
-                    
-                    _shouldScrollToBottom = YES;
-                    [self loadFeedbackThreads];
+                    [self insertFeedbackReply:feedbackReply];
+                } else {
+                    [self showError:error];
                 }
             }];
         }

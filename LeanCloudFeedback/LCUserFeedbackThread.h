@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <AVOSCloud/AVConstants.h>
 
+@class LCUserFeedbackReply;
+
 @interface LCUserFeedbackThread : NSObject
 
-@property(nonatomic, retain) NSString *objectId;
-@property(nonatomic, retain) NSString *content;
-@property(nonatomic, retain) NSString *contact;
+@property(nonatomic, copy) NSString *objectId;
+@property(nonatomic, copy) NSString *content;
+@property(nonatomic, copy) NSString *contact;
 
 +(void)fetchFeedbackWithContact:(NSString*)contact withBlock:(AVIdResultBlock)block;
 +(void)feedbackWithContent:(NSString *)content contact:(NSString *)contact withBlock:(AVIdResultBlock)block;
@@ -23,5 +25,9 @@
 +(void)deleteFeedback:(LCUserFeedbackThread *)feedback withBlock:(AVIdResultBlock)block;
 
 -(instancetype)initWithDictionary:(NSDictionary*)dict;
+
+-(void)saveFeedbackReplyInBackground:(LCUserFeedbackReply *)feedbackReply withBlock:(AVIdResultBlock)block;
+
+-(void)fetchFeedbackRepliesInBackgroundWithBlock:(AVArrayResultBlock)block;
 
 @end
