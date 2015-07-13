@@ -49,7 +49,7 @@
  *  @param block 结果回调。
  *  @discussion 可以在 block 中处理反馈数据 (AVUserFeedbackThread 数组)，然后将其传入自定义用户反馈界面。
  */
-- (void)syncFeedbackThreadsWithContact:(NSString *)contact block:(AVArrayResultBlock)block  AVDeprecated("Because now feedback module is an open source project, you should tweak the ui in ViewController, do not  do not make new ui and sync feedback threads by your own.");
+- (void)syncFeedbackThreadsWithContact:(NSString *)contact block:(AVArrayResultBlock)block  AVDeprecated("Because now feedback module is an open source project, you should tweak the UI in LCUserFeedbackViewController, do not make new UI and sync feedback threads by your own.");
 
 /**
  *  发送用户反馈
@@ -64,6 +64,6 @@
  *  @param contact 联系方式，邮箱或qq。
  *  @param block 结果回调。
  */
-- (void)postFeedbackThread:(NSString *)content contact:(NSString *)contact block:(AVIdResultBlock)block AVDeprecated("Now feedback module is an open source project, you should tweak the ui in ViewController, do not make new ui and post feedback by your own.");
+- (void)postFeedbackThread:(NSString *)content contact:(NSString *)contact block:(AVIdResultBlock)block AVDeprecated("Because now feedback module is an open source project, you should tweak the UI in LCUserFeedbackViewController, do not make new UI and post feedback by your own.");
 
 @end
