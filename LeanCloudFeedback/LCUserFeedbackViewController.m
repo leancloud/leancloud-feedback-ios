@@ -12,6 +12,7 @@
 #import "LCUserFeedbackThread.h"
 #import "LCUserFeedbackThread_Internal.h"
 #import "LCUserFeedbackReply.h"
+#import "LCUserFeedbackAgent.h"
 
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
@@ -24,8 +25,6 @@
     NSMutableArray *_feedbackReplies;
     UIRefreshControl *_refreshControl;
     LCUserFeedbackThread *_userFeedback;
-    
-    BOOL _shouldScrollToBottom;
 }
 
 @property(nonatomic, strong) UITableView *tableView;
@@ -59,9 +58,17 @@
     [super viewDidAppear:animated];
     
     [self keyboardWillHide:nil];
-    
-    _shouldScrollToBottom = YES;
+
     [self loadFeedbackThreads];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    // 记录最后阅读时，看到了多少条反馈
+    if (_userFeedback !=nil && _feedbackReplies.count > 0) {
+        NSString *localKey = [NSString stringWithFormat:@"feedback_%@", _userFeedback.objectId];
+        [[NSUserDefaults standardUserDefaults] setObject:@(_feedbackReplies.count) forKey:localKey];
+    }
 }
 
 - (void)setupUI {
@@ -118,42 +125,37 @@
     _refreshControl = [[UIRefreshControl alloc] init];
     [_refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
     [_tableView addSubview:_refreshControl];
-    
+}
+
+- (void)fetchRepliesWithBlock:(AVArrayResultBlock)block {
+    [LCUserFeedbackThread fetchFeedbackWithBlock:^(LCUserFeedbackThread *feedback, NSError *error) {
+        if (error) {
+            block(nil, error);
+        } else {
+            if (feedback) {
+                _userFeedback = feedback;
+                [_userFeedback fetchFeedbackRepliesInBackgroundWithBlock:block];
+            } else {
+                block([NSArray array], nil);
+            }
+        }
+    }];
 }
 
 - (void)loadFeedbackThreads {
     if (![_refreshControl isRefreshing]) {
         [_refreshControl beginRefreshing];
     }
-    
-    [LCUserFeedbackThread fetchFeedbackWithContact:_contact withBlock:^(id object, NSError *error) {
-        if (!error) {
-            NSArray* results = [(NSDictionary*)object objectForKey:@"results"];
-            if (results && results.count > 0) {
-                _userFeedback = [[LCUserFeedbackThread alloc] initWithDictionary:results[0]];
+    [self fetchRepliesWithBlock:^(NSArray *objects, NSError *error) {
+        [_refreshControl endRefreshing];
+        if ([self filterError:error]) {
+            if (objects.count > 0) {
+                [_feedbackReplies removeAllObjects];
+                [_feedbackReplies addObjectsFromArray:objects];
+                
+                [_tableView reloadData];
+                [self scrollToBottom];
             }
-            if (_userFeedback) {
-                [_userFeedback fetchFeedbackRepliesInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if (!error) {
-                        NSString *localKey = [NSString stringWithFormat:@"feedback_%@", _contact];
-                        [[NSUserDefaults standardUserDefaults] setObject:@(objects.count) forKey:localKey];
-                    }
-                    [_feedbackReplies removeAllObjects];
-                    [_feedbackReplies addObjectsFromArray:objects];
-
-                    [_tableView reloadData];
-                    [_refreshControl endRefreshing];
-
-                    if (_shouldScrollToBottom) {
-                        _shouldScrollToBottom = NO;
-                        [self scrollToBottom];
-                    }
-                }];
-            } else {
-                [_refreshControl endRefreshing];
-            }
-        } else {
-            [_refreshControl endRefreshing];
         }
     }];
 }
@@ -168,26 +170,18 @@
     }];
 }
 
-- (void)insertFeedbackReply:(LCUserFeedbackReply *)feedbackReply {
-    [_feedbackReplies addObject:feedbackReply];
-    [_tableView reloadData];
-
-    if ([_inputTextField isFirstResponder]) {
-        [_inputTextField resignFirstResponder];
-    }
-
-    if ([_inputTextField.text length] > 0) {
-        _inputTextField.text = @"";
-    }
-
-    _shouldScrollToBottom = YES;
-
-    [self loadFeedbackThreads];
+- (void)alertWithTitle:(NSString *)title message:(NSString *)message {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+    [alertView show];
 }
 
-- (void)showError:(NSError *)error {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error description] delegate:nil cancelButtonTitle:@"I Know" otherButtonTitles:nil, nil];
-    [alertView show];
+- (BOOL)filterError:(NSError *)error {
+    if (error) {
+        [self alertWithTitle:@"出错了" message:[error description]];
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 - (NSString *)currentContact {
@@ -206,44 +200,44 @@
 - (void)sendButtonClicked:(id)sender {
     NSString *contact = [self currentContact];
     NSString *content = self.inputTextField.text;
-
-    if (contact.length && content.length) {
+    if (content.length) {
         [self disableSendButton];
-
-        LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithContent:content type:@"user"];
-
+        
         if (!_userFeedback) {
             NSString *title = _feedbackTitle ?: content;
-
-            [LCUserFeedbackThread feedbackWithContent:title contact:contact create:YES withBlock:^(id object, NSError *error) {
-                if (!error) {
-                    _userFeedback = (LCUserFeedbackThread *)object;
-                    [_userFeedback saveFeedbackReplyInBackground:feedbackReply withBlock:^(id object, NSError *error) {
-                        [self enableSendButton];
-
-                        if (!error) {
-                            [self insertFeedbackReply:feedbackReply];
-                        } else {
-                            [self showError:error];
-                        }
-                    }];
+            _contact = contact;
+            [LCUserFeedbackThread feedbackWithContent:title contact:_contact create:YES withBlock:^(id object, NSError *error) {
+                if ([self filterError:error]) {
+                    _userFeedback = object;
+                    [self createFeedbackReplyWithFeedback:_userFeedback content:content];
                 } else {
                     [self enableSendButton];
-                    [self showError:error];
                 }
             }];
         } else {
-            [_userFeedback saveFeedbackReplyInBackground:feedbackReply withBlock:^(id object, NSError *error) {
-                [self enableSendButton];
-
-                if (!error) {
-                    [self insertFeedbackReply:feedbackReply];
-                } else {
-                    [self showError:error];
-                }
-            }];
+            [self createFeedbackReplyWithFeedback:_userFeedback content:content];
         }
     }
+}
+
+- (void)createFeedbackReplyWithFeedback:(LCUserFeedbackThread *)feedback content:(NSString *)content {
+    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithContent:content type:@"user"];
+    [_userFeedback saveFeedbackReplyInBackground:feedbackReply withBlock:^(id object, NSError *error) {
+        if ([self filterError:error]) {
+            [_feedbackReplies addObject:feedbackReply];
+            [self.tableView reloadData];
+            [self scrollToBottom];
+            
+            if ([_inputTextField isFirstResponder]) {
+                [_inputTextField resignFirstResponder];
+            }
+            
+            if ([_inputTextField.text length] > 0) {
+                _inputTextField.text = @"";
+            }
+        }
+        [self enableSendButton];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -318,7 +312,9 @@
     if (textField.tag == TAG_TABLEView_Header && [textField.text length] > 0 && _userFeedback) {
         _userFeedback.contact = textField.text;
         [LCUserFeedbackThread updateFeedback:_userFeedback withBlock:^(id object, NSError *error) {
-            // do something...
+            if ([self filterError:error]) {
+                [self alertWithTitle:@"提示" message:@"更改成功"];
+            }
         }];
     }
 }

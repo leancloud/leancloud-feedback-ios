@@ -85,16 +85,16 @@
     }
 }
 
-- (void)countUnreadFeedbackThreadsWithContact:(NSString *)contact block:(AVIntegerResultBlock)block{
-    [LCUserFeedbackThread fetchFeedbackWithContact:contact withBlock:^(id object, NSError *error) {
+- (void)countUnreadFeedbackThreadsWithBlock:(AVIntegerResultBlock)block {
+    [LCUserFeedbackThread fetchFeedbackWithBlock:^(LCUserFeedbackThread *feedback, NSError *error) {
         if (error) {
             block(0, error);
         } else {
-            NSArray* results = [(NSDictionary*)object objectForKey:@"results"];
-            NSString *localKey = [NSString stringWithFormat:@"feedback_%@", contact];
-            if (results && results.count > 0) {
-                LCUserFeedbackThread *userFeedback = [[LCUserFeedbackThread alloc] initWithDictionary:results[0]];
-                [userFeedback fetchFeedbackRepliesInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (feedback == nil) {
+                block(0, nil);
+            } else {
+                NSString *localKey = [NSString stringWithFormat:@"feedback_%@", feedback.objectId];
+                [feedback fetchFeedbackRepliesInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     if (error) {
                         block(0 ,error);
                     } else {
@@ -103,9 +103,6 @@
                         block(unreadCount, nil);
                     }
                 }];
-            } else {
-                [[NSUserDefaults standardUserDefaults] setObject:@(0) forKey:localKey];
-                block(0, nil);
             }
         }
     }];
