@@ -5,9 +5,9 @@
 //  Copyright (c) 2014 LeanCloud. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "LCUserFeedbackBaseCell.h"
 
-@interface LCUserFeedbackRightCell : UITableViewCell
+@interface LCUserFeedbackRightCell : LCUserFeedbackBaseCell
 
 @property(nonatomic, strong) UILabel *timestampLabel;
 

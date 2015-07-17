@@ -24,6 +24,11 @@ typedef enum : NSUInteger {
  */
 @property(nonatomic, assign) BOOL showContactInputHeader;
 
+/**
+ *  设置字体。默认是大小为 16 的系统字体。
+ */
+@property(nonatomic, strong) UIFont *feedbackCellFont;
+
 @property(nonatomic, retain) NSString *feedbackTitle;
 @property(nonatomic, retain) NSString *contact;
 

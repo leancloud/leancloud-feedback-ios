@@ -43,6 +43,7 @@
         // Custom initialization
         self.navigationBarStyle = LCUserFeedbackNavigationBarStyleBlue;
         self.showContactInputHeader = YES;
+        self.feedbackCellFont = [UIFont systemFontOfSize:16];
     }
     return self;
 }
@@ -130,6 +131,8 @@
     [self.sendButton setBackgroundColor:[UIColor colorWithRed:247.0f/255 green:248.0f/255 blue:248.0f/255 alpha:1]];
     [self.sendButton addTarget:self action:@selector(sendButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_sendButton];
+
+    [[[LCUserFeedbackBaseCell class] appearance] setCellFont:self.feedbackCellFont];
     
     _refreshControl = [[UIRefreshControl alloc] init];
     [_refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];

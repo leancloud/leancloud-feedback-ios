@@ -24,7 +24,7 @@
         if ([[UIDevice currentDevice].systemVersion floatValue] < 7.0f) {
             self.textLabel.backgroundColor = [UIColor whiteColor];
         }
-        self.textLabel.font = [UIFont systemFontOfSize:12.0f];
+        self.textLabel.font = [[LCUserFeedbackBaseCell appearance] cellFont];
         self.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.textLabel.numberOfLines = 0;
         self.textLabel.textAlignment = UITextAlignmentLeft;
@@ -58,7 +58,7 @@
     textLabelFrame.origin.x = 18;
     textLabelFrame.size.width = 226;
     
-    CGSize labelSize = [self.textLabel.text sizeWithFont:[UIFont systemFontOfSize:12.0f]
+    CGSize labelSize = [self.textLabel.text sizeWithFont:[[LCUserFeedbackBaseCell appearance] cellFont]
                                        constrainedToSize:CGSizeMake(226.0f, MAXFLOAT)
                                            lineBreakMode:NSLineBreakByWordWrapping];
     
