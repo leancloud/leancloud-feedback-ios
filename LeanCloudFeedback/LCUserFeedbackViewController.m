@@ -41,6 +41,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.navigationBarStyle = LCUserFeedbackNavigationBarStyleBlue;
+        self.showContactInputHeader = YES;
     }
     return self;
 }
@@ -85,13 +87,20 @@
     UIBarButtonItem *closeButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
     self.navigationItem.leftBarButtonItem = closeButtonItem;
     [self.navigationItem setTitle:@"意见反馈"];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:85.0f/255 green:184.0f/255 blue:244.0f/255 alpha:1]];
-    } else {
-        [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:85.0f/255 green:184.0f/255 blue:244.0f/255 alpha:1]];
+    switch (self.navigationBarStyle) {
+        case LCUserFeedbackNavigationBarStyleBlue:
+            [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+            if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+                [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:85.0f/255 green:184.0f/255 blue:244.0f/255 alpha:1]];
+            } else {
+                [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:85.0f/255 green:184.0f/255 blue:244.0f/255 alpha:1]];
+            }
+            break;
+        case LCUserFeedbackNavigationBarStyleNone:
+            break;
+        default:
+            break;
     }
-    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 48)
                                                   style:UITableViewStylePlain];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -337,7 +346,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 48;
+    if (self.showContactInputHeader) {
+        return 48;
+    } else {
+        return 0;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
