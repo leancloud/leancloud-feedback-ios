@@ -20,9 +20,9 @@ typedef enum : NSUInteger {
 @property(nonatomic, assign) LCUserFeedbackNavigationBarStyle navigationBarStyle;
 
 /**
- *  是否显示联系方式表头, 默认显示。假如不需要用户提供联系方式则可以不显示。
+ *  是否隐藏联系方式表头, 默认不隐藏。假如不需要用户提供联系方式则可以隐藏。
  */
-@property(nonatomic, assign) BOOL showContactInputHeader;
+@property(nonatomic, assign) BOOL contactHeaderHidden;
 
 /**
  *  设置字体。默认是大小为 16 的系统字体。

@@ -42,7 +42,7 @@
     if (self) {
         // Custom initialization
         self.navigationBarStyle = LCUserFeedbackNavigationBarStyleBlue;
-        self.showContactInputHeader = YES;
+        self.contactHeaderHidden = NO;
         self.feedbackCellFont = [UIFont systemFontOfSize:16];
     }
     return self;
@@ -349,10 +349,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (self.showContactInputHeader) {
-        return 48;
-    } else {
+    if (self.contactHeaderHidden) {
         return 0;
+    } else {
+        return 48;
     }
 }
 
