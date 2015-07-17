@@ -10,7 +10,7 @@
 
 @interface LCUserFeedbackReplyCell : UITableViewCell
 
-@property (nonatomic, strong) UIFont *cellFont UI_APPEARANCE_SELECTOR;;
+@property (nonatomic, strong) UIFont *cellFont UI_APPEARANCE_SELECTOR;
 
 - (id)initWithFeedbackReply:(LCUserFeedbackReply *)reply reuseIdentifier:(NSString *)reuseIdentifier;
 

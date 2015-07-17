@@ -68,7 +68,7 @@
 
 - (UIImageView *)messageBackgroundView {
     if (_messageBackgroundView == nil) {
-            _messageBackgroundView = [[UIImageView alloc] initWithFrame:self.textLabel.frame];
+        _messageBackgroundView = [[UIImageView alloc] initWithFrame:self.textLabel.frame];
     }
     return _messageBackgroundView;
 }
