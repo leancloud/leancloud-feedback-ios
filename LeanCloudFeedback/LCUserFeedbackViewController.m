@@ -7,8 +7,7 @@
 //
 
 #import "LCUserFeedbackViewController.h"
-#import "LCUserFeedbackLeftCell.h"
-#import "LCUserFeedbackRightCell.h"
+#import "LCUserFeedbackReplyCell.h"
 #import "LCUserFeedbackThread.h"
 #import "LCUserFeedbackThread_Internal.h"
 #import "LCUserFeedbackReply.h"
@@ -132,7 +131,7 @@
     [self.sendButton addTarget:self action:@selector(sendButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_sendButton];
 
-    [[[LCUserFeedbackBaseCell class] appearance] setCellFont:self.feedbackCellFont];
+    [[[LCUserFeedbackReplyCell class] appearance] setCellFont:self.feedbackCellFont];
     
     _refreshControl = [[UIRefreshControl alloc] init];
     [_refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
@@ -387,37 +386,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LCUserFeedbackReply *feedbackReply = _feedbackReplies[indexPath.row];
-    
-    if ([feedbackReply.type isEqualToString:@"dev"]) {
-        LCUserFeedbackLeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedbackCellLeft"];
-        if (cell == nil) {
-            cell = [[LCUserFeedbackLeftCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"feedbackCellLeft"];
-        }
-        cell.textLabel.text = feedbackReply.content;
-        cell.timestampLabel.text = [self formatDateString:feedbackReply.createAt];
-        return cell;
-    } else {
-        LCUserFeedbackRightCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedbackCellRight"];
-        if (cell == nil) {
-            cell = [[LCUserFeedbackRightCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"feedbackCellRight"];
-        }
-        
-        cell.textLabel.text = feedbackReply.content;
-        cell.timestampLabel.text = [self formatDateString:feedbackReply.createAt];
-        return cell;
+    static NSString *cellIdentifier = @"feedbackReplyCell";
+    LCUserFeedbackReplyCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = [[LCUserFeedbackReplyCell alloc] initWithFeedbackReply:feedbackReply reuseIdentifier:cellIdentifier];;
     }
+    [cell configuareCellWithFeedbackReply:feedbackReply];
+    return cell;
 }
 
-- (NSString *)formatDateString:(NSString *)dateString {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-    NSDate *date = [dateFormatter dateFromString:dateString];
-    
-    dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    return [dateFormatter stringFromDate:date];
-}
 
 @end
 

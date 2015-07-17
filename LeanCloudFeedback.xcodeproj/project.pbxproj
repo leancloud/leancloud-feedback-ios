@@ -36,10 +36,8 @@
 		5CCAE1271B09B323009276B9 /* LCUserFeedbackThread_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE11A1B09B323009276B9 /* LCUserFeedbackThread_Internal.h */; };
 		5CCAE1281B09B323009276B9 /* LCUserFeedbackThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE11B1B09B323009276B9 /* LCUserFeedbackThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5CCAE1291B09B323009276B9 /* LCUserFeedbackAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE11C1B09B323009276B9 /* LCUserFeedbackAgent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5CCAE12A1B09B323009276B9 /* LCUserFeedbackLeftCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE11D1B09B323009276B9 /* LCUserFeedbackLeftCell.h */; };
-		5CCAE12B1B09B323009276B9 /* LCUserFeedbackLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE11E1B09B323009276B9 /* LCUserFeedbackLeftCell.m */; };
-		5CCAE12C1B09B323009276B9 /* LCUserFeedbackRightCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE11F1B09B323009276B9 /* LCUserFeedbackRightCell.h */; };
-		5CCAE12D1B09B323009276B9 /* LCUserFeedbackRightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE1201B09B323009276B9 /* LCUserFeedbackRightCell.m */; };
+		5CCAE12A1B09B323009276B9 /* LCUserFeedbackReplyCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE11D1B09B323009276B9 /* LCUserFeedbackReplyCell.h */; };
+		5CCAE12B1B09B323009276B9 /* LCUserFeedbackReplyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE11E1B09B323009276B9 /* LCUserFeedbackReplyCell.m */; };
 		5CCAE12E1B09B323009276B9 /* LCUserFeedbackReply.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE1211B09B323009276B9 /* LCUserFeedbackReply.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5CCAE12F1B09B323009276B9 /* LCUserFeedbackReply.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE1221B09B323009276B9 /* LCUserFeedbackReply.m */; };
 		5CCAE1301B09B323009276B9 /* LCUserFeedbackViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE1231B09B323009276B9 /* LCUserFeedbackViewController.h */; };
@@ -84,10 +82,8 @@
 		5CCAE11A1B09B323009276B9 /* LCUserFeedbackThread_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCUserFeedbackThread_Internal.h; sourceTree = "<group>"; };
 		5CCAE11B1B09B323009276B9 /* LCUserFeedbackThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCUserFeedbackThread.h; sourceTree = "<group>"; };
 		5CCAE11C1B09B323009276B9 /* LCUserFeedbackAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCUserFeedbackAgent.h; sourceTree = "<group>"; };
-		5CCAE11D1B09B323009276B9 /* LCUserFeedbackLeftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCUserFeedbackLeftCell.h; sourceTree = "<group>"; };
-		5CCAE11E1B09B323009276B9 /* LCUserFeedbackLeftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCUserFeedbackLeftCell.m; sourceTree = "<group>"; };
-		5CCAE11F1B09B323009276B9 /* LCUserFeedbackRightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCUserFeedbackRightCell.h; sourceTree = "<group>"; };
-		5CCAE1201B09B323009276B9 /* LCUserFeedbackRightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCUserFeedbackRightCell.m; sourceTree = "<group>"; };
+		5CCAE11D1B09B323009276B9 /* LCUserFeedbackReplyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCUserFeedbackReplyCell.h; sourceTree = "<group>"; };
+		5CCAE11E1B09B323009276B9 /* LCUserFeedbackReplyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCUserFeedbackReplyCell.m; sourceTree = "<group>"; };
 		5CCAE1211B09B323009276B9 /* LCUserFeedbackReply.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCUserFeedbackReply.h; sourceTree = "<group>"; };
 		5CCAE1221B09B323009276B9 /* LCUserFeedbackReply.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCUserFeedbackReply.m; sourceTree = "<group>"; };
 		5CCAE1231B09B323009276B9 /* LCUserFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCUserFeedbackViewController.h; sourceTree = "<group>"; };
@@ -174,12 +170,10 @@
 				5CCAE11B1B09B323009276B9 /* LCUserFeedbackThread.h */,
 				5CCAE11A1B09B323009276B9 /* LCUserFeedbackThread_Internal.h */,
 				5CCAE1181B09B323009276B9 /* LCUserFeedbackThread.m */,
-				5CCAE11D1B09B323009276B9 /* LCUserFeedbackLeftCell.h */,
-				5CCAE11E1B09B323009276B9 /* LCUserFeedbackLeftCell.m */,
-				5CCAE11F1B09B323009276B9 /* LCUserFeedbackRightCell.h */,
-				5CCAE1201B09B323009276B9 /* LCUserFeedbackRightCell.m */,
 				5CCAE1211B09B323009276B9 /* LCUserFeedbackReply.h */,
 				5CCAE1221B09B323009276B9 /* LCUserFeedbackReply.m */,
+				5CCAE11D1B09B323009276B9 /* LCUserFeedbackReplyCell.h */,
+				5CCAE11E1B09B323009276B9 /* LCUserFeedbackReplyCell.m */,
 				5CCAE1231B09B323009276B9 /* LCUserFeedbackViewController.h */,
 				5CCAE1191B09B323009276B9 /* LCUserFeedbackViewController.m */,
 				5CCAE0FE1B09B0FE009276B9 /* Supporting Files */,
@@ -235,13 +229,12 @@
 				5CCAE1291B09B323009276B9 /* LCUserFeedbackAgent.h in Headers */,
 				5CCAE1281B09B323009276B9 /* LCUserFeedbackThread.h in Headers */,
 				5CCAE12E1B09B323009276B9 /* LCUserFeedbackReply.h in Headers */,
-				5CCAE12C1B09B323009276B9 /* LCUserFeedbackRightCell.h in Headers */,
 				5CCAE1361B09C1F2009276B9 /* LCHttpClient.h in Headers */,
 				5CCAE1381B09C1F2009276B9 /* LCUtils.h in Headers */,
 				5CCAE1271B09B323009276B9 /* LCUserFeedbackThread_Internal.h in Headers */,
 				5CCAE1011B09B0FE009276B9 /* LeanCloudFeedback.h in Headers */,
 				5CCAE1301B09B323009276B9 /* LCUserFeedbackViewController.h in Headers */,
-				5CCAE12A1B09B323009276B9 /* LCUserFeedbackLeftCell.h in Headers */,
+				5CCAE12A1B09B323009276B9 /* LCUserFeedbackReplyCell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,10 +362,9 @@
 			files = (
 				5CCAE12F1B09B323009276B9 /* LCUserFeedbackReply.m in Sources */,
 				5CCAE1251B09B323009276B9 /* LCUserFeedbackThread.m in Sources */,
-				5CCAE12B1B09B323009276B9 /* LCUserFeedbackLeftCell.m in Sources */,
+				5CCAE12B1B09B323009276B9 /* LCUserFeedbackReplyCell.m in Sources */,
 				5CCAE1261B09B323009276B9 /* LCUserFeedbackViewController.m in Sources */,
 				5CCAE1371B09C1F2009276B9 /* LCUtils.m in Sources */,
-				5CCAE12D1B09B323009276B9 /* LCUserFeedbackRightCell.m in Sources */,
 				5CCAE1241B09B323009276B9 /* LCUserFeedbackAgent.m in Sources */,
 				5CCAE1351B09C1F2009276B9 /* LCHttpClient.m in Sources */,
 			);
