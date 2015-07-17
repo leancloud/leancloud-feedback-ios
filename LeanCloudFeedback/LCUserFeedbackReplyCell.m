@@ -40,6 +40,8 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
+#pragma mark - property
+
 - (void)setupTextLabel {
     if ([[UIDevice currentDevice].systemVersion floatValue] < 7.0f) {
         self.textLabel.backgroundColor = [UIColor whiteColor];
@@ -70,6 +72,8 @@
     }
     return _messageBackgroundView;
 }
+
+#pragma mark -
 
 - (void)configuareCellWithFeedbackReply:(LCUserFeedbackReply *)reply {
     self.feedbackReply = reply;
