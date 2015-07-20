@@ -4,9 +4,7 @@ LeanCloud Feedback 模块是 [LeanCloud](https://leancloud.cn) 开源的一个�
 
 用户反馈界面如下：
 
-
 ![image](images/Screen.png)
-
 
 
 ## 如何贡献
@@ -26,8 +24,7 @@ LeanCloud Feedback 模块是 [LeanCloud](https://leancloud.cn) 开源的一个�
 │   └── LeanCloudFeedbackDemoTests
 └── README.md
 ```
-
-## 核心概念
+## 核心概念
 ### LCFeedbackReply
 FeedbackReply 代表了反馈系统中间，用户或者开发者的每一次回复。不同的类型可以通过 ReplyType 属性来指定。FeedbackReply 内部主要记录有如下信息：
 
@@ -83,29 +80,21 @@ xcodebuild -target UniversalFramework -config Release
     [agent showConversations:self title:@"提点意见" contact:@"热心用户"];
 ```
 
-当然，开发者也可以自己实现反馈界面
-这时候需要使用 LCUserFeedbackAgent 提供的另外两个 API 来完成用户反馈功能：
+也可通过 pod 方式安装，在 podfile 中加入以下声明，
 
 ```
-/**
- *  从服务端同步反馈回复
- *  @param title 反馈标题, 当用户没有创建过用户反馈时，需要传入这个参数用于创建用户反馈。
- *  @param contact 联系方式，邮箱或qq。
- *  @param block 结果回调
- *  @discussion 可以在 block 中处理反馈数据 (AVUserFeedbackThread 数组)，然后将其传入自定义用户反馈界面。
- */
-- (void)syncFeedbackThreadsWithBlock:(NSString *)title contact:(NSString *)contact block:(AVArrayResultBlock)block;
-
-/**
- *  发送用户反馈
- *  @param content 同上，用户反馈内容。
- *  @param block 结果回调
- */
-- (void)postFeedbackThread:(NSString *)content block:(AVIdResultBlock)block;
+  pod 'LeanCloudFeedback'
 ```
-
 
 ## 其他问题
 ### 我要增加额外的数据，该怎么做？
 可以扩展 LCUserFeedbackReply 的属性值，从而保存更多的内容。譬如允许用户截图来反馈问题的话，可以在应用中先把图片存储到 LeanCloud 云端（使用 AVFile），然后把 AVFile 的 url 保存到 LCUserFeedbackReply(attachment 属性)。
 
+## ChangeLog
+
+0.0.2	
+* 增加了导航栏、联系人表头、字体的定制
+* 去掉了 LeftCell 类 和 RightCell 类，统一为 FeedbackCell，因为左右Cell 大部分代码都是相同可复用的。
+
+0.0.1	
+* 发布

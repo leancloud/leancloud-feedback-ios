@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name     = "LeanCloudFeedback"
-  s.version  = "0.0.1"
+  s.version  = "0.0.2"
   s.platform = :ios, "5.1.1"
   s.summary  = "LeanCloud iOS SDK for mobile backend."
   s.homepage = "https://leancloud.cn"
@@ -20,6 +20,6 @@ Pod::Spec.new do |s|
   s.xcconfig   = { 'OTHER_LDFLAGS' => '$(inherited) -undefined dynamic_lookup' }
   s.frameworks = 'Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore'
 
-  s.dependency 'AVOSCloud', '~> 3.1.2.6'
+  s.dependency 'AVOSCloud', '3.1.2.6'
 
 end
