@@ -170,15 +170,28 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
     return [parameters copy];
 }
 
-- (void)saveFeedbackReplyInBackground:(LCUserFeedbackReply *)feedbackReply withBlock:(AVIdResultBlock)block {
-    if (!self.objectId) return;
-
+- (void)internalSaveFeedbackReply:(LCUserFeedbackReply *)feedbackReply block:(AVIdResultBlock)block {
     [[LCHttpClient sharedInstance] postObject:[self threadsPath]
                                withParameters:[self parametersWithFeedbackReply:feedbackReply]
-                                        block:^(id object, NSError *error)
-    {
-        [LCUtils callIdResultBlock:block object:object error:error];
+                                        block:^(id object, NSError *error){
+         [LCUtils callIdResultBlock:block object:object error:error];
     }];
+}
+
+- (void)saveFeedbackReplyInBackground:(LCUserFeedbackReply *)feedbackReply withBlock:(AVIdResultBlock)block {
+    if (!self.objectId) return;
+    
+    if (feedbackReply.attachment) {
+        [feedbackReply.attachment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {
+                block(nil, error);
+            } else {
+                [self internalSaveFeedbackReply:feedbackReply block:block];
+            }
+        }];
+    } else {
+        [self internalSaveFeedbackReply:feedbackReply block:block];
+    }
 }
 
 - (void)fetchFeedbackRepliesInBackgroundWithBlock:(AVArrayResultBlock)block {

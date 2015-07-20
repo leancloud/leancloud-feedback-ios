@@ -15,10 +15,12 @@
 @property(nonatomic, retain) LCUserFeedbackThread *feedback;
 
 @property(nonatomic, copy) NSString *content;
+@property(nonatomic, strong) AVFile *attachment;
 @property(nonatomic, copy) NSString *type;
 @property(nonatomic, copy, readonly) NSString *createAt;
 
 + (instancetype)feedbackReplyWithContent:(NSString *)content type:(NSString *)type;
++ (instancetype)feedbackReplyWithImage:(UIImage *)image type:(NSString *)type;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
