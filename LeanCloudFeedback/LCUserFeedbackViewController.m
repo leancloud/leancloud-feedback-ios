@@ -20,16 +20,20 @@
 #define TAG_TABLEView_Header 1
 #define TAG_InputFiled 2
 
+static CGFloat const kInputViewHeight = 48;
+static CGFloat const kContactHeaderHeight = 48;
+
 @interface LCUserFeedbackViewController () <UITableViewDelegate, UITableViewDataSource> {
     NSMutableArray *_feedbackReplies;
-    UIRefreshControl *_refreshControl;
     LCUserFeedbackThread *_userFeedback;
 }
 
+@property(nonatomic, strong) UIRefreshControl *refreshControl;
 @property(nonatomic, strong) UITableView *tableView;
 @property(nonatomic, strong) UITextField *tableViewHeader;
 @property(nonatomic, strong) UITextField *inputTextField;
 @property(nonatomic, strong) UIButton *sendButton;
+@property(nonatomic, strong) UIBarButtonItem *closeButtonItem;
 
 @end
 
@@ -74,19 +78,82 @@
 }
 
 - (void)setupUI {
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *closeButtonImage = [UIImage imageNamed:@"LeanCloudFeedback/back.png"];
-    if (!closeButtonImage) {
-        closeButtonImage = [UIImage imageNamed:@"back.png"];
-    }
-    [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
-    closeButton.frame = CGRectMake(0, 0, closeButtonImage.size.width, closeButtonImage.size.height);
-    closeButton.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *closeButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
-    self.navigationItem.leftBarButtonItem = closeButtonItem;
+    self.navigationItem.leftBarButtonItem = self.closeButtonItem;
     [self.navigationItem setTitle:@"意见反馈"];
+    [self setupNavigaionBarStyle];
+    
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.inputTextField];
+    [self.view addSubview:self.sendButton];
+
+    [[[LCUserFeedbackReplyCell class] appearance] setCellFont:self.feedbackCellFont];
+    
+    [_tableView addSubview:self.refreshControl];
+}
+
+#pragma mark - Properties
+
+- (UIBarButtonItem *)closeButtonItem {
+    if (_closeButtonItem == nil) {
+        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage *closeButtonImage = [UIImage imageNamed:@"LeanCloudFeedback/back.png"];
+        if (!closeButtonImage) {
+            closeButtonImage = [UIImage imageNamed:@"back.png"];
+        }
+        [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
+        closeButton.frame = CGRectMake(0, 0, closeButtonImage.size.width, closeButtonImage.size.height);
+        closeButton.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        _closeButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
+    }
+    return _closeButtonItem;
+}
+
+
+- (UITableView *)tableView {
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kInputViewHeight)
+                                                      style:UITableViewStylePlain];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+    }
+    return _tableView;
+}
+
+- (UITextField *)inputTextField {
+    if (_inputTextField == nil) {
+        _inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - kInputViewHeight, CGRectGetWidth(self.view.frame)-60, kInputViewHeight)];
+        _inputTextField.tag = TAG_InputFiled;
+        [_inputTextField setFont:[UIFont systemFontOfSize:12]];
+        [_inputTextField setBackgroundColor:[UIColor colorWithRed:247.0f/255 green:248.0f/255 blue:248.0f/255 alpha:1]];
+        _inputTextField.placeholder = @"填写反馈";
+        UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 30)];
+        _inputTextField.leftView = paddingView;
+        _inputTextField.leftViewMode = UITextFieldViewModeAlways;
+        _inputTextField.returnKeyType = UIReturnKeyDone;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        _inputTextField.delegate = (id <UITextFieldDelegate>) self;
+    }
+    return _inputTextField;
+}
+
+- (UIButton *)sendButton {
+    if (_sendButton == nil) {
+        _sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _sendButton.frame = CGRectMake(CGRectGetWidth(self.view.frame) - 60, CGRectGetHeight(self.view.frame) - kInputViewHeight, 60, kInputViewHeight);
+        [_sendButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [_sendButton setTitleColor:[UIColor colorWithRed:137.0f/255 green:137.0f/255 blue:137.0f/255 alpha:1] forState:UIControlStateNormal];
+        [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
+        [_sendButton setBackgroundColor:[UIColor colorWithRed:247.0f/255 green:248.0f/255 blue:248.0f/255 alpha:1]];
+        [_sendButton addTarget:self action:@selector(sendButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _sendButton;
+}
+
+- (void)setupNavigaionBarStyle {
     switch (self.navigationBarStyle) {
         case LCUserFeedbackNavigationBarStyleBlue:
             [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
@@ -101,42 +168,17 @@
         default:
             break;
     }
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 48)
-                                                  style:UITableViewStylePlain];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.view addSubview:_tableView];
-    
-    self.inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - 48, CGRectGetWidth(self.view.frame)-60, 48)];
-    self.inputTextField.tag = TAG_InputFiled;
-    [self.inputTextField setFont:[UIFont systemFontOfSize:12]];
-    [self.inputTextField setBackgroundColor:[UIColor colorWithRed:247.0f/255 green:248.0f/255 blue:248.0f/255 alpha:1]];
-    self.inputTextField.placeholder = @"填写反馈";
-    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 30)];
-    self.inputTextField.leftView = paddingView;
-    self.inputTextField.leftViewMode = UITextFieldViewModeAlways;
-    self.inputTextField.returnKeyType = UIReturnKeyDone;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    self.inputTextField.delegate = (id <UITextFieldDelegate>) self;
-    [self.view addSubview:_inputTextField];
-    
-    self.sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.sendButton.frame = CGRectMake(CGRectGetWidth(self.view.frame) - 60, CGRectGetHeight(self.view.frame) - 48, 60, 48);
-    [self.sendButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
-    [self.sendButton setTitleColor:[UIColor colorWithRed:137.0f/255 green:137.0f/255 blue:137.0f/255 alpha:1] forState:UIControlStateNormal];
-    [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
-    [self.sendButton setBackgroundColor:[UIColor colorWithRed:247.0f/255 green:248.0f/255 blue:248.0f/255 alpha:1]];
-    [self.sendButton addTarget:self action:@selector(sendButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_sendButton];
-
-    [[[LCUserFeedbackReplyCell class] appearance] setCellFont:self.feedbackCellFont];
-    
-    _refreshControl = [[UIRefreshControl alloc] init];
-    [_refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
-    [_tableView addSubview:_refreshControl];
 }
+
+- (UIRefreshControl *)refreshControl {
+    if (_refreshControl == nil) {
+        _refreshControl = [[UIRefreshControl alloc] init];
+        [_refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
+    }
+    return _refreshControl;
+}
+
+#pragma mark -
 
 - (void)fetchRepliesWithBlock:(AVArrayResultBlock)block {
     [LCUserFeedbackThread fetchFeedbackWithBlock:^(LCUserFeedbackThread *feedback, NSError *error) {
@@ -305,7 +347,7 @@
     self.sendButton.frame = sendButtonFrame;
     
     CGRect tableViewFrame = self.tableView.frame;
-    tableViewFrame.size.height = CGRectGetHeight(self.view.frame) - 48;
+    tableViewFrame.size.height = CGRectGetHeight(self.view.frame) - kInputViewHeight;
     self.tableView.frame = tableViewFrame;
     
     [UIView commitAnimations];
@@ -351,12 +393,12 @@
     if (self.contactHeaderHidden) {
         return 0;
     } else {
-        return 48;
+        return kContactHeaderHeight;
     }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    self.tableViewHeader = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 320, 48)];
+    self.tableViewHeader = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 320, kContactHeaderHeight)];
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 30)];
     self.tableViewHeader.leftView = paddingView;
     self.tableViewHeader.leftViewMode = UITextFieldViewModeAlways;
@@ -381,7 +423,6 @@
                                lineBreakMode:NSLineBreakByWordWrapping];
     
     return labelSize.height + 40 + TOP_MARGIN;
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
