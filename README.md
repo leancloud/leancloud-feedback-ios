@@ -93,8 +93,8 @@ xcodebuild -target UniversalFramework -config Release
 ## ChangeLog
 
 0.0.2	
-* 增加了导航栏、联系人表头、字体的定制
-* 去掉了 LeftCell 类 和 RightCell 类，统一为 FeedbackCell，因为左右Cell 大部分代码都是相同可复用的。
+增加了导航栏、联系人表头、字体的定制		
+去掉了 LeftCell 类 和 RightCell 类，统一为 FeedbackCell，因为左右Cell 大部分代码都是相同可复用的。
 
 0.0.1	
-* 发布
+发布
