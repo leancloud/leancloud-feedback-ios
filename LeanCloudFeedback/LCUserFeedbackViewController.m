@@ -7,8 +7,7 @@
 //
 
 #import "LCUserFeedbackViewController.h"
-#import "LCUserFeedbackLeftCell.h"
-#import "LCUserFeedbackRightCell.h"
+#import "LCUserFeedbackReplyCell.h"
 #import "LCUserFeedbackThread.h"
 #import "LCUserFeedbackThread_Internal.h"
 #import "LCUserFeedbackReply.h"
@@ -41,6 +40,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.navigationBarStyle = LCUserFeedbackNavigationBarStyleBlue;
+        self.contactHeaderHidden = NO;
+        self.feedbackCellFont = [UIFont systemFontOfSize:16];
     }
     return self;
 }
@@ -85,13 +87,20 @@
     UIBarButtonItem *closeButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
     self.navigationItem.leftBarButtonItem = closeButtonItem;
     [self.navigationItem setTitle:@"意见反馈"];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:85.0f/255 green:184.0f/255 blue:244.0f/255 alpha:1]];
-    } else {
-        [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:85.0f/255 green:184.0f/255 blue:244.0f/255 alpha:1]];
+    switch (self.navigationBarStyle) {
+        case LCUserFeedbackNavigationBarStyleBlue:
+            [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+            if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+                [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:85.0f/255 green:184.0f/255 blue:244.0f/255 alpha:1]];
+            } else {
+                [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:85.0f/255 green:184.0f/255 blue:244.0f/255 alpha:1]];
+            }
+            break;
+        case LCUserFeedbackNavigationBarStyleNone:
+            break;
+        default:
+            break;
     }
-    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 48)
                                                   style:UITableViewStylePlain];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -121,6 +130,8 @@
     [self.sendButton setBackgroundColor:[UIColor colorWithRed:247.0f/255 green:248.0f/255 blue:248.0f/255 alpha:1]];
     [self.sendButton addTarget:self action:@selector(sendButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_sendButton];
+
+    [[[LCUserFeedbackReplyCell class] appearance] setCellFont:self.feedbackCellFont];
     
     _refreshControl = [[UIRefreshControl alloc] init];
     [_refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
@@ -337,7 +348,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 48;
+    if (self.contactHeaderHidden) {
+        return 0;
+    } else {
+        return 48;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -371,37 +386,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LCUserFeedbackReply *feedbackReply = _feedbackReplies[indexPath.row];
-    
-    if ([feedbackReply.type isEqualToString:@"dev"]) {
-        LCUserFeedbackLeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedbackCellLeft"];
-        if (cell == nil) {
-            cell = [[LCUserFeedbackLeftCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"feedbackCellLeft"];
-        }
-        cell.textLabel.text = feedbackReply.content;
-        cell.timestampLabel.text = [self formatDateString:feedbackReply.createAt];
-        return cell;
-    } else {
-        LCUserFeedbackRightCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedbackCellRight"];
-        if (cell == nil) {
-            cell = [[LCUserFeedbackRightCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"feedbackCellRight"];
-        }
-        
-        cell.textLabel.text = feedbackReply.content;
-        cell.timestampLabel.text = [self formatDateString:feedbackReply.createAt];
-        return cell;
+    static NSString *cellIdentifier = @"feedbackReplyCell";
+    LCUserFeedbackReplyCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = [[LCUserFeedbackReplyCell alloc] initWithFeedbackReply:feedbackReply reuseIdentifier:cellIdentifier];;
     }
+    [cell configuareCellWithFeedbackReply:feedbackReply];
+    return cell;
 }
 
-- (NSString *)formatDateString:(NSString *)dateString {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-    NSDate *date = [dateFormatter dateFromString:dateString];
-    
-    dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    return [dateFormatter stringFromDate:date];
-}
 
 @end
 
