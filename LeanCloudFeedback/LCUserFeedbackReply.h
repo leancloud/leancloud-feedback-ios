@@ -6,7 +6,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AVOSCloud/AVConstants.h>
+#import <AVOSCloud/AVOSCloud.h>
+
+typedef enum : NSInteger {
+    LCContentTypeText = 0 ,
+    LCContentTypeImage
+}LCContentType;
+
+typedef enum : NSInteger {
+    LCReplyTypeUser = 0,
+    LCReplyTypeDev,
+}LCReplyType;
 
 @class LCUserFeedbackThread;
 
@@ -14,16 +24,19 @@
 
 @property(nonatomic, retain) LCUserFeedbackThread *feedback;
 
-@property(nonatomic, copy) NSString *content;
-@property(nonatomic, strong) AVFile *attachment;
-@property(nonatomic, copy) NSString *type;
+@property(nonatomic, copy, readonly) NSString *content;
+@property(nonatomic, strong, readonly) AVFile *attachment;
+@property(nonatomic, strong, readonly) UIImage *attachmentImage;
+@property(nonatomic, assign, readonly) LCReplyType type;
 @property(nonatomic, copy, readonly) NSString *createAt;
 
-+ (instancetype)feedbackReplyWithContent:(NSString *)content type:(NSString *)type;
-+ (instancetype)feedbackReplyWithImage:(UIImage *)image type:(NSString *)type;
++ (instancetype)feedbackReplyWithContent:(NSString *)content type:(LCReplyType)type;
++ (instancetype)feedbackReplyWithImage:(UIImage *)image type:(LCReplyType)type;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 - (NSDictionary *)dictionary;
+
+- (LCContentType)contentType;
 
 @end

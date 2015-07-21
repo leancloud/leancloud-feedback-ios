@@ -8,13 +8,20 @@
 #import "LCUserFeedbackReplyCell.h"
 #import "LCUserFeedbackReply.h"
 
-#define TOP_MARGIN 20.0f
+static CGFloat const kLabelVerticalPadding = 10;
+static CGFloat const kTimestampLabelHeight = 18;
+static CGFloat const kMaxiumCellWidth = 226;
+static CGFloat const kBubbleHorizontalPadding = 10;
+static CGFloat const kContentHorizontalPadding = 10;
+static CGFloat const kContentVerticalPadding = 10;
 
-@interface LCUserFeedbackReplyCell()
+static CGFloat const kBubbleArrowHeight = 14; /**< 气泡尖嘴的高度 */
+
+@interface LCUserFeedbackReplyCell()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UILabel *timestampLabel;
 
-@property (nonatomic, strong) UIImageView *messageBackgroundView;
+@property (nonatomic, strong) UIImageView *bubbleImageView;
 
 @property (nonatomic, strong) LCUserFeedbackReply *feedbackReply;
 
@@ -22,21 +29,28 @@
 
 @implementation LCUserFeedbackReplyCell
 
+#pragma mark - life cycle
+
 - (id)initWithFeedbackReply:(LCUserFeedbackReply *)reply reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self setup];
+        [self setupWithFeedbackReply:reply];
     }
     return self;
 }
 
-- (void)setup {
+- (void)setupWithFeedbackReply:(LCUserFeedbackReply *)reply {
     self.backgroundColor = [UIColor clearColor];
     [self setupTextLabel];
     [self.contentView addSubview:self.timestampLabel];
-    
-    [self.contentView insertSubview:[self messageBackgroundView] belowSubview:self.textLabel];
-    
+    switch (reply.contentType) {
+        case LCContentTypeText:
+            [self.contentView insertSubview:self.bubbleImageView belowSubview:self.textLabel];
+            break;
+        case LCContentTypeImage:
+            [self.contentView insertSubview:self.bubbleImageView belowSubview:self.imageView];
+            break;
+    }
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
@@ -53,6 +67,11 @@
     self.textLabel.textColor = [UIColor blackColor];
 }
 
+- (void)setupImageView {
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.clipsToBounds = YES;
+}
+
 - (UILabel *)timestampLabel {
     if (_timestampLabel == nil) {
         _timestampLabel = [[UILabel alloc] init];
@@ -61,48 +80,114 @@
         _timestampLabel.backgroundColor = [UIColor clearColor];
         _timestampLabel.font = [UIFont systemFontOfSize:9.0f];
         _timestampLabel.textColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1.0];
-        _timestampLabel.frame = CGRectMake(0.0f, 12, self.bounds.size.width, 18);
+        _timestampLabel.frame = CGRectMake(0.0f, kLabelVerticalPadding, self.bounds.size.width, kTimestampLabelHeight);
     }
     return _timestampLabel;
 }
 
-- (UIImageView *)messageBackgroundView {
-    if (_messageBackgroundView == nil) {
-        _messageBackgroundView = [[UIImageView alloc] initWithFrame:self.textLabel.frame];
+- (UIImageView *)bubbleImageView {
+    if (_bubbleImageView == nil) {
+        _bubbleImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
     }
-    return _messageBackgroundView;
+    return _bubbleImageView;
 }
 
-#pragma mark -
+#pragma mark - size or frame
+
++ (CGSize)getBubbleSizeWithReply:(LCUserFeedbackReply *)reply {
+    CGSize bubbleSize;
+    switch (reply.contentType) {
+        case LCContentTypeText: {
+            bubbleSize = [self caculateLabelSizeForText:reply.content];
+            break;
+        }
+        case LCContentTypeImage:
+            bubbleSize = CGSizeMake(120, 120);
+            break;
+    }
+    bubbleSize = CGSizeMake(bubbleSize.width + kContentHorizontalPadding * 2, bubbleSize.height + kContentVerticalPadding * 2);
+    bubbleSize.height += kBubbleArrowHeight;
+    return bubbleSize;
+}
+
++ (CGFloat)heightForFeedbackReply:(LCUserFeedbackReply *)reply {
+    CGFloat height = kTimestampLabelHeight + 2 * kLabelVerticalPadding;
+    CGSize bubbleSize = [self getBubbleSizeWithReply:reply];
+    height += bubbleSize.height;
+    return height;
+}
+
+- (CGRect)bubbleFrame {
+    CGSize bubbleSize = [[self class] getBubbleSizeWithReply:self.feedbackReply];
+    
+    CGFloat paddingX = kBubbleHorizontalPadding;
+    if (self.feedbackReply.type == LCReplyTypeUser) {
+        paddingX = CGRectGetWidth(self.bounds) - bubbleSize.width - kBubbleHorizontalPadding;
+    }
+    CGFloat originY = CGRectGetMaxY(self.timestampLabel.frame) + kLabelVerticalPadding;
+    return CGRectMake(paddingX, originY, bubbleSize.width, bubbleSize.height);
+}
+/**
+ *  气泡去除掉尖嘴的 frame
+ */
+- (CGRect)bubbleContentFrame {
+    CGRect contentFrame = [self bubbleFrame];
+    switch (self.feedbackReply.type) {
+        case LCReplyTypeDev: {
+            // 尖嘴在上方
+            contentFrame.origin.y += kBubbleArrowHeight;
+            contentFrame.size.height -= kBubbleArrowHeight;
+        }
+            break;
+        case LCReplyTypeUser:
+            // 尖嘴在下方
+            contentFrame.size.height -= kBubbleArrowHeight;
+            break;
+    }
+    return contentFrame;
+}
+
+#pragma mark - configuare
 
 - (void)configuareCellWithFeedbackReply:(LCUserFeedbackReply *)reply {
+    for (UIGestureRecognizer *recognizer in self.contentView.gestureRecognizers) {
+        [self.contentView removeGestureRecognizer:recognizer];
+    }
+    
     self.feedbackReply = reply;
-    self.messageBackgroundView.image = [self backgroundImageForFeedbackReply:reply];
-    self.textLabel.text = reply.content;
+    self.bubbleImageView.image = [self backgroundImageForFeedbackReply:reply];
     self.timestampLabel.text = [self formatDateString:reply.createAt];
+    switch (reply.contentType) {
+        case LCContentTypeText:
+            self.textLabel.text = reply.content;
+            break;
+        case LCContentTypeImage:
+            self.imageView.image =  reply.attachmentImage;
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureRecognizer:)];
+            tap.delegate = self;
+            tap.cancelsTouchesInView = NO;
+            // Todo 应该设置到 imageView，但很奇怪接收不到事件
+            [self.contentView addGestureRecognizer:tap];
+            break;
+    }
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGSize labelSize = [self caculateLabelSizeForText:self.feedbackReply.content];
-    
-    CGFloat textLabelOriginX = 18;
-    if ([self isDevFeedbackReply:self.feedbackReply] == NO) {
-        textLabelOriginX = self.bounds.size.width - textLabelOriginX - labelSize.width;
-    }
-    
-    CGRect textLabelFrame = self.textLabel.frame;
-    textLabelFrame.origin.x = textLabelOriginX;
-    textLabelFrame.origin.y = 20.0f + TOP_MARGIN;
-    textLabelFrame.size.width = labelSize.width;
-    textLabelFrame.size.height = labelSize.height;
-    self.textLabel.frame = textLabelFrame;
-    
-    if ([self isDevFeedbackReply:self.feedbackReply]) {
-        _messageBackgroundView.frame = CGRectMake(10, textLabelFrame.origin.y - 12, labelSize.width + 16, labelSize.height + 18);;
-    } else {
-        _messageBackgroundView.frame = CGRectMake(textLabelFrame.origin.x - 8, textLabelFrame.origin.y - 5, labelSize.width + 16, labelSize.height + 18);
+    CGRect bubbleFrame = [self bubbleFrame];
+    self.bubbleImageView.frame = bubbleFrame;
+    CGRect contentFrame = [self bubbleContentFrame];
+    CGRect innerContentFrame = CGRectMake(CGRectGetMinX(contentFrame) + kContentHorizontalPadding, CGRectGetMinY(contentFrame) + kContentVerticalPadding, CGRectGetWidth(contentFrame) - kContentHorizontalPadding * 2, CGRectGetHeight(contentFrame) - kContentVerticalPadding * 2);
+    switch (self.feedbackReply.contentType) {
+        case LCContentTypeText: {
+            self.textLabel.frame = innerContentFrame;
+            break;
+        }
+        case LCContentTypeImage: {
+            self.imageView.frame = innerContentFrame;
+            break;
+        }
     }
 }
 
@@ -110,32 +195,45 @@
     [super prepareForReuse];
     self.timestampLabel.text = nil;
     self.textLabel.text = nil;
-    self.messageBackgroundView.image = nil;
+    self.imageView.image = nil;
+    self.bubbleImageView.image = nil;
+}
+
+#pragma mark - action
+
+- (void)handleTapGestureRecognizer:(UITapGestureRecognizer *)tap {
+    NSLog(@"tap");
+    if (tap.state == UIGestureRecognizerStateEnded) {
+        if ([self.delegate respondsToSelector:@selector(didSelectImageViewOnFeedbackReply:)]) {
+            [self.delegate didSelectImageViewOnFeedbackReply:self.feedbackReply];
+        }
+    }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gesture
+{
+    CGPoint point = [gesture locationInView:self.bubbleImageView.superview];
+    return CGRectContainsPoint(self.bubbleImageView.frame, point);
 }
 
 #pragma mark - utils
 
-- (CGSize)caculateLabelSizeForText:(NSString *)text {
++ (CGSize)caculateLabelSizeForText:(NSString *)text {
     UILabel *gettingSizeLabel = [[UILabel alloc] init];
     gettingSizeLabel.font = [[LCUserFeedbackReplyCell appearance] cellFont];
     gettingSizeLabel.lineBreakMode = NSLineBreakByWordWrapping;
     gettingSizeLabel.numberOfLines = 0;
-    gettingSizeLabel.text = self.textLabel.text;
-    CGSize maxiumLabelSize = CGSizeMake(226.0f, MAXFLOAT);
+    gettingSizeLabel.text = text;
+    CGSize maxiumLabelSize = CGSizeMake(kMaxiumCellWidth, MAXFLOAT);
     return [gettingSizeLabel sizeThatFits:maxiumLabelSize];
 }
 
-
-- (BOOL)isDevFeedbackReply:(LCUserFeedbackReply *)reply {
-    return [reply.type isEqualToString:@"dev"];
-}
-
 - (UIImage *)backgroundImageForFeedbackReply:(LCUserFeedbackReply *)reply {
-    if ([self isDevFeedbackReply:reply]) {
-        return [[UIImage imageNamed:@"bg_1.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:16];
-    } else {
-        return [[UIImage imageNamed:@"bg_2.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:16];;
-    }
+	if (reply.type == LCReplyTypeDev) {
+		return [[UIImage imageNamed:@"bg_1"] stretchableImageWithLeftCapWidth:20 topCapHeight:16];
+	} else {
+		return [[UIImage imageNamed:@"bg_2"] stretchableImageWithLeftCapWidth:1 topCapHeight:16];;
+	}
 }
 
 - (NSString *)formatDateString:(NSString *)dateString {
@@ -162,5 +260,6 @@
 
     // Configure the view for the selected state
 }
+
 
 @end

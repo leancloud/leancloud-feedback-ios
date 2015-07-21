@@ -22,6 +22,13 @@
 		704717B41B4A6F1600F6ADDC /* LeanCloudFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */; };
 		707352911B4A9119005466CE /* LeanCloudFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */; };
 		707352921B4A9119005466CE /* LeanCloudFeedback.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		70BE23591B5E01A3008DED4E /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23531B5E01A3008DED4E /* back@2x.png */; };
+		70BE235A1B5E01A3008DED4E /* bg_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23541B5E01A3008DED4E /* bg_1@2x.png */; };
+		70BE235B1B5E01A3008DED4E /* bg_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23551B5E01A3008DED4E /* bg_2@2x.png */; };
+		70BE235C1B5E01A3008DED4E /* btn_feedback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23561B5E01A3008DED4E /* btn_feedback@2x.png */; };
+		70BE235D1B5E01A3008DED4E /* btn_feedback_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23571B5E01A3008DED4E /* btn_feedback_new@2x.png */; };
+		70BE235E1B5E01A3008DED4E /* warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23581B5E01A3008DED4E /* warning@2x.png */; };
+		70FB0B221B5E674B00FD8D70 /* feedback_add_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FB0B211B5E674B00FD8D70 /* feedback_add_image@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +103,13 @@
 		5CC505241B0F05B0004D0CB1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5CC505261B0F05B8004D0CB1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LeanCloudFeedback.xcodeproj; path = ../LeanCloudFeedback.xcodeproj; sourceTree = "<group>"; };
+		70BE23531B5E01A3008DED4E /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
+		70BE23541B5E01A3008DED4E /* bg_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_1@2x.png"; sourceTree = "<group>"; };
+		70BE23551B5E01A3008DED4E /* bg_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_2@2x.png"; sourceTree = "<group>"; };
+		70BE23561B5E01A3008DED4E /* btn_feedback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_feedback@2x.png"; sourceTree = "<group>"; };
+		70BE23571B5E01A3008DED4E /* btn_feedback_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_feedback_new@2x.png"; sourceTree = "<group>"; };
+		70BE23581B5E01A3008DED4E /* warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "warning@2x.png"; sourceTree = "<group>"; };
+		70FB0B211B5E674B00FD8D70 /* feedback_add_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_add_image@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +164,7 @@
 		5CC504E31B0F01D3004D0CB1 /* LeanCloudFeedbackDemo */ = {
 			isa = PBXGroup;
 			children = (
+				70BE23521B5E01A3008DED4E /* resources */,
 				5CC504E81B0F01D3004D0CB1 /* AppDelegate.h */,
 				5CC504E91B0F01D3004D0CB1 /* AppDelegate.m */,
 				5CC504EB1B0F01D3004D0CB1 /* ViewController.h */,
@@ -195,6 +210,21 @@
 				5CC505361B0F0D76004D0CB1 /* LeanCloudFeedbackTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		70BE23521B5E01A3008DED4E /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				70FB0B211B5E674B00FD8D70 /* feedback_add_image@2x.png */,
+				70BE23531B5E01A3008DED4E /* back@2x.png */,
+				70BE23541B5E01A3008DED4E /* bg_1@2x.png */,
+				70BE23551B5E01A3008DED4E /* bg_2@2x.png */,
+				70BE23561B5E01A3008DED4E /* btn_feedback@2x.png */,
+				70BE23571B5E01A3008DED4E /* btn_feedback_new@2x.png */,
+				70BE23581B5E01A3008DED4E /* warning@2x.png */,
+			);
+			name = resources;
+			path = ../../LeanCloudFeedback/resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,8 +334,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CC504F01B0F01D3004D0CB1 /* Main.storyboard in Resources */,
+				70BE23591B5E01A3008DED4E /* back@2x.png in Resources */,
+				70BE235B1B5E01A3008DED4E /* bg_2@2x.png in Resources */,
+				70BE235A1B5E01A3008DED4E /* bg_1@2x.png in Resources */,
+				70BE235E1B5E01A3008DED4E /* warning@2x.png in Resources */,
+				70FB0B221B5E674B00FD8D70 /* feedback_add_image@2x.png in Resources */,
 				5CC504F51B0F01D3004D0CB1 /* LaunchScreen.xib in Resources */,
+				70BE235D1B5E01A3008DED4E /* btn_feedback_new@2x.png in Resources */,
 				5CC504F21B0F01D3004D0CB1 /* Images.xcassets in Resources */,
+				70BE235C1B5E01A3008DED4E /* btn_feedback@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

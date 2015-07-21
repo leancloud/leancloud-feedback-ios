@@ -40,7 +40,7 @@
 		5CCAE12B1B09B323009276B9 /* LCUserFeedbackReplyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE11E1B09B323009276B9 /* LCUserFeedbackReplyCell.m */; };
 		5CCAE12E1B09B323009276B9 /* LCUserFeedbackReply.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE1211B09B323009276B9 /* LCUserFeedbackReply.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5CCAE12F1B09B323009276B9 /* LCUserFeedbackReply.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE1221B09B323009276B9 /* LCUserFeedbackReply.m */; };
-		5CCAE1301B09B323009276B9 /* LCUserFeedbackViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE1231B09B323009276B9 /* LCUserFeedbackViewController.h */; };
+		5CCAE1301B09B323009276B9 /* LCUserFeedbackViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE1231B09B323009276B9 /* LCUserFeedbackViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5CCAE1351B09C1F2009276B9 /* LCHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE1311B09C1F2009276B9 /* LCHttpClient.m */; };
 		5CCAE1361B09C1F2009276B9 /* LCHttpClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE1321B09C1F2009276B9 /* LCHttpClient.h */; };
 		5CCAE1371B09C1F2009276B9 /* LCUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE1331B09C1F2009276B9 /* LCUtils.m */; };
@@ -51,6 +51,9 @@
 		7073528E1B4A90D5005466CE /* btn_feedback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707352881B4A90D5005466CE /* btn_feedback@2x.png */; };
 		7073528F1B4A90D5005466CE /* btn_feedback_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707352891B4A90D5005466CE /* btn_feedback_new@2x.png */; };
 		707352901B4A90D5005466CE /* warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7073528A1B4A90D5005466CE /* warning@2x.png */; };
+		70FB0B201B5E66A400FD8D70 /* feedback_add_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FB0B1F1B5E66A400FD8D70 /* feedback_add_image@2x.png */; };
+		70FB0B271B5E76D500FD8D70 /* LCUserFeedbackImageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 70FB0B251B5E76D500FD8D70 /* LCUserFeedbackImageViewController.h */; };
+		70FB0B281B5E76D500FD8D70 /* LCUserFeedbackImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FB0B261B5E76D500FD8D70 /* LCUserFeedbackImageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +100,10 @@
 		707352881B4A90D5005466CE /* btn_feedback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_feedback@2x.png"; sourceTree = "<group>"; };
 		707352891B4A90D5005466CE /* btn_feedback_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_feedback_new@2x.png"; sourceTree = "<group>"; };
 		7073528A1B4A90D5005466CE /* warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "warning@2x.png"; sourceTree = "<group>"; };
+		70FB0B1E1B5E0E4F00FD8D70 /* LCUserFeedbackReply_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LCUserFeedbackReply_Internal.h; sourceTree = "<group>"; };
+		70FB0B1F1B5E66A400FD8D70 /* feedback_add_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_add_image@2x.png"; sourceTree = "<group>"; };
+		70FB0B251B5E76D500FD8D70 /* LCUserFeedbackImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCUserFeedbackImageViewController.h; sourceTree = "<group>"; };
+		70FB0B261B5E76D500FD8D70 /* LCUserFeedbackImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCUserFeedbackImageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,11 +178,14 @@
 				5CCAE11A1B09B323009276B9 /* LCUserFeedbackThread_Internal.h */,
 				5CCAE1181B09B323009276B9 /* LCUserFeedbackThread.m */,
 				5CCAE1211B09B323009276B9 /* LCUserFeedbackReply.h */,
+				70FB0B1E1B5E0E4F00FD8D70 /* LCUserFeedbackReply_Internal.h */,
 				5CCAE1221B09B323009276B9 /* LCUserFeedbackReply.m */,
 				5CCAE11D1B09B323009276B9 /* LCUserFeedbackReplyCell.h */,
 				5CCAE11E1B09B323009276B9 /* LCUserFeedbackReplyCell.m */,
 				5CCAE1231B09B323009276B9 /* LCUserFeedbackViewController.h */,
 				5CCAE1191B09B323009276B9 /* LCUserFeedbackViewController.m */,
+				70FB0B251B5E76D500FD8D70 /* LCUserFeedbackImageViewController.h */,
+				70FB0B261B5E76D500FD8D70 /* LCUserFeedbackImageViewController.m */,
 				5CCAE0FE1B09B0FE009276B9 /* Supporting Files */,
 			);
 			path = LeanCloudFeedback;
@@ -209,6 +219,7 @@
 		707352841B4A90D5005466CE /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				70FB0B1F1B5E66A400FD8D70 /* feedback_add_image@2x.png */,
 				707352851B4A90D5005466CE /* back@2x.png */,
 				707352861B4A90D5005466CE /* bg_1@2x.png */,
 				707352871B4A90D5005466CE /* bg_2@2x.png */,
@@ -230,10 +241,11 @@
 				5CCAE1281B09B323009276B9 /* LCUserFeedbackThread.h in Headers */,
 				5CCAE12E1B09B323009276B9 /* LCUserFeedbackReply.h in Headers */,
 				5CCAE1361B09C1F2009276B9 /* LCHttpClient.h in Headers */,
+				5CCAE1301B09B323009276B9 /* LCUserFeedbackViewController.h in Headers */,
+				70FB0B271B5E76D500FD8D70 /* LCUserFeedbackImageViewController.h in Headers */,
 				5CCAE1381B09C1F2009276B9 /* LCUtils.h in Headers */,
 				5CCAE1271B09B323009276B9 /* LCUserFeedbackThread_Internal.h in Headers */,
 				5CCAE1011B09B0FE009276B9 /* LeanCloudFeedback.h in Headers */,
-				5CCAE1301B09B323009276B9 /* LCUserFeedbackViewController.h in Headers */,
 				5CCAE12A1B09B323009276B9 /* LCUserFeedbackReplyCell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,6 +333,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70FB0B201B5E66A400FD8D70 /* feedback_add_image@2x.png in Resources */,
 				7073528E1B4A90D5005466CE /* btn_feedback@2x.png in Resources */,
 				707352901B4A90D5005466CE /* warning@2x.png in Resources */,
 				7073528B1B4A90D5005466CE /* back@2x.png in Resources */,
@@ -363,6 +376,7 @@
 				5CCAE12F1B09B323009276B9 /* LCUserFeedbackReply.m in Sources */,
 				5CCAE1251B09B323009276B9 /* LCUserFeedbackThread.m in Sources */,
 				5CCAE12B1B09B323009276B9 /* LCUserFeedbackReplyCell.m in Sources */,
+				70FB0B281B5E76D500FD8D70 /* LCUserFeedbackImageViewController.m in Sources */,
 				5CCAE1261B09B323009276B9 /* LCUserFeedbackViewController.m in Sources */,
 				5CCAE1371B09C1F2009276B9 /* LCUtils.m in Sources */,
 				5CCAE1241B09B323009276B9 /* LCUserFeedbackAgent.m in Sources */,
