@@ -15,7 +15,7 @@
 
 @property(nonatomic, copy, readwrite) NSString *createAt;
 @property(nonatomic, assign, readwrite) LCReplyType type;
-@property(nonatomic, strong, readwrite) NSString *attachment;
+@property(nonatomic, copy, readwrite) NSString *attachment;
 @property(nonatomic, copy, readwrite) NSString *content;
 
 @end

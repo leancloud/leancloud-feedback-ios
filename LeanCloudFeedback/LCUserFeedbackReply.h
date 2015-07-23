@@ -25,7 +25,7 @@ typedef enum : NSInteger {
 @property(nonatomic, retain) LCUserFeedbackThread *feedback;
 
 @property(nonatomic, copy, readonly) NSString *content;
-@property(nonatomic, strong, readonly) NSString *attachment;
+@property(nonatomic, copy, readonly) NSString *attachment;
 @property(nonatomic, strong, readonly) UIImage *attachmentImage;
 @property(nonatomic, assign, readonly) LCReplyType type;
 @property(nonatomic, copy, readonly) NSString *createAt;
