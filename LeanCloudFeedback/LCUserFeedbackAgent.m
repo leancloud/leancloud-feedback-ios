@@ -68,7 +68,7 @@
 
 - (void)postFeedbackThread:(NSString *)content contact:(NSString *)contact block:(AVIdResultBlock)block {
     if ([_userFeedback objectId]) {
-        LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithContent:content type:@"user"];
+        LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithContent:content type:LCReplyTypeUser];
         [self.userFeedback saveFeedbackReplyInBackground:feedbackReply withBlock:^(id object, NSError *error) {
             [LCUtils callIdResultBlock:block object:object error:error];
         }];
