@@ -42,6 +42,7 @@ static CGFloat const kBubbleArrowHeight = 14; /**< 气泡尖嘴的高度 */
 - (void)setupWithFeedbackReply:(LCUserFeedbackReply *)reply {
     self.backgroundColor = [UIColor clearColor];
     [self setupTextLabel];
+    [self setupImageView];
     [self.contentView addSubview:self.timestampLabel];
     switch (reply.contentType) {
         case LCContentTypeText:
@@ -70,6 +71,7 @@ static CGFloat const kBubbleArrowHeight = 14; /**< 气泡尖嘴的高度 */
 - (void)setupImageView {
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
+    self.imageView.userInteractionEnabled = YES;
 }
 
 - (UILabel *)timestampLabel {
@@ -151,7 +153,7 @@ static CGFloat const kBubbleArrowHeight = 14; /**< 气泡尖嘴的高度 */
 
 - (void)configuareCellWithFeedbackReply:(LCUserFeedbackReply *)reply {
     for (UIGestureRecognizer *recognizer in self.contentView.gestureRecognizers) {
-        [self.contentView removeGestureRecognizer:recognizer];
+        [self.imageView removeGestureRecognizer:recognizer];
     }
     
     self.feedbackReply = reply;
@@ -166,8 +168,7 @@ static CGFloat const kBubbleArrowHeight = 14; /**< 气泡尖嘴的高度 */
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureRecognizer:)];
             tap.delegate = self;
             tap.cancelsTouchesInView = NO;
-            // Todo 应该设置到 imageView，但很奇怪接收不到事件
-            [self.contentView addGestureRecognizer:tap];
+            [self.imageView addGestureRecognizer:tap];
             break;
     }
 }
@@ -202,18 +203,11 @@ static CGFloat const kBubbleArrowHeight = 14; /**< 气泡尖嘴的高度 */
 #pragma mark - action
 
 - (void)handleTapGestureRecognizer:(UITapGestureRecognizer *)tap {
-    NSLog(@"tap");
     if (tap.state == UIGestureRecognizerStateEnded) {
         if ([self.delegate respondsToSelector:@selector(didSelectImageViewOnFeedbackReply:)]) {
             [self.delegate didSelectImageViewOnFeedbackReply:self.feedbackReply];
         }
     }
-}
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gesture
-{
-    CGPoint point = [gesture locationInView:self.bubbleImageView.superview];
-    return CGRectContainsPoint(self.bubbleImageView.frame, point);
 }
 
 #pragma mark - utils
