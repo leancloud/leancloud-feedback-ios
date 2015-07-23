@@ -15,7 +15,7 @@
 
 @property(nonatomic, copy, readwrite) NSString *createAt;
 @property(nonatomic, assign, readwrite) LCReplyType type;
-@property(nonatomic, strong, readwrite) AVFile *attachment;
+@property(nonatomic, strong, readwrite) NSString *attachment;
 @property(nonatomic, copy, readwrite) NSString *content;
 
 @end
@@ -25,16 +25,16 @@
 - (NSDictionary *)dictionary {
     NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
     
-    if (self.type == LCReplyTypeUser) {
-        [data setObject:@"user" forKey:@"type"];
-    } else {
+    if (self.type == LCReplyTypeDev) {
         [data setObject:@"dev" forKey:@"type"];
+    } else {
+        [data setObject:@"user" forKey:@"type"];
     }
     if (self.content) {
         [data setObject:self.content forKey:@"content"];
     }
     if (self.attachment) {
-        [data setObject:self.attachment.url forKey:@"attachment"];
+        [data setObject:self.attachment forKey:@"attachment"];
     }
     return [data copy];
 }
@@ -46,10 +46,8 @@
     return feedbackReply;
 }
 
-+ (instancetype)feedbackReplyWithImage:(UIImage *)image type:(LCReplyType)type {
++ (instancetype)feedbackReplyWithAttachment:(NSString *)attachment type:(LCReplyType)type {
     LCUserFeedbackReply *feedbackReply = [[LCUserFeedbackReply alloc] init];
-    AVFile *attachment = [AVFile fileWithName:@"feedback.png" data:UIImageJPEGRepresentation(image, 0.6)];
-    feedbackReply.attachmentImage = image;
     feedbackReply.attachment = attachment;
     feedbackReply.type = type;
     return feedbackReply;
@@ -65,11 +63,8 @@
     } else {
         feedbackReply.type = LCReplyTypeDev;
     }
-    NSString *attachmentUrl = [dictionary objectForKey:@"attachment"];
-    if (attachmentUrl) {
-        AVFile *attachment = [AVFile fileWithURL:attachmentUrl];
-        feedbackReply.attachment = attachment;
-    }
+    NSString *attachment = [dictionary objectForKey:@"attachment"];
+    feedbackReply.attachment = attachment;
     return feedbackReply;
 }
 

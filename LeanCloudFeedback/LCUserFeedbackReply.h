@@ -25,13 +25,13 @@ typedef enum : NSInteger {
 @property(nonatomic, retain) LCUserFeedbackThread *feedback;
 
 @property(nonatomic, copy, readonly) NSString *content;
-@property(nonatomic, strong, readonly) AVFile *attachment;
+@property(nonatomic, strong, readonly) NSString *attachment;
 @property(nonatomic, strong, readonly) UIImage *attachmentImage;
 @property(nonatomic, assign, readonly) LCReplyType type;
 @property(nonatomic, copy, readonly) NSString *createAt;
 
 + (instancetype)feedbackReplyWithContent:(NSString *)content type:(LCReplyType)type;
-+ (instancetype)feedbackReplyWithImage:(UIImage *)image type:(LCReplyType)type;
++ (instancetype)feedbackReplyWithAttachment:(NSString *)attachment type:(LCReplyType)type;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

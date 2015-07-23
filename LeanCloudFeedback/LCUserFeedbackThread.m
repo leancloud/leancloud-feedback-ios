@@ -171,28 +171,11 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
     return [parameters copy];
 }
 
-- (void)internalSaveFeedbackReply:(LCUserFeedbackReply *)feedbackReply block:(AVIdResultBlock)block {
-    [[LCHttpClient sharedInstance] postObject:[self threadsPath]
-                               withParameters:[self parametersWithFeedbackReply:feedbackReply]
-                                        block:^(id object, NSError *error){
-         [LCUtils callIdResultBlock:block object:object error:error];
-    }];
-}
-
 - (void)saveFeedbackReplyInBackground:(LCUserFeedbackReply *)feedbackReply withBlock:(AVIdResultBlock)block {
-    if (!self.objectId) return;
-    
-    if (feedbackReply.attachment) {
-        [feedbackReply.attachment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (error) {
-                block(nil, error);
-            } else {
-                [self internalSaveFeedbackReply:feedbackReply block:block];
-            }
-        }];
-    } else {
-        [self internalSaveFeedbackReply:feedbackReply block:block];
-    }
+	if (!self.objectId) return;
+    [[LCHttpClient sharedInstance] postObject:[self threadsPath] withParameters:[self parametersWithFeedbackReply:feedbackReply] block:^(id object, NSError *error){
+        [LCUtils callIdResultBlock:block object:object error:error];
+    }];
 }
 
 - (void)fetchFeedbackRepliesInBackgroundWithBlock:(AVArrayResultBlock)block {
@@ -209,9 +192,10 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             for (LCUserFeedbackReply *reply in replies) {
                 if (reply.attachment) {
+                    AVFile *attachmentFile = [AVFile fileWithURL:reply.attachment];
                     NSError *error;
                     NSData *data;
-                    data = [reply.attachment getData:&error];
+                    data = [attachmentFile getData:&error];
                     if (error) {
                         NSLog(@"attachment getData error");
                     } else {

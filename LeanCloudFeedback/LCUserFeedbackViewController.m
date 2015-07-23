@@ -10,6 +10,7 @@
 #import "LCUserFeedbackReplyCell.h"
 #import "LCUserFeedbackThread.h"
 #import "LCUserFeedbackThread_Internal.h"
+#import "LCUserFeedbackReply_Internal.h"
 #import "LCUserFeedbackReply.h"
 #import "LCUserFeedbackAgent.h"
 #import "LCUserFeedbackImageViewController.h"
@@ -299,8 +300,14 @@ static CGFloat const kSendButtonWidth = 60;
     UIImage *originImage = info[UIImagePickerControllerOriginalImage];
     [self prepareFeedbackWithBlock:^(BOOL succeeded, NSError *error) {
         if ([self filterError:error]) {
-            LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithImage:originImage type:LCReplyTypeUser];
-            [self saveFeedbackReply:feedbackReply AtFeedback:_userFeedback];
+            AVFile *attachment = [AVFile fileWithName:@"feedback.png" data:UIImageJPEGRepresentation(originImage, 0.6)];
+            [attachment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if ([self filterError:error]) {
+                    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithAttachment:attachment.url type:LCReplyTypeUser];
+                    feedbackReply.attachmentImage = originImage;
+                    [self saveFeedbackReply:feedbackReply AtFeedback:_userFeedback];
+                }
+            }];
         }
     }];
     [picker dismissViewControllerAnimated:YES completion:nil];
