@@ -10,26 +10,35 @@
 #import "LCUserFeedbackReplyCell.h"
 #import "LCUserFeedbackThread.h"
 #import "LCUserFeedbackThread_Internal.h"
+#import "LCUserFeedbackReply_Internal.h"
 #import "LCUserFeedbackReply.h"
 #import "LCUserFeedbackAgent.h"
+#import "LCUserFeedbackImageViewController.h"
 
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
-#define TOP_MARGIN 20.0f
+#define kInputViewColor [UIColor colorWithRed:247.0f/255 green:248.0f/255 blue:248.0f/255 alpha:1]
 
 #define TAG_TABLEView_Header 1
 #define TAG_InputFiled 2
 
-@interface LCUserFeedbackViewController () <UITableViewDelegate, UITableViewDataSource> {
+static CGFloat const kInputViewHeight = 48;
+static CGFloat const kContactHeaderHeight = 48;
+static CGFloat const kAddImageButtonWidth = 40;
+static CGFloat const kSendButtonWidth = 60;
+
+@interface LCUserFeedbackViewController () <UITableViewDelegate, UITableViewDataSource,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, LCUserFeedbackReplyCellDelegate> {
     NSMutableArray *_feedbackReplies;
-    UIRefreshControl *_refreshControl;
     LCUserFeedbackThread *_userFeedback;
 }
 
+@property(nonatomic, strong) UIRefreshControl *refreshControl;
 @property(nonatomic, strong) UITableView *tableView;
 @property(nonatomic, strong) UITextField *tableViewHeader;
 @property(nonatomic, strong) UITextField *inputTextField;
+@property(nonatomic, strong) UIButton *addImageButton;
 @property(nonatomic, strong) UIButton *sendButton;
+@property(nonatomic, strong) UIBarButtonItem *closeButtonItem;
 
 @end
 
@@ -39,6 +48,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        _feedbackReplies = [[NSMutableArray alloc] init];
+        
         // Custom initialization
         self.navigationBarStyle = LCUserFeedbackNavigationBarStyleBlue;
         self.contactHeaderHidden = NO;
@@ -50,18 +61,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    _feedbackReplies = [[NSMutableArray alloc] init];
-    
     [self setupUI];
+//    [self keyboardWillHide:nil];
+    [self loadFeedbackThreads];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    [self keyboardWillHide:nil];
-
-    [self loadFeedbackThreads];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -74,69 +80,129 @@
 }
 
 - (void)setupUI {
+    self.navigationItem.leftBarButtonItem = self.closeButtonItem;
+    [self.navigationItem setTitle:@"意见反馈"];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
+    [self setupNavigaionBar];
+    
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.addImageButton];
+    [self.view addSubview:self.sendButton];
+    [self.view addSubview:self.inputTextField];
+
+    [[[LCUserFeedbackReplyCell class] appearance] setCellFont:self.feedbackCellFont];
+    
+    [self.tableView addSubview:self.refreshControl];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard:)];
+    tap.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tap];
+}
+
+#pragma mark - Properties
+
+- (UIButton *)closeButton {
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *closeButtonImage = [UIImage imageNamed:@"LeanCloudFeedback/back.png"];
-    if (!closeButtonImage) {
-        closeButtonImage = [UIImage imageNamed:@"back.png"];
-    }
+    UIImage *closeButtonImage = [UIImage imageNamed:@"back" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
     [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
     closeButton.frame = CGRectMake(0, 0, closeButtonImage.size.width, closeButtonImage.size.height);
     closeButton.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *closeButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
-    self.navigationItem.leftBarButtonItem = closeButtonItem;
-    [self.navigationItem setTitle:@"意见反馈"];
+    return closeButton;
+}
+
+- (UIBarButtonItem *)closeButtonItem {
+    if (_closeButtonItem == nil) {
+        UIButton *closeButton = [self closeButton];
+        [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+         _closeButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
+    }
+    return _closeButtonItem;
+}
+
+
+- (UITableView *)tableView {
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kInputViewHeight)
+                                                      style:UITableViewStylePlain];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+    }
+    return _tableView;
+}
+
+- (UIButton *)addImageButton {
+    if (_addImageButton == nil) {
+        _addImageButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - kInputViewHeight, kAddImageButtonWidth, kInputViewHeight)];
+        _addImageButton.backgroundColor = kInputViewColor;
+        [_addImageButton setImage:[UIImage imageNamed:@"feedback_add_image"] forState:UIControlStateNormal];
+        _addImageButton.contentMode = UIViewContentModeScaleAspectFill;
+        [_addImageButton addTarget:self action:@selector(addImageButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _addImageButton;
+}
+
+- (UIButton *)sendButton {
+    if (_sendButton == nil) {
+        _sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _sendButton.frame = CGRectMake(CGRectGetWidth(self.view.frame) - kSendButtonWidth, CGRectGetHeight(self.view.frame) - kInputViewHeight, kSendButtonWidth, kInputViewHeight);
+        [_sendButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [_sendButton setTitleColor:[UIColor colorWithRed:137.0f/255 green:137.0f/255 blue:137.0f/255 alpha:1] forState:UIControlStateNormal];
+        [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
+        [_sendButton setBackgroundColor: kInputViewColor];
+        [_sendButton addTarget:self action:@selector(sendButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _sendButton;
+}
+
+- (UITextField *)inputTextField {
+    if (_inputTextField == nil) {
+        _inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(kAddImageButtonWidth, CGRectGetMinY(self.sendButton.frame), CGRectGetWidth(self.view.frame)- kSendButtonWidth - kAddImageButtonWidth, kInputViewHeight)];
+        _inputTextField.tag = TAG_InputFiled;
+        [_inputTextField setFont:[UIFont systemFontOfSize:12]];
+        _inputTextField.backgroundColor = kInputViewColor;
+        _inputTextField.placeholder = @"填写反馈";
+        UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 30)];
+        _inputTextField.leftView = paddingView;
+        _inputTextField.leftViewMode = UITextFieldViewModeAlways;
+        _inputTextField.returnKeyType = UIReturnKeyDone;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        _inputTextField.delegate = self;
+    }
+    return _inputTextField;
+}
+
+- (void)setupNavigaionBar {
     switch (self.navigationBarStyle) {
-        case LCUserFeedbackNavigationBarStyleBlue:
+        case LCUserFeedbackNavigationBarStyleBlue: {
             [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+            UIColor *blue =[UIColor colorWithRed:85.0f/255 green:184.0f/255 blue:244.0f/255 alpha:1];
             if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-                [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:85.0f/255 green:184.0f/255 blue:244.0f/255 alpha:1]];
+                self.navigationController.navigationBar.tintColor = blue;
             } else {
-                [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:85.0f/255 green:184.0f/255 blue:244.0f/255 alpha:1]];
+                self.navigationController.navigationBar.barTintColor = blue;
+                self.navigationController.navigationBar.tintColor = blue;
             }
             break;
+        }
         case LCUserFeedbackNavigationBarStyleNone:
             break;
         default:
             break;
     }
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 48)
-                                                  style:UITableViewStylePlain];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.view addSubview:_tableView];
-    
-    self.inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - 48, CGRectGetWidth(self.view.frame)-60, 48)];
-    self.inputTextField.tag = TAG_InputFiled;
-    [self.inputTextField setFont:[UIFont systemFontOfSize:12]];
-    [self.inputTextField setBackgroundColor:[UIColor colorWithRed:247.0f/255 green:248.0f/255 blue:248.0f/255 alpha:1]];
-    self.inputTextField.placeholder = @"填写反馈";
-    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 30)];
-    self.inputTextField.leftView = paddingView;
-    self.inputTextField.leftViewMode = UITextFieldViewModeAlways;
-    self.inputTextField.returnKeyType = UIReturnKeyDone;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    self.inputTextField.delegate = (id <UITextFieldDelegate>) self;
-    [self.view addSubview:_inputTextField];
-    
-    self.sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.sendButton.frame = CGRectMake(CGRectGetWidth(self.view.frame) - 60, CGRectGetHeight(self.view.frame) - 48, 60, 48);
-    [self.sendButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
-    [self.sendButton setTitleColor:[UIColor colorWithRed:137.0f/255 green:137.0f/255 blue:137.0f/255 alpha:1] forState:UIControlStateNormal];
-    [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
-    [self.sendButton setBackgroundColor:[UIColor colorWithRed:247.0f/255 green:248.0f/255 blue:248.0f/255 alpha:1]];
-    [self.sendButton addTarget:self action:@selector(sendButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_sendButton];
-
-    [[[LCUserFeedbackReplyCell class] appearance] setCellFont:self.feedbackCellFont];
-    
-    _refreshControl = [[UIRefreshControl alloc] init];
-    [_refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
-    [_tableView addSubview:_refreshControl];
 }
+
+- (UIRefreshControl *)refreshControl {
+    if (_refreshControl == nil) {
+        _refreshControl = [[UIRefreshControl alloc] init];
+        [_refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
+    }
+    return _refreshControl;
+}
+
+#pragma mark - load data
 
 - (void)fetchRepliesWithBlock:(AVArrayResultBlock)block {
     [LCUserFeedbackThread fetchFeedbackWithBlock:^(LCUserFeedbackThread *feedback, NSError *error) {
@@ -174,12 +240,8 @@
 - (void)handleRefresh:(id)sender {
     [self loadFeedbackThreads];
 }
-
-- (void)closeButtonClicked:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        ;
-    }];
-}
+ 
+#pragma mark - util
 
 - (void)alertWithTitle:(NSString *)title message:(NSString *)message {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
@@ -195,44 +257,104 @@
     }
 }
 
+#pragma mark - send action
+
+- (void)popImageViewController:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)didSelectImageViewOnFeedbackReply:(LCUserFeedbackReply *)feedbackReply {
+    LCUserFeedbackImageViewController *imageViewController = [[LCUserFeedbackImageViewController alloc] init];
+    imageViewController.image = feedbackReply.attachmentImage;
+    if (self.navigationBarStyle == LCUserFeedbackNavigationBarStyleBlue) {
+        UIButton *button = [self closeButton];
+        [button addTarget:self action:@selector(popImageViewController:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
+        imageViewController.navigationItem.leftBarButtonItem = item;
+    }
+    [self.navigationController pushViewController:imageViewController animated:YES];
+}
+
+- (void)closeButtonClicked:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        ;
+    }];
+}
+
 - (NSString *)currentContact {
     NSString *contact = self.tableViewHeader.text;
     return contact.length > 0 ? contact : _contact;
 }
 
-- (void)disableSendButton {
-    self.sendButton.enabled = NO;
+- (void)addImageButtonClicked:(id)sender {
+    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+    pickerController.navigationBar.barStyle = UIBarStyleBlack;
+    pickerController.delegate = self;
+    pickerController.editing = NO;
+    pickerController.allowsEditing = NO;
+    pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:pickerController animated:YES completion:nil];
 }
 
-- (void)enableSendButton {
-    self.sendButton.enabled = YES;
-}
-
-- (void)sendButtonClicked:(id)sender {
-    NSString *contact = [self currentContact];
-    NSString *content = self.inputTextField.text;
-    if (content.length) {
-        [self disableSendButton];
-        
-        if (!_userFeedback) {
-            NSString *title = _feedbackTitle ?: content;
-            _contact = contact;
-            [LCUserFeedbackThread feedbackWithContent:title contact:_contact create:YES withBlock:^(id object, NSError *error) {
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *originImage = info[UIImagePickerControllerOriginalImage];
+    [self prepareFeedbackWithBlock:^(BOOL succeeded, NSError *error) {
+        if ([self filterError:error]) {
+            AVFile *attachment = [AVFile fileWithName:@"feedback.png" data:UIImageJPEGRepresentation(originImage, 0.6)];
+            [attachment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if ([self filterError:error]) {
-                    _userFeedback = object;
-                    [self createFeedbackReplyWithFeedback:_userFeedback content:content];
-                } else {
-                    [self enableSendButton];
+                    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithAttachment:attachment.url type:LCReplyTypeUser];
+                    feedbackReply.attachmentImage = originImage;
+                    [self saveFeedbackReply:feedbackReply AtFeedback:_userFeedback];
                 }
             }];
-        } else {
-            [self createFeedbackReplyWithFeedback:_userFeedback content:content];
         }
+    }];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)prepareFeedbackWithBlock:(AVBooleanResultBlock)block {
+    NSString *contact = [self currentContact];
+    NSString *content = self.inputTextField.text;
+    if (_userFeedback) {
+        block(YES, nil);
+    } else {
+        _contact = contact;
+        NSString *title = _feedbackTitle ?: content;
+        if (title.length == 0) {
+            title = @"用户反馈";
+        }
+        [LCUserFeedbackThread feedbackWithContent:title contact:_contact create:YES withBlock:^(id object, NSError *error) {
+            if (error) {
+                block(NO, error);
+            } else {
+                _userFeedback = object;
+                block(YES, nil);
+            }
+        }];
     }
 }
 
-- (void)createFeedbackReplyWithFeedback:(LCUserFeedbackThread *)feedback content:(NSString *)content {
-    LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithContent:content type:@"user"];
+- (void)sendButtonClicked:(id)sender {
+    NSString *content = self.inputTextField.text;
+    if (content.length) {
+        self.sendButton.enabled = NO;
+        [self prepareFeedbackWithBlock:^(BOOL succeeded, NSError *error) {
+            if ([self filterError:error]) {
+                LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithContent:content type:LCReplyTypeUser];
+                [self saveFeedbackReply:feedbackReply AtFeedback:_userFeedback];
+            } else {
+                self.sendButton.enabled = YES;
+            }
+        }];
+    }
+}
+
+- (void)saveFeedbackReply:(LCUserFeedbackReply *)feedbackReply AtFeedback:(LCUserFeedbackThread *)feedback {
     [_userFeedback saveFeedbackReplyInBackground:feedbackReply withBlock:^(id object, NSError *error) {
         if ([self filterError:error]) {
             [_feedbackReplies addObject:feedbackReply];
@@ -247,7 +369,7 @@
                 _inputTextField.text = @"";
             }
         }
-        [self enableSendButton];
+        self.sendButton.enabled = YES;
     }];
 }
 
@@ -257,6 +379,19 @@
 }
 
 #pragma mark - UIKeyboard Notification
+
+- (void)updateHeightWhenKeyboardHide:(UIView *)bottomView {
+    CGRect bottomViewFrame = bottomView.frame;
+    bottomViewFrame.origin.y = self.view.bounds.size.height - bottomViewFrame.size.height;
+    bottomView.frame = bottomViewFrame;
+}
+
+- (void)updateHeightWhenKeyboardShow:(UIView *)bottomView keyboardHeight:(CGFloat)keyboardHeight{
+    CGRect bottomViewFrame = bottomView.frame;
+    bottomViewFrame.origin.y = self.view.bounds.size.height - keyboardHeight - bottomViewFrame.size.height;
+    bottomView.frame = bottomViewFrame;
+}
+
 - (void)keyboardWillShow:(NSNotification *)notification {
     if ([self.tableViewHeader isFirstResponder]) {
         return;
@@ -270,13 +405,9 @@
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          
-                         CGRect inputTextFiledFrame = self.inputTextField.frame;
-                         inputTextFiledFrame.origin.y = self.view.bounds.size.height - keyboardHeight - inputTextFiledFrame.size.height;
-                         self.inputTextField.frame = inputTextFiledFrame;
-                         
-                         CGRect sendButtonFrame = self.sendButton.frame;
-                         sendButtonFrame.origin.y = self.view.bounds.size.height - keyboardHeight - sendButtonFrame.size.height;
-                         self.sendButton.frame = sendButtonFrame;
+                         [self updateHeightWhenKeyboardShow:self.addImageButton keyboardHeight:keyboardHeight];
+                         [self updateHeightWhenKeyboardShow:self.inputTextField keyboardHeight:keyboardHeight];
+                         [self updateHeightWhenKeyboardShow:self.sendButton keyboardHeight:keyboardHeight];
                          
                          CGRect tableViewFrame = self.tableView.frame;
                          tableViewFrame.size.height = self.view.bounds.size.height - self.navigationController.navigationBar.frame.size.height - keyboardHeight;
@@ -296,19 +427,19 @@
     [UIView beginAnimations:@"bottomBarDown" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     
-    CGRect inputTextFieldFrame = self.inputTextField.frame;
-    inputTextFieldFrame.origin.y = self.view.bounds.size.height - inputTextFieldFrame.size.height;
-    self.inputTextField.frame = inputTextFieldFrame;
-    
-    CGRect sendButtonFrame = self.sendButton.frame;
-    sendButtonFrame.origin.y = self.view.bounds.size.height - sendButtonFrame.size.height;
-    self.sendButton.frame = sendButtonFrame;
+    [self updateHeightWhenKeyboardHide:self.addImageButton];
+    [self updateHeightWhenKeyboardHide:self.inputTextField];
+    [self updateHeightWhenKeyboardHide:self.sendButton];
     
     CGRect tableViewFrame = self.tableView.frame;
-    tableViewFrame.size.height = CGRectGetHeight(self.view.frame) - 48;
+    tableViewFrame.size.height = CGRectGetHeight(self.view.frame) - kInputViewHeight;
     self.tableView.frame = tableViewFrame;
     
     [UIView commitAnimations];
+}
+
+- (void)closeKeyboard:(id)sender {
+    [self.inputTextField resignFirstResponder];
 }
 
 #pragma mark UITextField Delegate Methods
@@ -351,12 +482,12 @@
     if (self.contactHeaderHidden) {
         return 0;
     } else {
-        return 48;
+        return kContactHeaderHeight;
     }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    self.tableViewHeader = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 320, 48)];
+    self.tableViewHeader = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 320, kContactHeaderHeight)];
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 30)];
     self.tableViewHeader.leftView = paddingView;
     self.tableViewHeader.leftViewMode = UITextFieldViewModeAlways;
@@ -374,14 +505,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *content = ((LCUserFeedbackReply *)_feedbackReplies[indexPath.row]).content;
-    
-    CGSize labelSize = [content sizeWithFont:[UIFont systemFontOfSize:12.0f]
-                           constrainedToSize:CGSizeMake(226.0f, MAXFLOAT)
-                               lineBreakMode:NSLineBreakByWordWrapping];
-    
-    return labelSize.height + 40 + TOP_MARGIN;
-    
+    return  [LCUserFeedbackReplyCell heightForFeedbackReply:(LCUserFeedbackReply *)_feedbackReplies[indexPath.row]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -390,11 +514,11 @@
     LCUserFeedbackReplyCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[LCUserFeedbackReplyCell alloc] initWithFeedbackReply:feedbackReply reuseIdentifier:cellIdentifier];;
+        cell.delegate = self;
     }
     [cell configuareCellWithFeedbackReply:feedbackReply];
     return cell;
 }
-
 
 @end
 

@@ -6,6 +6,7 @@
 //
 
 #import "LCUserFeedbackReply.h"
+#import "LCUserFeedbackReply_Internal.h"
 #import "LCUserFeedbackThread.h"
 #import "LCHttpClient.h"
 #import "LCUtils.h"
@@ -13,6 +14,9 @@
 @interface LCUserFeedbackReply ()
 
 @property(nonatomic, copy, readwrite) NSString *createAt;
+@property(nonatomic, assign, readwrite) LCReplyType type;
+@property(nonatomic, copy, readwrite) NSString *attachment;
+@property(nonatomic, copy, readwrite) NSString *content;
 
 @end
 
@@ -20,30 +24,56 @@
 
 - (NSDictionary *)dictionary {
     NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
-
-    [data setObject:self.content forKey:@"content"];
-    [data setObject:self.type forKey:@"type"];
-
+    
+    if (self.type == LCReplyTypeDev) {
+        [data setObject:@"dev" forKey:@"type"];
+    } else {
+        [data setObject:@"user" forKey:@"type"];
+    }
+    if (self.content) {
+        [data setObject:self.content forKey:@"content"];
+    }
+    if (self.attachment) {
+        [data setObject:self.attachment forKey:@"attachment"];
+    }
     return [data copy];
 }
 
-+ (instancetype)feedbackReplyWithContent:(NSString *)content type:(NSString *)type {
-    LCUserFeedbackReply *feedbackThread = [[LCUserFeedbackReply alloc] init];
++ (instancetype)feedbackReplyWithContent:(NSString *)content type:(LCReplyType)type {
+    LCUserFeedbackReply *feedbackReply = [[LCUserFeedbackReply alloc] init];
+    feedbackReply.content = content;
+    feedbackReply.type = type;
+    return feedbackReply;
+}
 
-    feedbackThread.content = content;
-    feedbackThread.type = type;
-
-    return feedbackThread;
++ (instancetype)feedbackReplyWithAttachment:(NSString *)attachment type:(LCReplyType)type {
+    LCUserFeedbackReply *feedbackReply = [[LCUserFeedbackReply alloc] init];
+    feedbackReply.attachment = attachment;
+    feedbackReply.type = type;
+    return feedbackReply;
 }
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     LCUserFeedbackReply *feedbackReply = [[LCUserFeedbackReply alloc] init];
-
     feedbackReply.content = [dictionary objectForKey:@"content"];
     feedbackReply.createAt = [dictionary objectForKey:@"createdAt"];
-    feedbackReply.type = [dictionary objectForKey:@"type"];
-
+    NSString *type = [dictionary objectForKey:@"type"];
+    if ([type isEqualToString:@"user"]) {
+        feedbackReply.type = LCReplyTypeUser;
+    } else {
+        feedbackReply.type = LCReplyTypeDev;
+    }
+    NSString *attachment = [dictionary objectForKey:@"attachment"];
+    feedbackReply.attachment = attachment;
     return feedbackReply;
+}
+
+- (LCContentType)contentType {
+    if (self.attachment) {
+        return LCContentTypeImage;
+    } else {
+        return LCContentTypeText;
+    }
 }
 
 @end

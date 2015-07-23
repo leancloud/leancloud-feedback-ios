@@ -9,6 +9,7 @@
 #import "LCUserFeedbackThread.h"
 #import "LCUserFeedbackThread_Internal.h"
 #import "LCUserFeedbackReply.h"
+#import "LCUserFeedbackReply_Internal.h"
 #import "LCHttpClient.h"
 #import "LCUtils.h"
 
@@ -171,12 +172,8 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
 }
 
 - (void)saveFeedbackReplyInBackground:(LCUserFeedbackReply *)feedbackReply withBlock:(AVIdResultBlock)block {
-    if (!self.objectId) return;
-
-    [[LCHttpClient sharedInstance] postObject:[self threadsPath]
-                               withParameters:[self parametersWithFeedbackReply:feedbackReply]
-                                        block:^(id object, NSError *error)
-    {
+	if (!self.objectId) return;
+    [[LCHttpClient sharedInstance] postObject:[self threadsPath] withParameters:[self parametersWithFeedbackReply:feedbackReply] block:^(id object, NSError *error){
         [LCUtils callIdResultBlock:block object:object error:error];
     }];
 }
@@ -192,8 +189,24 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
         for (NSDictionary *dictionary in results) {
             [replies addObject:[[LCUserFeedbackReply alloc] initWithDictionary:dictionary]];
         }
-
-        [LCUtils callArrayResultBlock:block array:replies error:error];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            for (LCUserFeedbackReply *reply in replies) {
+                if (reply.attachment) {
+                    AVFile *attachmentFile = [AVFile fileWithURL:reply.attachment];
+                    NSError *error;
+                    NSData *data;
+                    data = [attachmentFile getData:&error];
+                    if (error) {
+                        NSLog(@"attachment getData error");
+                    } else {
+                        reply.attachmentImage = [UIImage imageWithData:data];
+                    }
+                }
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [LCUtils callArrayResultBlock:block array:replies error:error];
+            });
+        });
     }];
 }
 

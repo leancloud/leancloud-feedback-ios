@@ -29,7 +29,7 @@ typedef enum : NSUInteger {
  */
 @property(nonatomic, strong) UIFont *feedbackCellFont;
 
-@property(nonatomic, retain) NSString *feedbackTitle;
-@property(nonatomic, retain) NSString *contact;
+@property(nonatomic, copy) NSString *feedbackTitle;
+@property(nonatomic, copy) NSString *contact;
 
 @end
