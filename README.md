@@ -92,6 +92,9 @@ xcodebuild -target UniversalFramework -config Release
 
 ## ChangeLog
 
+0.0.3	
+增加图片上传功能，让用户可以上传图片来反映问题
+
 0.0.2	
 增加了导航栏、联系人表头、字体的定制		
 去掉了 LeftCell 类 和 RightCell 类，统一为 FeedbackCell，因为左右Cell 大部分代码都是相同可复用的。
