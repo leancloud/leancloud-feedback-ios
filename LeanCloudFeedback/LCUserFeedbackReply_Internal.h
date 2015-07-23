@@ -12,5 +12,6 @@
 @interface LCUserFeedbackReply()
 
 @property(nonatomic, strong, readwrite) UIImage *attachmentImage;
+@property(nonatomic, copy, readwrite) NSString *createAt;
 
 @end
