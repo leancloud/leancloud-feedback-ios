@@ -174,6 +174,9 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
 - (void)saveFeedbackReplyInBackground:(LCUserFeedbackReply *)feedbackReply withBlock:(AVIdResultBlock)block {
 	if (!self.objectId) return;
     [[LCHttpClient sharedInstance] postObject:[self threadsPath] withParameters:[self parametersWithFeedbackReply:feedbackReply] block:^(id object, NSError *error){
+        if (!error) {
+            feedbackReply.createAt = [object objectForKey:@"createdAt"];
+        }
         [LCUtils callIdResultBlock:block object:object error:error];
     }];
 }

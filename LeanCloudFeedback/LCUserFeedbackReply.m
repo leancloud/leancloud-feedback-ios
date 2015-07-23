@@ -13,7 +13,6 @@
 
 @interface LCUserFeedbackReply ()
 
-@property(nonatomic, copy, readwrite) NSString *createAt;
 @property(nonatomic, assign, readwrite) LCReplyType type;
 @property(nonatomic, copy, readwrite) NSString *attachment;
 @property(nonatomic, copy, readwrite) NSString *content;
