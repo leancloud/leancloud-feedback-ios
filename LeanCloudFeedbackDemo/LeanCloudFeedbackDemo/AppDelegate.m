@@ -22,7 +22,6 @@
     NSString *appId = @"sl9sxfb9d9x0sc5g8c5wsv00f4nvztrgo5qcx4i4sjk1myn3";
     NSString *appKey = @"ysz2l1zttl802m3qq8lvvqnmw8tnp4wiiuwe5xtydcjxrwtg";
     [AVOSCloud setApplicationId:appId clientKey:appKey];
-    NSLog(@"setAppId:%@, appKey:%@", appId, appKey);
 
     [AVOSCloud setVerbosePolicy:kAVVerboseShow];
     [AVLogger addLoggerDomain:AVLoggerDomainIM];

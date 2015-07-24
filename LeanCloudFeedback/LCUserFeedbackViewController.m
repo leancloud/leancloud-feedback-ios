@@ -211,6 +211,9 @@ static CGFloat const kSendButtonWidth = 60;
         } else {
             if (feedback) {
                 _userFeedback = feedback;
+                if (self.contact == nil) {
+                    self.contact = feedback.contact;
+                }
                 [_userFeedback fetchFeedbackRepliesInBackgroundWithBlock:block];
             } else {
                 block([NSArray array], nil);
