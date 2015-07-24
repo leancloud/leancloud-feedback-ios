@@ -7,26 +7,11 @@
 //
 
 #import "LCUtils.h"
-#import <AVOSCloud/AVGlobal.h>
 
 #import <CommonCrypto/CommonDigest.h>
 
 
 @implementation LCUtils
-
-+(NSString *)stringFromDate:(NSDate *)date
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:dateFormat];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    NSString *strDate = [dateFormatter stringFromDate:date];
-    return strDate;
-}
-
-+(void)copyDictionary:(NSDictionary *)src
-             toObject:(AVObject *)target {
-    ;
-}
 
 #pragma mark - Safe way to call block
 

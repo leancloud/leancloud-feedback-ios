@@ -17,11 +17,6 @@
 
 @interface LCUtils : NSObject
 
-+(NSString *)stringFromDate:(NSDate *)date;
-
-+(void)copyDictionary:(NSDictionary *)src
-             toObject:(AVObject *)target;
-
 #pragma mark - Block
 + (void)callBooleanResultBlock:(AVBooleanResultBlock)block
                          error:(NSError *)error;
