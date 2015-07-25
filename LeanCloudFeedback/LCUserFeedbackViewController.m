@@ -97,7 +97,7 @@ static CGFloat const kSendButtonWidth = 60;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard:)];
     tap.cancelsTouchesInView = NO;
-    [self.view addGestureRecognizer:tap];
+    [self.tableView addGestureRecognizer:tap];
 }
 
 #pragma mark - Properties
@@ -363,10 +363,6 @@ static CGFloat const kSendButtonWidth = 60;
             [_feedbackReplies addObject:feedbackReply];
             [self.tableView reloadData];
             [self scrollToBottom];
-            
-            if ([_inputTextField isFirstResponder]) {
-                [_inputTextField resignFirstResponder];
-            }
             
             if ([_inputTextField.text length] > 0) {
                 _inputTextField.text = @"";
