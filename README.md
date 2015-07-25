@@ -92,6 +92,9 @@ xcodebuild -target UniversalFramework -config Release
 
 ## ChangeLog
 
+0.0.4	
+修复发送的反馈没有显示时间戳的问题、更改 AVOSCloud 依赖至 ~> 3.1 ，使得主项目引用时没有收到此库的限制
+
 0.0.3	
 增加图片上传功能，让用户可以上传图片来反映问题
 
