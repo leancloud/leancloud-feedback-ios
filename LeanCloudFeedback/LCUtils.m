@@ -7,9 +7,7 @@
 //
 
 #import "LCUtils.h"
-
 #import <CommonCrypto/CommonDigest.h>
-
 
 @implementation LCUtils
 

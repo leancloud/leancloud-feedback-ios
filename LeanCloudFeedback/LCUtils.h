@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <AVOSCloud/AVOSCloud.h>
 
-#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
-#import <MobileCoreServices/MobileCoreServices.h>
+#ifdef DEBUG
+#   define FLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #else
-#import <CoreServices/CoreServices.h>
+#   define FLog(...)
 #endif
 
 @interface LCUtils : NSObject

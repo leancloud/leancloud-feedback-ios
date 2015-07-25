@@ -200,7 +200,7 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
                     NSData *data;
                     data = [attachmentFile getData:&error];
                     if (error) {
-                        NSLog(@"attachment getData error");
+                        FLog(@"attachment getData error");
                     } else {
                         reply.attachmentImage = [UIImage imageWithData:data];
                     }

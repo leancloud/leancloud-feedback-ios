@@ -11,24 +11,8 @@
 
 @interface LCHttpClient ()
 
-#if OS_OBJECT_USE_OBJC
-@property (nonatomic, strong) dispatch_queue_t completionQueue;
-#else
-@property (nonatomic, assign) dispatch_queue_t completionQueue;
-#endif
-
 @property (nonatomic, strong) NSURL *baseURL;
-//
-//@property (nonatomic, copy) NSString * applicationId;
-//@property (nonatomic, copy) NSString * applicationKey;
-//
-//@property (nonatomic, copy) NSString * applicationIdField;
-//@property (nonatomic, copy) NSString * applicationKeyField;
-//@property (nonatomic, copy) NSString * sessionTokenField;
-//@property (nonatomic, assign) NSTimeInterval timeoutInterval;
-
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
-
 
 @end
 
@@ -43,13 +27,6 @@
         sharedInstance.operationQueue = [[NSOperationQueue alloc] init];
     });
     return sharedInstance;
-}
-
-- (dispatch_queue_t)completionQueue {
-    if (!_completionQueue) {
-        _completionQueue = dispatch_queue_create("com.leancloud.completionQueue", DISPATCH_QUEUE_CONCURRENT);
-    }
-    return _completionQueue;
 }
 
 - (NSString *)queryStringFromParameters:(NSDictionary *)parameters {
@@ -77,7 +54,7 @@
     NSString *headerValue=[NSString stringWithFormat:@"%@,%@",sign,timestamp];
     [request setValue:headerValue forHTTPHeaderField:@"X-AVOSCloud-Request-Sign"];
     
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setTimeoutInterval:kAVDefaultNetworkTimeoutInterval];
     [request setHTTPMethod:method];
     if ([method isEqualToString:@"GET"] || [method isEqualToString:@"DELETE"]) {
@@ -88,16 +65,16 @@
         NSError *error;
         [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:parameters options:0 error:&error]];
         if (error) {
-            NSLog(@"%@ error : %@", [self class], error);
+            FLog(@"%@ error : %@", [self class], error);
         }
     }
     return request;
 }
 
 - (void)goRequest:(NSURLRequest *)request block:(AVIdResultBlock)block {
-    NSLog(@"request url : %@", request.URL);
-    NSLog(@"request headers : %@", [request allHTTPHeaderFields]);
-    NSLog(@"Request body %@", [[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding]);
+    FLog(@"request url : %@", request.URL);
+    FLog(@"request headers : %@", [request allHTTPHeaderFields]);
+    FLog(@"request body %@", [[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding]);
     [NSURLConnection sendAsynchronousRequest:request queue:self.operationQueue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         if (connectionError) {
             block(nil, connectionError);
@@ -107,7 +84,7 @@
                 NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 if (error) {
                     NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    NSLog(@"reponse : %@", responseString);
+                    FLog(@"reponse : %@", responseString);
                     block(nil, error);
                 } else {
                     block(dictionary, nil);
