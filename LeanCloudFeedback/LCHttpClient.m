@@ -31,15 +31,13 @@
 
 - (NSString *)queryStringFromParameters:(NSDictionary *)parameters {
     NSMutableString *queries = [[NSMutableString alloc] init];
-    BOOL first = YES;
-    for (NSString *key in [parameters allKeys]) {
-        if (first) {
-            first = NO;
-        } else {
+    NSArray *keys = [parameters allKeys];
+    for (int i = 0; i < keys.count; i++) {
+        if (i != 0) {
             [queries appendString:@"&"];
         }
-        NSString *value = [parameters valueForKey:key];
-        [queries appendFormat:@"%@=%@", key, value];
+        NSString *value = [parameters valueForKey:keys[i]];
+        [queries appendFormat:@"%@=%@", keys[i], value];
     }
     return [queries stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
