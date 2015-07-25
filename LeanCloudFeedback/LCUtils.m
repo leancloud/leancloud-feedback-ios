@@ -122,5 +122,14 @@ block(first_param, error); \
             ] lowercaseString];
 }
 
++ (NSError *)errorWithText:(NSString *)format, ... NS_FORMAT_FUNCTION(1, 2) {
+    va_list ap;
+    va_start(ap, format);
+    NSDictionary *errorInfo = @{NSLocalizedDescriptionKey : [[NSString alloc] initWithFormat:format arguments:ap]};
+    va_end(ap);
+    NSError *error = [NSError errorWithDomain:@"LeanCloudFeedback Domain" code:0 userInfo:errorInfo];
+    return error;
+}
+
 @end
 

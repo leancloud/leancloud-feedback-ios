@@ -62,4 +62,6 @@
 
 + (NSString*)calMD5:(NSString*)input;
 
++ (NSError *)errorWithText:(NSString *)format,... NS_FORMAT_FUNCTION(1, 2);
+
 @end

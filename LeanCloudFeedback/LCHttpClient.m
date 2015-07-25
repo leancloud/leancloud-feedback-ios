@@ -85,7 +85,7 @@
                 if (error) {
                     NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                     FLog(@"reponse : %@", responseString);
-                    block(nil, error);
+                    block(nil, [LCUtils errorWithText:@"Http request failed, reponse string : %@", responseString]);
                 } else {
                     block(dictionary, nil);
                 }
