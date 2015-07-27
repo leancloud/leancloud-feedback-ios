@@ -7,26 +7,9 @@
 //
 
 #import "LCUtils.h"
-#import <AVOSCloud/AVGlobal.h>
-
 #import <CommonCrypto/CommonDigest.h>
 
-
 @implementation LCUtils
-
-+(NSString *)stringFromDate:(NSDate *)date
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:dateFormat];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    NSString *strDate = [dateFormatter stringFromDate:date];
-    return strDate;
-}
-
-+(void)copyDictionary:(NSDictionary *)src
-             toObject:(AVObject *)target {
-    ;
-}
 
 #pragma mark - Safe way to call block
 
@@ -137,6 +120,15 @@ block(first_param, error); \
             result[8], result[9], result[10], result[11],
             result[12], result[13], result[14], result[15]
             ] lowercaseString];
+}
+
++ (NSError *)errorWithText:(NSString *)format, ... NS_FORMAT_FUNCTION(1, 2) {
+    va_list ap;
+    va_start(ap, format);
+    NSDictionary *errorInfo = @{NSLocalizedDescriptionKey : [[NSString alloc] initWithFormat:format arguments:ap]};
+    va_end(ap);
+    NSError *error = [NSError errorWithDomain:@"LeanCloudFeedback Domain" code:0 userInfo:errorInfo];
+    return error;
 }
 
 @end

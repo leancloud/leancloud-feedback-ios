@@ -24,16 +24,16 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
 
 @end
 
-#define LC_FEEDBACK_BASE_URL @"https://api.leancloud.cn/1.1/feedback"
+#define LC_FEEDBACK_BASE_PATH @"feedback"
 
 @implementation LCUserFeedbackThread
 
 + (NSString *)objectPath {
-    return LC_FEEDBACK_BASE_URL;
+    return LC_FEEDBACK_BASE_PATH;
 }
 
 - (NSString *)threadsPath {
-    return [NSString stringWithFormat:@"%@/%@/threads", LC_FEEDBACK_BASE_URL, self.objectId];
+    return [NSString stringWithFormat:@"%@/%@/threads", LC_FEEDBACK_BASE_PATH, self.objectId];
 }
 
 - (instancetype)init {
@@ -200,7 +200,7 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
                     NSData *data;
                     data = [attachmentFile getData:&error];
                     if (error) {
-                        NSLog(@"attachment getData error");
+                        FLog(@"attachment getData error");
                     } else {
                         reply.attachmentImage = [UIImage imageWithData:data];
                     }

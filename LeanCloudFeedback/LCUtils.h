@@ -9,18 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <AVOSCloud/AVOSCloud.h>
 
-#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
-#import <MobileCoreServices/MobileCoreServices.h>
+#ifdef DEBUG
+#   define FLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #else
-#import <CoreServices/CoreServices.h>
+#   define FLog(fmt, ...)
 #endif
 
 @interface LCUtils : NSObject
-
-+(NSString *)stringFromDate:(NSDate *)date;
-
-+(void)copyDictionary:(NSDictionary *)src
-             toObject:(AVObject *)target;
 
 #pragma mark - Block
 + (void)callBooleanResultBlock:(AVBooleanResultBlock)block
@@ -66,5 +61,7 @@
                            error:error;
 
 + (NSString*)calMD5:(NSString*)input;
+
++ (NSError *)errorWithText:(NSString *)format,... NS_FORMAT_FUNCTION(1, 2);
 
 @end
