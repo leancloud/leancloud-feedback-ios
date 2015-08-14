@@ -93,7 +93,7 @@ xcodebuild -target UniversalFramework -config Release
 ## ChangeLog
 
 0.0.5	
-开放 LCUserFeedbackViewController.h，只需引入 <LeanCloudFeedback/LeanCloudFeedback.h> 即可
+开放 LCUserFeedbackViewController.h，只需引入 `<LeanCloudFeedback/LeanCloudFeedback.h>` 即可
 
 0.0.4	
 修复发送的反馈没有显示时间戳的问题、更改 AVOSCloud 依赖至 ~> 3.1 ，使得主项目引用时没有收到此库的限制
