@@ -224,9 +224,9 @@ static CGFloat const kBubbleArrowHeight = 14; /**< 气泡尖嘴的高度 */
 
 - (UIImage *)backgroundImageForFeedbackReply:(LCUserFeedbackReply *)reply {
 	if (reply.type == LCReplyTypeDev) {
-		return [[UIImage imageNamed:@"bg_1"] stretchableImageWithLeftCapWidth:20 topCapHeight:16];
+		return [[UIImage imageNamed:@"feedback_bg_1"] stretchableImageWithLeftCapWidth:20 topCapHeight:16];
 	} else {
-		return [[UIImage imageNamed:@"bg_2"] stretchableImageWithLeftCapWidth:1 topCapHeight:16];;
+		return [[UIImage imageNamed:@"feedback_bg_2"] stretchableImageWithLeftCapWidth:1 topCapHeight:16];;
 	}
 }
 

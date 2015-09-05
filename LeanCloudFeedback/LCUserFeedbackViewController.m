@@ -104,7 +104,7 @@ static CGFloat const kSendButtonWidth = 60;
 
 - (UIButton *)closeButton {
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *closeButtonImage = [UIImage imageNamed:@"back"];
+    UIImage *closeButtonImage = [UIImage imageNamed:@"feedback_back"];
     [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
     closeButton.frame = CGRectMake(0, 0, closeButtonImage.size.width, closeButtonImage.size.height);
     closeButton.autoresizingMask = UIViewAutoresizingFlexibleHeight;

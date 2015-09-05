@@ -12,22 +12,20 @@
 		5CC504ED1B0F01D3004D0CB1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC504EC1B0F01D3004D0CB1 /* ViewController.m */; };
 		5CC504F01B0F01D3004D0CB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CC504EE1B0F01D3004D0CB1 /* Main.storyboard */; };
 		5CC504F21B0F01D3004D0CB1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CC504F11B0F01D3004D0CB1 /* Images.xcassets */; };
-		5CC504F51B0F01D3004D0CB1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CC504F31B0F01D3004D0CB1 /* LaunchScreen.xib */; };
 		5CC505011B0F01D3004D0CB1 /* LeanCloudFeedbackDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CC505001B0F01D3004D0CB1 /* LeanCloudFeedbackDemoTests.m */; };
 		5CC5051F1B0F0598004D0CB1 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC5051E1B0F0598004D0CB1 /* libicucore.dylib */; };
 		5CC505211B0F05A0004D0CB1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505201B0F05A0004D0CB1 /* CoreLocation.framework */; };
 		5CC505231B0F05A8004D0CB1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505221B0F05A8004D0CB1 /* CoreTelephony.framework */; };
 		5CC505251B0F05B0004D0CB1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505241B0F05B0004D0CB1 /* MobileCoreServices.framework */; };
 		5CC505271B0F05B8004D0CB1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505261B0F05B8004D0CB1 /* SystemConfiguration.framework */; };
-		704717B41B4A6F1600F6ADDC /* LeanCloudFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */; };
-		707352921B4A9119005466CE /* LeanCloudFeedback.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		70BE23591B5E01A3008DED4E /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23531B5E01A3008DED4E /* back@2x.png */; };
-		70BE235A1B5E01A3008DED4E /* bg_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23541B5E01A3008DED4E /* bg_1@2x.png */; };
-		70BE235B1B5E01A3008DED4E /* bg_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23551B5E01A3008DED4E /* bg_2@2x.png */; };
-		70BE235C1B5E01A3008DED4E /* btn_feedback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23561B5E01A3008DED4E /* btn_feedback@2x.png */; };
-		70BE235D1B5E01A3008DED4E /* btn_feedback_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23571B5E01A3008DED4E /* btn_feedback_new@2x.png */; };
-		70BE235E1B5E01A3008DED4E /* warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23581B5E01A3008DED4E /* warning@2x.png */; };
-		70FB0B221B5E674B00FD8D70 /* feedback_add_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FB0B211B5E674B00FD8D70 /* feedback_add_image@2x.png */; };
+		703074D41B9ABC5300FD796E /* LeanCloudFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 703074D11B9ABC4500FD796E /* LeanCloudFeedback.framework */; };
+		703074DF1B9ABCF300FD796E /* feedback_add_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703074D81B9ABCF300FD796E /* feedback_add_image@2x.png */; };
+		703074E01B9ABCF300FD796E /* feedback_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703074D91B9ABCF300FD796E /* feedback_back@2x.png */; };
+		703074E11B9ABCF300FD796E /* feedback_bg_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703074DA1B9ABCF300FD796E /* feedback_bg_1@2x.png */; };
+		703074E21B9ABCF300FD796E /* feedback_bg_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703074DB1B9ABCF300FD796E /* feedback_bg_2@2x.png */; };
+		703074E31B9ABCF300FD796E /* feedback_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703074DC1B9ABCF300FD796E /* feedback_btn@2x.png */; };
+		703074E41B9ABCF300FD796E /* feedback_btn_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703074DD1B9ABCF300FD796E /* feedback_btn_new@2x.png */; };
+		703074E51B9ABCF300FD796E /* feedback_warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703074DE1B9ABCF300FD796E /* feedback_warning@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,49 +36,28 @@
 			remoteGlobalIDString = 5CC504E01B0F01D3004D0CB1;
 			remoteInfo = LeanCloudFeedbackDemo;
 		};
-		5CC505331B0F0D76004D0CB1 /* PBXContainerItemProxy */ = {
+		703074D01B9ABC4500FD796E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */;
+			containerPortal = 703074CA1B9ABC4500FD796E /* LeanCloudFeedback.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 5CCAE0FB1B09B0FE009276B9;
 			remoteInfo = LeanCloudFeedback;
 		};
-		5CC505351B0F0D76004D0CB1 /* PBXContainerItemProxy */ = {
+		703074D21B9ABC4500FD796E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */;
+			containerPortal = 703074CA1B9ABC4500FD796E /* LeanCloudFeedback.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 5CCAE1061B09B0FE009276B9;
 			remoteInfo = LeanCloudFeedbackTests;
 		};
-		5CC5053B1B0F1366004D0CB1 /* PBXContainerItemProxy */ = {
+		703074D51B9ABC5600FD796E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 5CCAE0FA1B09B0FE009276B9;
-			remoteInfo = LeanCloudFeedback;
-		};
-		707352931B4A9119005466CE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */;
+			containerPortal = 703074CA1B9ABC4500FD796E /* LeanCloudFeedback.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 5CCAE0FA1B09B0FE009276B9;
 			remoteInfo = LeanCloudFeedback;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		707352951B4A9119005466CE /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				707352921B4A9119005466CE /* LeanCloudFeedback.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5CC504E11B0F01D3004D0CB1 /* LeanCloudFeedbackDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeanCloudFeedbackDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,14 +78,14 @@
 		5CC505221B0F05A8004D0CB1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		5CC505241B0F05B0004D0CB1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5CC505261B0F05B8004D0CB1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LeanCloudFeedback.xcodeproj; path = ../LeanCloudFeedback.xcodeproj; sourceTree = "<group>"; };
-		70BE23531B5E01A3008DED4E /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
-		70BE23541B5E01A3008DED4E /* bg_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_1@2x.png"; sourceTree = "<group>"; };
-		70BE23551B5E01A3008DED4E /* bg_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_2@2x.png"; sourceTree = "<group>"; };
-		70BE23561B5E01A3008DED4E /* btn_feedback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_feedback@2x.png"; sourceTree = "<group>"; };
-		70BE23571B5E01A3008DED4E /* btn_feedback_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_feedback_new@2x.png"; sourceTree = "<group>"; };
-		70BE23581B5E01A3008DED4E /* warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "warning@2x.png"; sourceTree = "<group>"; };
-		70FB0B211B5E674B00FD8D70 /* feedback_add_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_add_image@2x.png"; sourceTree = "<group>"; };
+		703074CA1B9ABC4500FD796E /* LeanCloudFeedback.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LeanCloudFeedback.xcodeproj; path = ../LeanCloudFeedback.xcodeproj; sourceTree = "<group>"; };
+		703074D81B9ABCF300FD796E /* feedback_add_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_add_image@2x.png"; sourceTree = "<group>"; };
+		703074D91B9ABCF300FD796E /* feedback_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_back@2x.png"; sourceTree = "<group>"; };
+		703074DA1B9ABCF300FD796E /* feedback_bg_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_bg_1@2x.png"; sourceTree = "<group>"; };
+		703074DB1B9ABCF300FD796E /* feedback_bg_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_bg_2@2x.png"; sourceTree = "<group>"; };
+		703074DC1B9ABCF300FD796E /* feedback_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_btn@2x.png"; sourceTree = "<group>"; };
+		703074DD1B9ABCF300FD796E /* feedback_btn_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_btn_new@2x.png"; sourceTree = "<group>"; };
+		703074DE1B9ABCF300FD796E /* feedback_warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_warning@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				704717B41B4A6F1600F6ADDC /* LeanCloudFeedback.framework in Frameworks */,
+				703074D41B9ABC5300FD796E /* LeanCloudFeedback.framework in Frameworks */,
 				5CC505271B0F05B8004D0CB1 /* SystemConfiguration.framework in Frameworks */,
 				5CC505251B0F05B0004D0CB1 /* MobileCoreServices.framework in Frameworks */,
 				5CC505231B0F05A8004D0CB1 /* CoreTelephony.framework in Frameworks */,
@@ -138,7 +115,7 @@
 		5CC504D81B0F01D3004D0CB1 = {
 			isa = PBXGroup;
 			children = (
-				5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */,
+				703074CA1B9ABC4500FD796E /* LeanCloudFeedback.xcodeproj */,
 				5CC505261B0F05B8004D0CB1 /* SystemConfiguration.framework */,
 				5CC505241B0F05B0004D0CB1 /* MobileCoreServices.framework */,
 				5CC505221B0F05A8004D0CB1 /* CoreTelephony.framework */,
@@ -162,7 +139,7 @@
 		5CC504E31B0F01D3004D0CB1 /* LeanCloudFeedbackDemo */ = {
 			isa = PBXGroup;
 			children = (
-				70BE23521B5E01A3008DED4E /* resources */,
+				703074D71B9ABCF300FD796E /* resources */,
 				5CC504E81B0F01D3004D0CB1 /* AppDelegate.h */,
 				5CC504E91B0F01D3004D0CB1 /* AppDelegate.m */,
 				5CC504EB1B0F01D3004D0CB1 /* ViewController.h */,
@@ -201,28 +178,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5CC5052E1B0F0D76004D0CB1 /* Products */ = {
+		703074CB1B9ABC4500FD796E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */,
-				5CC505361B0F0D76004D0CB1 /* LeanCloudFeedbackTests.xctest */,
+				703074D11B9ABC4500FD796E /* LeanCloudFeedback.framework */,
+				703074D31B9ABC4500FD796E /* LeanCloudFeedbackTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		70BE23521B5E01A3008DED4E /* resources */ = {
+		703074D71B9ABCF300FD796E /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				70FB0B211B5E674B00FD8D70 /* feedback_add_image@2x.png */,
-				70BE23531B5E01A3008DED4E /* back@2x.png */,
-				70BE23541B5E01A3008DED4E /* bg_1@2x.png */,
-				70BE23551B5E01A3008DED4E /* bg_2@2x.png */,
-				70BE23561B5E01A3008DED4E /* btn_feedback@2x.png */,
-				70BE23571B5E01A3008DED4E /* btn_feedback_new@2x.png */,
-				70BE23581B5E01A3008DED4E /* warning@2x.png */,
+				703074D81B9ABCF300FD796E /* feedback_add_image@2x.png */,
+				703074D91B9ABCF300FD796E /* feedback_back@2x.png */,
+				703074DA1B9ABCF300FD796E /* feedback_bg_1@2x.png */,
+				703074DB1B9ABCF300FD796E /* feedback_bg_2@2x.png */,
+				703074DC1B9ABCF300FD796E /* feedback_btn@2x.png */,
+				703074DD1B9ABCF300FD796E /* feedback_btn_new@2x.png */,
+				703074DE1B9ABCF300FD796E /* feedback_warning@2x.png */,
 			);
-			name = resources;
-			path = ../../LeanCloudFeedback/resources;
+			path = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,13 +211,11 @@
 				5CC504DD1B0F01D3004D0CB1 /* Sources */,
 				5CC504DE1B0F01D3004D0CB1 /* Frameworks */,
 				5CC504DF1B0F01D3004D0CB1 /* Resources */,
-				707352951B4A9119005466CE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				5CC5053C1B0F1366004D0CB1 /* PBXTargetDependency */,
-				707352941B4A9119005466CE /* PBXTargetDependency */,
+				703074D61B9ABC5600FD796E /* PBXTargetDependency */,
 			);
 			name = LeanCloudFeedbackDemo;
 			productName = LeanCloudFeedbackDemo;
@@ -297,8 +271,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 5CC5052E1B0F0D76004D0CB1 /* Products */;
-					ProjectRef = 5CC5052D1B0F0D76004D0CB1 /* LeanCloudFeedback.xcodeproj */;
+					ProductGroup = 703074CB1B9ABC4500FD796E /* Products */;
+					ProjectRef = 703074CA1B9ABC4500FD796E /* LeanCloudFeedback.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -310,18 +284,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */ = {
+		703074D11B9ABC4500FD796E /* LeanCloudFeedback.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = LeanCloudFeedback.framework;
-			remoteRef = 5CC505331B0F0D76004D0CB1 /* PBXContainerItemProxy */;
+			remoteRef = 703074D01B9ABC4500FD796E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5CC505361B0F0D76004D0CB1 /* LeanCloudFeedbackTests.xctest */ = {
+		703074D31B9ABC4500FD796E /* LeanCloudFeedbackTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = LeanCloudFeedbackTests.xctest;
-			remoteRef = 5CC505351B0F0D76004D0CB1 /* PBXContainerItemProxy */;
+			remoteRef = 703074D21B9ABC4500FD796E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -331,16 +305,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				703074E51B9ABCF300FD796E /* feedback_warning@2x.png in Resources */,
+				703074DF1B9ABCF300FD796E /* feedback_add_image@2x.png in Resources */,
+				703074E21B9ABCF300FD796E /* feedback_bg_2@2x.png in Resources */,
 				5CC504F01B0F01D3004D0CB1 /* Main.storyboard in Resources */,
-				70BE23591B5E01A3008DED4E /* back@2x.png in Resources */,
-				70BE235B1B5E01A3008DED4E /* bg_2@2x.png in Resources */,
-				70BE235A1B5E01A3008DED4E /* bg_1@2x.png in Resources */,
-				70BE235E1B5E01A3008DED4E /* warning@2x.png in Resources */,
-				70FB0B221B5E674B00FD8D70 /* feedback_add_image@2x.png in Resources */,
-				5CC504F51B0F01D3004D0CB1 /* LaunchScreen.xib in Resources */,
-				70BE235D1B5E01A3008DED4E /* btn_feedback_new@2x.png in Resources */,
+				703074E11B9ABCF300FD796E /* feedback_bg_1@2x.png in Resources */,
+				703074E31B9ABCF300FD796E /* feedback_btn@2x.png in Resources */,
+				703074E41B9ABCF300FD796E /* feedback_btn_new@2x.png in Resources */,
+				703074E01B9ABCF300FD796E /* feedback_back@2x.png in Resources */,
 				5CC504F21B0F01D3004D0CB1 /* Images.xcassets in Resources */,
-				70BE235C1B5E01A3008DED4E /* btn_feedback@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,15 +353,10 @@
 			target = 5CC504E01B0F01D3004D0CB1 /* LeanCloudFeedbackDemo */;
 			targetProxy = 5CC504FB1B0F01D3004D0CB1 /* PBXContainerItemProxy */;
 		};
-		5CC5053C1B0F1366004D0CB1 /* PBXTargetDependency */ = {
+		703074D61B9ABC5600FD796E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = LeanCloudFeedback;
-			targetProxy = 5CC5053B1B0F1366004D0CB1 /* PBXContainerItemProxy */;
-		};
-		707352941B4A9119005466CE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = LeanCloudFeedback;
-			targetProxy = 707352931B4A9119005466CE /* PBXContainerItemProxy */;
+			targetProxy = 703074D51B9ABC5600FD796E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -508,7 +476,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = LeanCloudFeedbackDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -530,7 +498,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = LeanCloudFeedbackDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
