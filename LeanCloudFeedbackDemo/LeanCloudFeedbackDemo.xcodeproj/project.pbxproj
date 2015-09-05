@@ -20,7 +20,6 @@
 		5CC505251B0F05B0004D0CB1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505241B0F05B0004D0CB1 /* MobileCoreServices.framework */; };
 		5CC505271B0F05B8004D0CB1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505261B0F05B8004D0CB1 /* SystemConfiguration.framework */; };
 		704717B41B4A6F1600F6ADDC /* LeanCloudFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */; };
-		707352911B4A9119005466CE /* LeanCloudFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */; };
 		707352921B4A9119005466CE /* LeanCloudFeedback.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC505341B0F0D76004D0CB1 /* LeanCloudFeedback.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		70BE23591B5E01A3008DED4E /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23531B5E01A3008DED4E /* back@2x.png */; };
 		70BE235A1B5E01A3008DED4E /* bg_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70BE23541B5E01A3008DED4E /* bg_1@2x.png */; };
@@ -119,7 +118,6 @@
 			files = (
 				704717B41B4A6F1600F6ADDC /* LeanCloudFeedback.framework in Frameworks */,
 				5CC505271B0F05B8004D0CB1 /* SystemConfiguration.framework in Frameworks */,
-				707352911B4A9119005466CE /* LeanCloudFeedback.framework in Frameworks */,
 				5CC505251B0F05B0004D0CB1 /* MobileCoreServices.framework in Frameworks */,
 				5CC505231B0F05A8004D0CB1 /* CoreTelephony.framework in Frameworks */,
 				5CC505211B0F05A0004D0CB1 /* CoreLocation.framework in Frameworks */,
@@ -510,6 +508,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = LeanCloudFeedbackDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -531,6 +530,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = LeanCloudFeedbackDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
