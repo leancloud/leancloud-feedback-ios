@@ -92,6 +92,9 @@ xcodebuild -target UniversalFramework -config Release
 
 ## ChangeLog
 
+0.0.6
+移除了+[UIImage imageNamed:inBundle:compatibleWithTraitCollection:] iOS 8 的API，使得本项目最低能支持 iOS6
+
 0.0.5	
 开放 LCUserFeedbackViewController.h，只需引入 `<LeanCloudFeedback/LeanCloudFeedback.h>` 即可
 
