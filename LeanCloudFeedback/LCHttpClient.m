@@ -45,14 +45,18 @@
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters {
     NSURL *url = [NSURL URLWithString:path relativeToURL:self.baseURL];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    [request setValue:[AVOSCloud getApplicationId] forHTTPHeaderField:@"X-AVOSCloud-Application-Id"];
+    [request setValue:[AVOSCloud getApplicationId] forHTTPHeaderField:@"X-LC-Id"];
     
     NSString *timestamp=[NSString stringWithFormat:@"%.0f",1000*[[NSDate date] timeIntervalSince1970]];
     NSString *sign=[LCUtils calMD5:[NSString stringWithFormat:@"%@%@",timestamp,[AVOSCloud getClientKey]]];
     NSString *headerValue=[NSString stringWithFormat:@"%@,%@",sign,timestamp];
-    [request setValue:headerValue forHTTPHeaderField:@"X-AVOSCloud-Request-Sign"];
+    [request setValue:headerValue forHTTPHeaderField:@"X-LC-Sign"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    if ([AVUser currentUser].sessionToken) {
+        [request setValue:[AVUser currentUser].sessionToken forHTTPHeaderField:@"X-LC-Session"];
+    }
+    
     [request setTimeoutInterval:kAVDefaultNetworkTimeoutInterval];
     [request setHTTPMethod:method];
     if ([method isEqualToString:@"GET"] || [method isEqualToString:@"DELETE"]) {

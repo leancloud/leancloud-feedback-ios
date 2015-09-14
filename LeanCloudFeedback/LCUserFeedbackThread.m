@@ -36,13 +36,6 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
     return [NSString stringWithFormat:@"%@/%@/threads", LC_FEEDBACK_BASE_PATH, self.objectId];
 }
 
-- (instancetype)init {
-    if ((self = [super init])) {
-        self.iid = [AVInstallation currentInstallation].objectId;
-    }
-    return self;
-}
-
 -(NSMutableDictionary *)postData {
     NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
     
