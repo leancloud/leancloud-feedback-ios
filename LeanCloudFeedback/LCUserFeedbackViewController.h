@@ -32,4 +32,9 @@ typedef enum : NSUInteger {
 @property(nonatomic, copy) NSString *feedbackTitle;
 @property(nonatomic, copy) NSString *contact;
 
+/**
+ *  是否使用的 present 方式弹出。默认为YES，决定返回按钮样式和返回方式
+ */
+@property(nonatomic, assign) BOOL presented;
+
 @end
