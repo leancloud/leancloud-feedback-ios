@@ -54,6 +54,7 @@ static CGFloat const kSendButtonWidth = 60;
         self.navigationBarStyle = LCUserFeedbackNavigationBarStyleBlue;
         self.contactHeaderHidden = NO;
         self.feedbackCellFont = [UIFont systemFontOfSize:16];
+        self.presented = YES;
     }
     return self;
 }
