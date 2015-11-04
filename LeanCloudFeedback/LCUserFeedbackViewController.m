@@ -80,10 +80,11 @@ static CGFloat const kSendButtonWidth = 60;
 }
 
 - (void)setupUI {
-    self.navigationItem.leftBarButtonItem = self.closeButtonItem;
+    if (self.presented) {
+        self.navigationItem.leftBarButtonItem = self.closeButtonItem;
+    }
+    
     [self.navigationItem setTitle:@"意见反馈"];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
-    self.navigationItem.backBarButtonItem = backButton;
     [self setupNavigaionBar];
     
     [self.view addSubview:self.tableView];
@@ -113,9 +114,14 @@ static CGFloat const kSendButtonWidth = 60;
 
 - (UIBarButtonItem *)closeButtonItem {
     if (_closeButtonItem == nil) {
-        UIButton *closeButton = [self closeButton];
-        [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-         _closeButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
+        if (self.presented) {
+            _closeButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeButtonClicked:)];
+        }else{
+            UIButton *closeButton = [self closeButton];
+            [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            _closeButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
+        }
+
     }
     return _closeButtonItem;
 }
@@ -179,12 +185,8 @@ static CGFloat const kSendButtonWidth = 60;
         case LCUserFeedbackNavigationBarStyleBlue: {
             [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
             UIColor *blue =[UIColor colorWithRed:85.0f/255 green:184.0f/255 blue:244.0f/255 alpha:1];
-            if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-                self.navigationController.navigationBar.tintColor = blue;
-            } else {
-                self.navigationController.navigationBar.barTintColor = blue;
-                self.navigationController.navigationBar.tintColor = blue;
-            }
+            self.navigationController.navigationBar.barTintColor = blue;
+            self.closeButtonItem.tintColor = [UIColor whiteColor];
             break;
         }
         case LCUserFeedbackNavigationBarStyleNone:
