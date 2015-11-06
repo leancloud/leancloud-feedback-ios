@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"详情";
+    self.title = NSLocalizedString(@"LCUserFeedbackImageViewController_Title", nil);
     [self.view addSubview:self.imageView];
 }
 

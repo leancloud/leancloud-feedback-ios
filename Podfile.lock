@@ -1,0 +1,18 @@
+PODS:
+  - AVOSCloud (3.1.6.1)
+  - LeanCloudFeedback (0.0.7):
+    - AVOSCloud (~> 3.1)
+
+DEPENDENCIES:
+  - AVOSCloud (~> 3.1.4)
+  - LeanCloudFeedback (from `.`)
+
+EXTERNAL SOURCES:
+  LeanCloudFeedback:
+    :path: .
+
+SPEC CHECKSUMS:
+  AVOSCloud: 8774e2c05f791cfce3c294d975b57fec330f9de1
+  LeanCloudFeedback: 35d2effa89e03e9a3ce2158874a6f127751f7257
+
+COCOAPODS: 0.39.0
