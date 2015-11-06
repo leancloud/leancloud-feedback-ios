@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.source_files        = "LeanCloudFeedback/**/*.{h,m}"
   s.public_header_files = "LeanCloudFeedback/**/*.h"
-  s.resources           = "LeanCloudFeedback/resources/*.png"
+  s.resources           = "LeanCloudFeedback/resources/*.{png,strings}"
 
   s.xcconfig   = { 'OTHER_LDFLAGS' => '$(inherited) -undefined dynamic_lookup' }
   s.frameworks = 'Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore'

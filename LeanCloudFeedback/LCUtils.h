@@ -15,6 +15,10 @@
 #   define FLog(fmt, ...)
 #endif
 
+#define LCLocalizedString(name) NSLocalizedStringFromTableInBundle(name, @"LeanCloudFeedback", [NSBundle bundleForClass:[self class]], nil)
+
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 @interface LCUtils : NSObject
 
 #pragma mark - Block

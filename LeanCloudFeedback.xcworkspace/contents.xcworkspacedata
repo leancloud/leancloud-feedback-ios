@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:LeanCloudFeedbackDemo/LeanCloudFeedbackDemo.xcodeproj">
+      location = "group:LeanCloudFeedback.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:LeanCloudFeedback.xcodeproj">
+      location = "group:LeanCloudFeedbackDemo/LeanCloudFeedbackDemo.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
