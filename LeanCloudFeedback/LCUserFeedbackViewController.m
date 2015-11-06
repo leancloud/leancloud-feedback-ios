@@ -459,6 +459,7 @@ static CGFloat const kSendButtonWidth = 60;
         }];
     }
 }
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollToBottom {
     if ([self.tableView numberOfRowsInSection:0] > 1) {
