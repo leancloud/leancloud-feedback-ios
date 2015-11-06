@@ -92,31 +92,35 @@ xcodebuild -target UniversalFramework -config Release
 
 ## ChangeLog
 
+0.0.8
+
+* 增加本地化字符串的支持
+
 0.0.7
 
-结合 LeanCloud SDK 的用户系统，如果当前有用户登录，将记录 user id，方便定位反馈的用户
+* 结合 LeanCloud SDK 的用户系统，如果当前有用户登录，将记录 user id，方便定位反馈的用户
 
 0.0.6
 
-移除了+[UIImage imageNamed:inBundle:compatibleWithTraitCollection:] iOS 8 的API，使得本项目最低能支持 iOS6
+* 移除了+[UIImage imageNamed:inBundle:compatibleWithTraitCollection:] iOS 8 的API，使得本项目最低能支持 iOS6
 
 0.0.5
 
-开放 LCUserFeedbackViewController.h，只需引入 `<LeanCloudFeedback/LeanCloudFeedback.h>` 即可
+* 开放 LCUserFeedbackViewController.h，只需引入 `<LeanCloudFeedback/LeanCloudFeedback.h>` 即可
 
 0.0.4
 
-修复发送的反馈没有显示时间戳的问题、更改 AVOSCloud 依赖至 ~> 3.1 ，使得主项目引用时没有收到此库的限制
+* 修复发送的反馈没有显示时间戳的问题、更改 AVOSCloud 依赖至 ~> 3.1 ，使得主项目引用时没有收到此库的限制
 
 0.0.3
 
-增加图片上传功能，让用户可以上传图片来反映问题
+* 增加图片上传功能，让用户可以上传图片来反映问题
 
 0.0.2
 
-增加了导航栏、联系人表头、字体的定制		
-去掉了 LeftCell 类 和 RightCell 类，统一为 FeedbackCell，因为左右Cell 大部分代码都是相同可复用的。
+* 增加了导航栏、联系人表头、字体的定制		
+* 去掉了 LeftCell 类 和 RightCell 类，统一为 FeedbackCell，因为左右Cell 大部分代码都是相同可复用的。
 
 0.0.1
 
-发布
+* 发布

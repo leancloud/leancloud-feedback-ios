@@ -5,7 +5,7 @@
 
 workspace 'LeanCloudFeedback.xcworkspace'
 
-platform :ios, '7.0'
+platform :ios, '6.0'
 
 target 'LeanCloudFeedback' do
     xcodeproj 'LeanCloudFeedback.xcodeproj'
