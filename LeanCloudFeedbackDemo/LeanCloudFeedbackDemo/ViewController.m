@@ -35,12 +35,29 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)startFeedbackView:(id)sender {
+- (IBAction)presentFeedbackView:(id)sender {
     LCUserFeedbackAgent *agent = [LCUserFeedbackAgent sharedInstance];
 //    [agent showConversations:self title:nil contact:@"goodman@leancloud.cn"];
     [agent showConversations:self title:nil contact:nil];
     
     self.unreadTipLabel.text = nil;
+}
+
+- (IBAction)pushFeedbackView:(id)sender {
+    LCUserFeedbackViewController *feedbackViewController = [[LCUserFeedbackViewController alloc] init];
+    feedbackViewController.feedbackTitle = nil;
+    feedbackViewController.contact = nil;
+    
+    // 隐藏联系人表头
+    feedbackViewController.contactHeaderHidden = YES;
+    
+    // 决定返回按钮和样式
+    feedbackViewController.presented = NO;
+    
+    // 不设置导航栏样式
+    feedbackViewController.navigationBarStyle = LCUserFeedbackNavigationBarStyleNone;
+    
+    [self.navigationController pushViewController:feedbackViewController animated:YES];
 }
 
 @end

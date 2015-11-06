@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Rje-qr-J9b">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="saa-fj-gvc">
+            <objects>
+                <navigationController id="Rje-qr-J9b" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eae-Jq-bdf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="fpp-dt-8AH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WKY-uF-39Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-497" y="234"/>
+        </scene>
+        <!--LeanCloudFeedbackDemo-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
@@ -18,16 +34,23 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPo-Uu-1eb">
-                                <rect key="frame" x="66" y="200" width="468" height="30"/>
-                                <state key="normal" title="点击进入反馈页面">
+                                <rect key="frame" x="223" y="184" width="153" height="30"/>
+                                <state key="normal" title="进入反馈页面(present)">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="startFeedbackView:" destination="x5A-6p-PRh" eventType="touchUpInside" id="vkQ-RW-QrT"/>
+                                    <action selector="presentFeedbackView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="oxy-1x-ehk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lWi-zy-hLi">
+                                <rect key="frame" x="233" y="228" width="134" height="30"/>
+                                <state key="normal" title="进入反馈页面(push)"/>
+                                <connections>
+                                    <action selector="pushFeedbackView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Yoy-Ht-yKI"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RtB-H5-hHH">
-                                <rect key="frame" x="279" y="270" width="42" height="21"/>
+                                <rect key="frame" x="279" y="300" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="8.3534512430000007e-05" blue="0.1777411643" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -35,19 +58,22 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="QPo-Uu-1eb" secondAttribute="trailing" constant="50" id="20h-gH-Ndy"/>
-                            <constraint firstItem="QPo-Uu-1eb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="50" id="3Kq-9J-iWQ"/>
-                            <constraint firstAttribute="centerX" secondItem="RtB-H5-hHH" secondAttribute="centerX" id="6sL-Zj-UWh"/>
-                            <constraint firstItem="QPo-Uu-1eb" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="180" id="A5M-tS-hE5"/>
-                            <constraint firstItem="RtB-H5-hHH" firstAttribute="top" secondItem="QPo-Uu-1eb" secondAttribute="bottom" constant="40" id="ccA-Xo-ej1"/>
+                            <constraint firstItem="QPo-Uu-1eb" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="120" id="EvO-VP-uYS"/>
+                            <constraint firstItem="RtB-H5-hHH" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="ExG-Me-ZeZ"/>
+                            <constraint firstItem="RtB-H5-hHH" firstAttribute="top" secondItem="lWi-zy-hLi" secondAttribute="bottom" constant="42" id="Hsv-Hu-Lqz"/>
+                            <constraint firstItem="lWi-zy-hLi" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="aF1-Dh-zdY"/>
+                            <constraint firstItem="QPo-Uu-1eb" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="cg2-mJ-dES"/>
+                            <constraint firstItem="lWi-zy-hLi" firstAttribute="top" secondItem="QPo-Uu-1eb" secondAttribute="bottom" constant="14" id="lU5-fA-VPb"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="LeanCloudFeedbackDemo" id="xnv-kN-wkk"/>
                     <connections>
                         <outlet property="unreadTipLabel" destination="RtB-H5-hHH" id="Rra-gX-m5T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="203" y="234"/>
         </scene>
     </scenes>
 </document>

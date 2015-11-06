@@ -115,8 +115,8 @@ static CGFloat const kSendButtonWidth = 60;
 - (UIBarButtonItem *)closeButtonItem {
     if (_closeButtonItem == nil) {
         if (self.presented) {
-            _closeButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeButtonClicked:)];
-        }else{
+            _closeButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeButtonClicked:)];
+        } else {
             UIButton *closeButton = [self closeButton];
             [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             _closeButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
@@ -281,9 +281,13 @@ static CGFloat const kSendButtonWidth = 60;
 }
 
 - (void)closeButtonClicked:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        ;
-    }];
+    if (self.presented) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (NSString *)currentContact {
