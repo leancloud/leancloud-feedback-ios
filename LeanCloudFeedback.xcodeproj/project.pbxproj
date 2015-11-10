@@ -21,15 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		5CC504CD1B0EFE88004D0CB1 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC504CC1B0EFE88004D0CB1 /* AVOSCloud.framework */; };
-		5CC504CF1B0EFEA6004D0CB1 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC504CE1B0EFEA6004D0CB1 /* libicucore.dylib */; };
-		5CC504D11B0EFEAC004D0CB1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC504D01B0EFEAC004D0CB1 /* CoreLocation.framework */; };
-		5CC504D31B0EFEB4004D0CB1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC504D21B0EFEB4004D0CB1 /* CoreTelephony.framework */; };
-		5CC504D51B0EFEBB004D0CB1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC504D41B0EFEBB004D0CB1 /* SystemConfiguration.framework */; };
-		5CC504D71B0EFEDA004D0CB1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC504D61B0EFEDA004D0CB1 /* MobileCoreServices.framework */; };
 		5CCAE1011B09B0FE009276B9 /* LeanCloudFeedback.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE1001B09B0FE009276B9 /* LeanCloudFeedback.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5CCAE1071B09B0FE009276B9 /* LeanCloudFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CCAE0FB1B09B0FE009276B9 /* LeanCloudFeedback.framework */; };
-		5CCAE10E1B09B0FE009276B9 /* LeanCloudFeedbackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE10D1B09B0FE009276B9 /* LeanCloudFeedbackTests.m */; };
 		5CCAE1241B09B323009276B9 /* LCUserFeedbackAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE1171B09B323009276B9 /* LCUserFeedbackAgent.m */; };
 		5CCAE1251B09B323009276B9 /* LCUserFeedbackThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE1181B09B323009276B9 /* LCUserFeedbackThread.m */; };
 		5CCAE1261B09B323009276B9 /* LCUserFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE1191B09B323009276B9 /* LCUserFeedbackViewController.m */; };
@@ -45,6 +37,7 @@
 		5CCAE1361B09C1F2009276B9 /* LCHttpClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE1321B09C1F2009276B9 /* LCHttpClient.h */; };
 		5CCAE1371B09C1F2009276B9 /* LCUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCAE1331B09C1F2009276B9 /* LCUtils.m */; };
 		5CCAE1381B09C1F2009276B9 /* LCUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCAE1341B09C1F2009276B9 /* LCUtils.h */; };
+		7000FCF21BEC9E450097C729 /* LeanCloudFeedback.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7000FCF11BEC9E450097C729 /* LeanCloudFeedback.strings */; };
 		703074C31B9ABA6D00FD796E /* feedback_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703074BC1B9ABA6D00FD796E /* feedback_back@2x.png */; };
 		703074C41B9ABA6D00FD796E /* feedback_bg_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703074BD1B9ABA6D00FD796E /* feedback_bg_1@2x.png */; };
 		703074C51B9ABA6D00FD796E /* feedback_bg_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703074BE1B9ABA6D00FD796E /* feedback_bg_2@2x.png */; };
@@ -54,31 +47,14 @@
 		703074E81B9ABDA400FD796E /* feedback_add_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703074E71B9ABDA400FD796E /* feedback_add_image@2x.png */; };
 		70FB0B271B5E76D500FD8D70 /* LCUserFeedbackImageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 70FB0B251B5E76D500FD8D70 /* LCUserFeedbackImageViewController.h */; };
 		70FB0B281B5E76D500FD8D70 /* LCUserFeedbackImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FB0B261B5E76D500FD8D70 /* LCUserFeedbackImageViewController.m */; };
+		FA5979E6FAE10100718387EA /* libPods-LeanCloudFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FC55FE5788FF58EC0BC812 /* libPods-LeanCloudFeedback.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		5CCAE1081B09B0FE009276B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5CCAE0F21B09B0FE009276B9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5CCAE0FA1B09B0FE009276B9;
-			remoteInfo = LeanCloudFeedback;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		5CC504CC1B0EFE88004D0CB1 /* AVOSCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AVOSCloud.framework; sourceTree = "<group>"; };
-		5CC504CE1B0EFEA6004D0CB1 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		5CC504D01B0EFEAC004D0CB1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		5CC504D21B0EFEB4004D0CB1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		5CC504D41B0EFEBB004D0CB1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		5CC504D61B0EFEDA004D0CB1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		59AC16570E133BA472B3DABB /* Pods-LeanCloudFeedback.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeanCloudFeedback.release.xcconfig"; path = "Pods/Target Support Files/Pods-LeanCloudFeedback/Pods-LeanCloudFeedback.release.xcconfig"; sourceTree = "<group>"; };
 		5CCAE0FB1B09B0FE009276B9 /* LeanCloudFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LeanCloudFeedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CCAE0FF1B09B0FE009276B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CCAE1001B09B0FE009276B9 /* LeanCloudFeedback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeanCloudFeedback.h; sourceTree = "<group>"; };
-		5CCAE1061B09B0FE009276B9 /* LeanCloudFeedbackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeanCloudFeedbackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5CCAE10C1B09B0FE009276B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5CCAE10D1B09B0FE009276B9 /* LeanCloudFeedbackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeanCloudFeedbackTests.m; sourceTree = "<group>"; };
 		5CCAE1171B09B323009276B9 /* LCUserFeedbackAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCUserFeedbackAgent.m; sourceTree = "<group>"; };
 		5CCAE1181B09B323009276B9 /* LCUserFeedbackThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCUserFeedbackThread.m; sourceTree = "<group>"; };
 		5CCAE1191B09B323009276B9 /* LCUserFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCUserFeedbackViewController.m; sourceTree = "<group>"; };
@@ -94,6 +70,8 @@
 		5CCAE1321B09C1F2009276B9 /* LCHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCHttpClient.h; sourceTree = "<group>"; };
 		5CCAE1331B09C1F2009276B9 /* LCUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCUtils.m; sourceTree = "<group>"; };
 		5CCAE1341B09C1F2009276B9 /* LCUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCUtils.h; sourceTree = "<group>"; };
+		62FC55FE5788FF58EC0BC812 /* libPods-LeanCloudFeedback.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LeanCloudFeedback.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7000FCF11BEC9E450097C729 /* LeanCloudFeedback.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = LeanCloudFeedback.strings; sourceTree = "<group>"; };
 		703074BC1B9ABA6D00FD796E /* feedback_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_back@2x.png"; sourceTree = "<group>"; };
 		703074BD1B9ABA6D00FD796E /* feedback_bg_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_bg_1@2x.png"; sourceTree = "<group>"; };
 		703074BE1B9ABA6D00FD796E /* feedback_bg_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_bg_2@2x.png"; sourceTree = "<group>"; };
@@ -104,6 +82,7 @@
 		70FB0B1E1B5E0E4F00FD8D70 /* LCUserFeedbackReply_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LCUserFeedbackReply_Internal.h; sourceTree = "<group>"; };
 		70FB0B251B5E76D500FD8D70 /* LCUserFeedbackImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCUserFeedbackImageViewController.h; sourceTree = "<group>"; };
 		70FB0B261B5E76D500FD8D70 /* LCUserFeedbackImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCUserFeedbackImageViewController.m; sourceTree = "<group>"; };
+		D94FDB034BF527C80C647B30 /* Pods-LeanCloudFeedback.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeanCloudFeedback.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeanCloudFeedback/Pods-LeanCloudFeedback.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,20 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CC504D71B0EFEDA004D0CB1 /* MobileCoreServices.framework in Frameworks */,
-				5CC504D51B0EFEBB004D0CB1 /* SystemConfiguration.framework in Frameworks */,
-				5CC504D31B0EFEB4004D0CB1 /* CoreTelephony.framework in Frameworks */,
-				5CC504D11B0EFEAC004D0CB1 /* CoreLocation.framework in Frameworks */,
-				5CC504CF1B0EFEA6004D0CB1 /* libicucore.dylib in Frameworks */,
-				5CC504CD1B0EFE88004D0CB1 /* AVOSCloud.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5CCAE1031B09B0FE009276B9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5CCAE1071B09B0FE009276B9 /* LeanCloudFeedback.framework in Frameworks */,
+				FA5979E6FAE10100718387EA /* libPods-LeanCloudFeedback.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,12 +100,7 @@
 		56A155F7F6474AB06BF1EFA0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5CC504D61B0EFEDA004D0CB1 /* MobileCoreServices.framework */,
-				5CC504D41B0EFEBB004D0CB1 /* SystemConfiguration.framework */,
-				5CC504D21B0EFEB4004D0CB1 /* CoreTelephony.framework */,
-				5CC504D01B0EFEAC004D0CB1 /* CoreLocation.framework */,
-				5CC504CE1B0EFEA6004D0CB1 /* libicucore.dylib */,
-				5CC504CC1B0EFE88004D0CB1 /* AVOSCloud.framework */,
+				62FC55FE5788FF58EC0BC812 /* libPods-LeanCloudFeedback.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -148,9 +109,9 @@
 			isa = PBXGroup;
 			children = (
 				5CCAE0FD1B09B0FE009276B9 /* LeanCloudFeedback */,
-				5CCAE10A1B09B0FE009276B9 /* LeanCloudFeedbackTests */,
 				5CCAE0FC1B09B0FE009276B9 /* Products */,
 				56A155F7F6474AB06BF1EFA0 /* Frameworks */,
+				BFE6ABFA49B1037F183EDE3F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -158,7 +119,6 @@
 			isa = PBXGroup;
 			children = (
 				5CCAE0FB1B09B0FE009276B9 /* LeanCloudFeedback.framework */,
-				5CCAE1061B09B0FE009276B9 /* LeanCloudFeedbackTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,23 +159,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5CCAE10A1B09B0FE009276B9 /* LeanCloudFeedbackTests */ = {
-			isa = PBXGroup;
-			children = (
-				5CCAE10D1B09B0FE009276B9 /* LeanCloudFeedbackTests.m */,
-				5CCAE10B1B09B0FE009276B9 /* Supporting Files */,
-			);
-			path = LeanCloudFeedbackTests;
-			sourceTree = "<group>";
-		};
-		5CCAE10B1B09B0FE009276B9 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				5CCAE10C1B09B0FE009276B9 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		703074BA1B9ABA6D00FD796E /* resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,8 +169,18 @@
 				703074BF1B9ABA6D00FD796E /* feedback_btn@2x.png */,
 				703074C01B9ABA6D00FD796E /* feedback_btn_new@2x.png */,
 				703074C11B9ABA6D00FD796E /* feedback_warning@2x.png */,
+				7000FCF11BEC9E450097C729 /* LeanCloudFeedback.strings */,
 			);
 			path = resources;
+			sourceTree = "<group>";
+		};
+		BFE6ABFA49B1037F183EDE3F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D94FDB034BF527C80C647B30 /* Pods-LeanCloudFeedback.debug.xcconfig */,
+				59AC16570E133BA472B3DABB /* Pods-LeanCloudFeedback.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,10 +210,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5CCAE1111B09B0FE009276B9 /* Build configuration list for PBXNativeTarget "LeanCloudFeedback" */;
 			buildPhases = (
+				84898830CC4C08815C7F6A2D /* Check Pods Manifest.lock */,
 				5CCAE0F61B09B0FE009276B9 /* Sources */,
 				5CCAE0F71B09B0FE009276B9 /* Frameworks */,
 				5CCAE0F81B09B0FE009276B9 /* Headers */,
 				5CCAE0F91B09B0FE009276B9 /* Resources */,
+				96A4361C0F19D5AEB1038786 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -270,24 +225,6 @@
 			productName = LeanCloudFeedback;
 			productReference = 5CCAE0FB1B09B0FE009276B9 /* LeanCloudFeedback.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		5CCAE1051B09B0FE009276B9 /* LeanCloudFeedbackTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5CCAE1141B09B0FE009276B9 /* Build configuration list for PBXNativeTarget "LeanCloudFeedbackTests" */;
-			buildPhases = (
-				5CCAE1021B09B0FE009276B9 /* Sources */,
-				5CCAE1031B09B0FE009276B9 /* Frameworks */,
-				5CCAE1041B09B0FE009276B9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5CCAE1091B09B0FE009276B9 /* PBXTargetDependency */,
-			);
-			name = LeanCloudFeedbackTests;
-			productName = LeanCloudFeedbackTests;
-			productReference = 5CCAE1061B09B0FE009276B9 /* LeanCloudFeedbackTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -304,9 +241,6 @@
 					5CCAE0FA1B09B0FE009276B9 = {
 						CreatedOnToolsVersion = 6.3.1;
 					};
-					5CCAE1051B09B0FE009276B9 = {
-						CreatedOnToolsVersion = 6.3.1;
-					};
 				};
 			};
 			buildConfigurationList = 5CCAE0F51B09B0FE009276B9 /* Build configuration list for PBXProject "LeanCloudFeedback" */;
@@ -315,6 +249,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = 5CCAE0F11B09B0FE009276B9;
 			productRefGroup = 5CCAE0FC1B09B0FE009276B9 /* Products */;
@@ -322,7 +257,6 @@
 			projectRoot = "";
 			targets = (
 				5CCAE0FA1B09B0FE009276B9 /* LeanCloudFeedback */,
-				5CCAE1051B09B0FE009276B9 /* LeanCloudFeedbackTests */,
 				5CC504C71B0EFCBA004D0CB1 /* UniversalFramework */,
 			);
 		};
@@ -338,15 +272,9 @@
 				703074C71B9ABA6D00FD796E /* feedback_btn_new@2x.png in Resources */,
 				703074C31B9ABA6D00FD796E /* feedback_back@2x.png in Resources */,
 				703074C81B9ABA6D00FD796E /* feedback_warning@2x.png in Resources */,
+				7000FCF21BEC9E450097C729 /* LeanCloudFeedback.strings in Resources */,
 				703074C51B9ABA6D00FD796E /* feedback_bg_2@2x.png in Resources */,
 				703074C61B9ABA6D00FD796E /* feedback_btn@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5CCAE1041B09B0FE009276B9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +294,36 @@
 			shellPath = /bin/sh;
 			shellScript = "# This script is based on Jacob Van Order's answer on apple dev forums\n\n# https://devforums.apple.com/message/971277\n# See also http://spin.atomicobject.com/2011/12/13/building-a-universal-framework-for-ios/ for the start\n\n\n# To get this to work with a Xcode 6 Cocoa Touch Framework, create Framework\n# Then create a new Aggregate Target. Throw this script into a Build Script Phrase on the Aggregate\n\n\n######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=true\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nSIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nUNIVERSAL_LIBRARY_DIR=\"./build/${CONFIGURATION}-iphoneuniversal\"\n\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework\"\n\n\n######################\n# Build Frameworks\n######################\n\nxcodebuild -project ${PROJECT_NAME}.xcodeproj -sdk iphonesimulator -target ${PROJECT_NAME} -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator | echo\n\nxcodebuild -project ${PROJECT_NAME}.xcodeproj -sdk iphoneos -target ${PROJECT_NAME} -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos | echo\n\n#xcodebuild -target ${PROJECT_NAME} ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" | echo\n\n#xcodebuild -target ${PROJECT_NAME} ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphonesimulator  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" | echo\n\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make fat universal binary\n######################\n\nlipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\nchmod -x \"${FRAMEWORK}/${FRAMEWORK_NAME}\"\n\nopen \"${UNIVERSAL_LIBRARY_DIR}/\"\n######################\n# On Release, copy the result to desktop folder\n######################\n\n#if [ \"${CONFIGURATION}\" == \"Release\" ]; then\n#mkdir \"${HOME}/Desktop/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/\"\n#cp -r \"${FRAMEWORK}\" \"${HOME}/Desktop/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/\"\n#fi\n\n\n######################\n# If needed, open the Framework folder\n######################\n\n#if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n#if [ \"${CONFIGURATION}\" == \"Release\" ]; then\n#open \"${HOME}/Desktop/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/\"\n#else\n#open \"${UNIVERSAL_LIBRARY_DIR}/\"\n#fi\n#fi";
 		};
+		84898830CC4C08815C7F6A2D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		96A4361C0F19D5AEB1038786 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LeanCloudFeedback/Pods-LeanCloudFeedback-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -384,23 +342,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5CCAE1021B09B0FE009276B9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5CCAE10E1B09B0FE009276B9 /* LeanCloudFeedbackTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		5CCAE1091B09B0FE009276B9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5CCAE0FA1B09B0FE009276B9 /* LeanCloudFeedback */;
-			targetProxy = 5CCAE1081B09B0FE009276B9 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5CC504C81B0EFCBA004D0CB1 /* Debug */ = {
@@ -454,7 +396,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -495,7 +437,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -507,6 +449,7 @@
 		};
 		5CCAE1121B09B0FE009276B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D94FDB034BF527C80C647B30 /* Pods-LeanCloudFeedback.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -522,7 +465,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
+				MACH_O_TYPE = staticlib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -530,6 +473,7 @@
 		};
 		5CCAE1131B09B0FE009276B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59AC16570E133BA472B3DABB /* Pods-LeanCloudFeedback.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -545,39 +489,9 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
+				MACH_O_TYPE = staticlib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		5CCAE1151B09B0FE009276B9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = LeanCloudFeedbackTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		5CCAE1161B09B0FE009276B9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = LeanCloudFeedbackTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -607,15 +521,6 @@
 			buildConfigurations = (
 				5CCAE1121B09B0FE009276B9 /* Debug */,
 				5CCAE1131B09B0FE009276B9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5CCAE1141B09B0FE009276B9 /* Build configuration list for PBXNativeTarget "LeanCloudFeedbackTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5CCAE1151B09B0FE009276B9 /* Debug */,
-				5CCAE1161B09B0FE009276B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

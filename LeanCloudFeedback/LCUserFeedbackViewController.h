@@ -29,11 +29,18 @@ typedef enum : NSUInteger {
  */
 @property(nonatomic, strong) UIFont *feedbackCellFont;
 
+/**
+ *  这个是网站看到的用户反馈标题。默认采用第一条反馈作为标题。
+ */
 @property(nonatomic, copy) NSString *feedbackTitle;
+
+/**
+ *  联系人。nil 需要用户自己填写。如果不需要用户填写联系方式，请设置 contactHeaderHidden
+ */
 @property(nonatomic, copy) NSString *contact;
 
 /**
- *  是否使用的 present 方式弹出。默认为YES，决定返回按钮样式和返回方式
+ *  是否使用 present 方式弹出。默认为YES，决定返回按钮样式和返回方式
  */
 @property(nonatomic, assign) BOOL presented;
 

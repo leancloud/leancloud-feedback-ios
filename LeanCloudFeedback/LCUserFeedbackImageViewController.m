@@ -7,6 +7,7 @@
 //
 
 #import "LCUserFeedbackImageViewController.h"
+#import "LCUtils.h"
 
 @interface LCUserFeedbackImageViewController ()
 
@@ -18,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"详情";
+    self.title = LCLocalizedString(@"Detail");
     [self.view addSubview:self.imageView];
 }
 

@@ -15,6 +15,7 @@ xcuserdata
 
 # Pods
 Pods
+Podfile.lock
 
 ## Other
 *.xccheckout

@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name     = "LeanCloudFeedback"
-  s.version  = "0.0.7"
+  s.version  = "0.0.8"
   s.platform = :ios, "6.0"
   s.summary  = "LeanCloud iOS SDK for mobile backend."
   s.homepage = "https://leancloud.cn"
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.source_files        = "LeanCloudFeedback/**/*.{h,m}"
   s.public_header_files = "LeanCloudFeedback/**/*.h"
-  s.resources           = "LeanCloudFeedback/resources/*.png"
+  s.resources           = "LeanCloudFeedback/resources/*.{png,strings}"
 
   s.xcconfig   = { 'OTHER_LDFLAGS' => '$(inherited) -undefined dynamic_lookup' }
   s.frameworks = 'Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore'
