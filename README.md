@@ -1,5 +1,9 @@
 # leancloud-feedback-ios
 
+[![Podspec][podspec-svg]][podspec-link]
+![Platforms][platforms-svg]
+[![Dependencies][dependencies-svg]][dependencies-link]
+
 LeanCloud Feedback 模块是 [LeanCloud](https://leancloud.cn) 开源的一个用户反馈组件，反馈内容存储在 LeanCloud 云端，开发者可以通过 LeanCloud 提供的统计分析客户端 [LeanAnalytics](https://itunes.apple.com/IE/app/id854896336) 来实时查看和回复用户反馈。
 
 用户反馈界面如下：
@@ -125,3 +129,11 @@ xcodebuild -target UniversalFramework -config Release
 0.0.1
 
 * 发布
+
+ [podspec-svg]: https://img.shields.io/cocoapods/v/LeanCloudFeedback.svg
+ [podspec-link]: https://cocoapods.org/pods/LeanCloudFeedback
+
+ [platforms-svg]: https://img.shields.io/badge/platform-ios-lightgrey.svg
+
+ [dependencies-svg]: https://img.shields.io/badge/dependencies-1-yellowgreen.svg
+ [dependencies-link]: https://github.com/leancloud/leancloud-feedback-ios/blob/master/LeanCloudFeedback.podspec#L20
