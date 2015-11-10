@@ -4,7 +4,7 @@ LeanCloud Feedback 模块是 [LeanCloud](https://leancloud.cn) 开源的一个�
 
 用户反馈界面如下：
 
-![image](images/Screen.png)
+![ios_feedback](https://cloud.githubusercontent.com/assets/5022872/11053506/8e962c94-879c-11e5-9cd9-a96a688b79a3.gif)
 
 
 ## 如何贡献
@@ -95,6 +95,7 @@ xcodebuild -target UniversalFramework -config Release
 0.0.8
 
 * 增加本地化字符串的支持
+* LCUserFeedbackViewController 增加 presented 参数，来决定返回按钮和样式。默认为 YES，会创建一个返回按钮。当使用 pushViewController 进入时，请设置为 NO，则不会创建返回按钮，用 NavigationController 默认的返回按钮。更多可见 Demo。
 
 0.0.7
 

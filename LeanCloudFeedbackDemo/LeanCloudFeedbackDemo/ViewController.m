@@ -23,11 +23,15 @@
     self.unreadTipLabel.text = nil;
     [[LCUserFeedbackAgent sharedInstance] countUnreadFeedbackThreadsWithBlock:^(NSInteger number, NSError *error) {
         if (!error) {
-            self.unreadTipLabel.text = [NSString stringWithFormat:@"您有 %ld 条未读反馈", number];
+            [self setUnreads:number];
         } else {
-            self.unreadTipLabel.text = nil;
+            [self setUnreads:0];
         }
     }];
+}
+
+- (void)setUnreads:(NSInteger)unreads {
+    self.unreadTipLabel.text = [NSString stringWithFormat:@"您有 %ld 条未读反馈", unreads];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,7 +44,7 @@
 //    [agent showConversations:self title:nil contact:@"goodman@leancloud.cn"];
     [agent showConversations:self title:nil contact:nil];
     
-    self.unreadTipLabel.text = nil;
+    [self setUnreads:0];
 }
 
 - (IBAction)pushFeedbackView:(id)sender {
@@ -58,6 +62,8 @@
     feedbackViewController.navigationBarStyle = LCUserFeedbackNavigationBarStyleNone;
     
     [self.navigationController pushViewController:feedbackViewController animated:YES];
+    
+    [self setUnreads:0];
 }
 
 @end
