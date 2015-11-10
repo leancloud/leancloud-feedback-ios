@@ -17,9 +17,6 @@ Pod::Spec.new do |s|
   s.public_header_files = "LeanCloudFeedback/**/*.h"
   s.resources           = "LeanCloudFeedback/resources/*.{png,strings}"
 
-  s.xcconfig   = { 'OTHER_LDFLAGS' => '$(inherited) -undefined dynamic_lookup' }
-  s.frameworks = 'Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore'
-
   s.dependency 'AVOSCloud', '~> 3.1'
 
 end
