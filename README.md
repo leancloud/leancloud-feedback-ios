@@ -90,6 +90,12 @@ xcodebuild -target UniversalFramework -config Release
   pod 'LeanCloudFeedback'
 ```
 
+或者使用动态库，
+
+```
+  pod 'LeanCloudFeedbackDynamic'
+```
+
 ## 其他问题
 ### 我要增加额外的数据，该怎么做？
 可以扩展 LCUserFeedbackReply 的属性值，从而保存更多的内容。譬如允许用户截图来反馈问题的话，可以在应用中先把图片存储到 LeanCloud 云端（使用 AVFile），然后把 AVFile 的 url 保存到 LCUserFeedbackReply(attachment 属性)。
