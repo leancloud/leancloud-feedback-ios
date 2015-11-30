@@ -233,7 +233,14 @@ static CGFloat const kSendButtonWidth = 60;
         if ([self filterError:error]) {
             if (objects.count > 0) {
                 [_feedbackReplies removeAllObjects];
-                [_feedbackReplies addObjectsFromArray:objects];
+                if (_feedbackReplies)
+                {
+                    [_feedbackReplies addObjectsFromArray:objects];
+                }
+                else
+                {
+                    _feedbackReplies = [NSMutableArray arrayWithArray:objects];
+                }
                 
                 [_tableView reloadData];
                 [self scrollToBottom];
