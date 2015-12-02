@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name     = "LeanCloudFeedbackDynamic"
-  s.version  = "0.0.8"
+  s.version  = "0.0.8.1"
   s.platform = :ios, "8.0"
   s.summary  = "LeanCloud iOS SDK for mobile backend."
   s.homepage = "https://leancloud.cn"
@@ -19,4 +19,8 @@ Pod::Spec.new do |s|
 
   s.dependency 'AVOSCloudDynamic', '~> 3.1'
 
+  s.xcconfig = {
+      "FRAMEWORK_SEARCH_PATHS" => "\"${PODS_ROOT}/AVOSCloudDynamic/**\"",
+      "OTHER_LDFLAGS" => "$(inherited) -ObjC -framework AVOSCloud",
+  }
 end
