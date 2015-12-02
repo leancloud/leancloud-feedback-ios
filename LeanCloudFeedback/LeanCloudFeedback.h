@@ -8,19 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for LeanCloudFeedback.
-FOUNDATION_EXPORT double LeanCloudFeedbackVersionNumber;
-
-//! Project version string for LeanCloudFeedback.
-FOUNDATION_EXPORT const unsigned char LeanCloudFeedbackVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <LeanCloudFeedback/PublicHeader.h>
-
-//typedef LCUserFeedback AVUserFeedback;
-//typedef LCUserFeedbackAgent AVUserFeedbackAgent;
-//typedef LCUserFeedbackThread AVUserFeedbackThread;
-
-#import <LeanCloudFeedback/LCUserFeedbackReply.h>
-#import <LeanCloudFeedback/LCUserFeedbackAgent.h>
-#import <LeanCloudFeedback/LCUserFeedbackThread.h>
-#import <LeanCloudFeedback/LCUserFeedbackViewController.h>
+#import "LCUserFeedbackReply.h"
+#import "LCUserFeedbackAgent.h"
+#import "LCUserFeedbackThread.h"
+#import "LCUserFeedbackViewController.h"
