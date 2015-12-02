@@ -19,4 +19,8 @@ Pod::Spec.new do |s|
 
   s.dependency 'AVOSCloudDynamic', '~> 3.1'
 
+  s.xcconfig = {
+      "FRAMEWORK_SEARCH_PATHS" => "\"${PODS_ROOT}/AVOSCloudDynamic/**\"",
+      "OTHER_LDFLAGS" => "$(inherited) -ObjC -framework AVOSCloud",
+  }
 end
