@@ -43,17 +43,16 @@ static CGFloat const kSendButtonWidth = 60;
 
 @implementation LCUserFeedbackViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
         _feedbackReplies = [[NSMutableArray alloc] init];
-        
         // Custom initialization
-        self.navigationBarStyle = LCUserFeedbackNavigationBarStyleBlue;
-        self.contactHeaderHidden = NO;
-        self.feedbackCellFont = [UIFont systemFontOfSize:16];
-        self.presented = YES;
+        _navigationBarStyle = LCUserFeedbackNavigationBarStyleBlue;
+        _contactHeaderHidden = NO;
+        _feedbackCellFont = [UIFont systemFontOfSize:16];
+        _presented = YES;
     }
     return self;
 }
