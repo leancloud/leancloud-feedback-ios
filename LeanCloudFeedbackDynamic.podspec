@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.public_header_files = "LeanCloudFeedback/**/*.h"
   s.resources           = "LeanCloudFeedback/resources/*.{png,strings}"
 
-  s.dependency 'AVOSCloudDynamic', '~> 3.1'
+  s.dependency 'AVOSCloudDynamic'
 
   s.xcconfig = {
       "FRAMEWORK_SEARCH_PATHS" => "\"${PODS_ROOT}/AVOSCloudDynamic/**\"",

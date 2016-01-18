@@ -41,7 +41,7 @@
  *  @param block 结果回调。
  *  @discussion 可以在 block 中处理反馈数据 (AVUserFeedbackThread 数组)，然后将其传入自定义用户反馈界面。
  */
-- (void)syncFeedbackThreadsWithBlock:(NSString *)title contact:(NSString *)contact block:(AVArrayResultBlock)block AVDeprecated("Use -syncFeedbackThreadsWithContact:block: instead");
+- (void)syncFeedbackThreadsWithBlock:(NSString *)title contact:(NSString *)contact block:(AVArrayResultBlock)block AV_DEPRECATED("Use -syncFeedbackThreadsWithContact:block: instead");
 
 /**
  *  从服务端同步反馈回复，按照 contact 同步。
@@ -49,14 +49,14 @@
  *  @param block 结果回调。
  *  @discussion 可以在 block 中处理反馈数据 (AVUserFeedbackThread 数组)，然后将其传入自定义用户反馈界面。
  */
-- (void)syncFeedbackThreadsWithContact:(NSString *)contact block:(AVArrayResultBlock)block  AVDeprecated("Because now feedback module is an open source project, you should tweak the UI in LCUserFeedbackViewController, do not make new UI and sync feedback threads by your own.");
+- (void)syncFeedbackThreadsWithContact:(NSString *)contact block:(AVArrayResultBlock)block  AV_DEPRECATED("Because now feedback module is an open source project, you should tweak the UI in LCUserFeedbackViewController, do not make new UI and sync feedback threads by your own.");
 
 /**
  *  发送用户反馈
  *  @param content 同上，用户反馈内容。
  *  @param block 结果回调。
  */
-- (void)postFeedbackThread:(NSString *)content block:(AVIdResultBlock)block AVDeprecated("Use -postFeedbackThread:contact:block: instead");
+- (void)postFeedbackThread:(NSString *)content block:(AVIdResultBlock)block AV_DEPRECATED("Use -postFeedbackThread:contact:block: instead");
 
 /**
  *  发送用户反馈
@@ -64,6 +64,6 @@
  *  @param contact 联系方式，邮箱或qq。
  *  @param block 结果回调。
  */
-- (void)postFeedbackThread:(NSString *)content contact:(NSString *)contact block:(AVIdResultBlock)block AVDeprecated("Because now feedback module is an open source project, you should tweak the UI in LCUserFeedbackViewController, do not make new UI and post feedback by your own.");
+- (void)postFeedbackThread:(NSString *)content contact:(NSString *)contact block:(AVIdResultBlock)block AV_DEPRECATED("Because now feedback module is an open source project, you should tweak the UI in LCUserFeedbackViewController, do not make new UI and post feedback by your own.");
 
 @end

@@ -9,12 +9,12 @@ platform :ios, '6.0'
 
 target 'LeanCloudFeedback' do
     xcodeproj 'LeanCloudFeedback.xcodeproj'
-    pod 'AVOSCloud', '~> 3.1.4'
+    pod 'AVOSCloud'
 end
 
 target 'LeanCloudFeedbackDemo' do
     
     xcodeproj 'LeanCloudFeedbackDemo/LeanCloudFeedbackDemo.xcodeproj'
-    pod 'AVOSCloud', '~> 3.1.4'
+    pod 'AVOSCloud'
     pod 'LeanCloudFeedback', :path => '.'
 end
