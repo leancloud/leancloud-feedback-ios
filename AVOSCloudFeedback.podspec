@@ -20,6 +20,6 @@ Pod::Spec.new do |s|
   s.xcconfig   = { 'OTHER_LDFLAGS' => '$(inherited) -undefined dynamic_lookup' }
   s.frameworks = 'Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore'
 
-  s.dependency 'AVOSCloud', '~> 3.1.2.6'
+  s.dependency 'AVOSCloud'
 
 end

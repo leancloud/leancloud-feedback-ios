@@ -17,6 +17,6 @@ Pod::Spec.new do |s|
   s.public_header_files = "LeanCloudFeedback/**/*.h"
   s.resources           = "LeanCloudFeedback/resources/*.{png,strings}"
 
-  s.dependency 'AVOSCloud', '~> 3.1'
+  s.dependency 'AVOSCloud'
 
 end
