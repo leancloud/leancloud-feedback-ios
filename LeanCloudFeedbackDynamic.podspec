@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name     = "LeanCloudFeedbackDynamic"
-  s.version  = "0.0.8.2"
+  s.version  = "0.0.8.3"
   s.platform = :ios, "8.0"
   s.summary  = "LeanCloud iOS SDK for mobile backend."
   s.homepage = "https://leancloud.cn"
