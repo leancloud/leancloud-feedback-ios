@@ -130,6 +130,7 @@ static CGFloat const kSendButtonWidth = 60;
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kInputViewHeight)
                                                       style:UITableViewStylePlain];
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -140,6 +141,7 @@ static CGFloat const kSendButtonWidth = 60;
 - (UIButton *)addImageButton {
     if (_addImageButton == nil) {
         _addImageButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - kInputViewHeight, kAddImageButtonWidth, kInputViewHeight)];
+        _addImageButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleRightMargin;
         _addImageButton.backgroundColor = kInputViewColor;
         [_addImageButton setImage:[UIImage imageNamed:@"feedback_add_image"] forState:UIControlStateNormal];
         _addImageButton.contentMode = UIViewContentModeScaleAspectFill;
@@ -152,6 +154,7 @@ static CGFloat const kSendButtonWidth = 60;
     if (_sendButton == nil) {
         _sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _sendButton.frame = CGRectMake(CGRectGetWidth(self.view.frame) - kSendButtonWidth, CGRectGetHeight(self.view.frame) - kInputViewHeight, kSendButtonWidth, kInputViewHeight);
+        _sendButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin;
         [_sendButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
         [_sendButton setTitleColor:[UIColor colorWithRed:137.0f/255 green:137.0f/255 blue:137.0f/255 alpha:1] forState:UIControlStateNormal];
         [_sendButton setTitle:LCLocalizedString(@"Send") forState:UIControlStateNormal];
@@ -164,6 +167,7 @@ static CGFloat const kSendButtonWidth = 60;
 - (UITextField *)inputTextField {
     if (_inputTextField == nil) {
         _inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(kAddImageButtonWidth, CGRectGetMinY(self.sendButton.frame), CGRectGetWidth(self.view.frame)- kSendButtonWidth - kAddImageButtonWidth, kInputViewHeight)];
+        _inputTextField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         _inputTextField.tag = TAG_InputFiled;
         [_inputTextField setFont:[UIFont systemFontOfSize:12]];
         _inputTextField.backgroundColor = kInputViewColor;
