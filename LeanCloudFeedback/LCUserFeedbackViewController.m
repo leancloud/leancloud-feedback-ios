@@ -457,6 +457,7 @@ static CGFloat const kSendButtonWidth = 60;
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if (textField.tag == TAG_TABLEView_Header && [textField.text length] > 0 && _userFeedback) {
         _userFeedback.contact = textField.text;
+        _contact = textField.text;
         [LCUserFeedbackThread updateFeedback:_userFeedback withBlock:^(id object, NSError *error) {
             if ([self filterError:error]) {
                 [self alertWithTitle:@"提示" message:@"更改成功"];
