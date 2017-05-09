@@ -82,16 +82,16 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
         block(nil, nil);
     } else {
         LCHttpClient *client = [LCHttpClient sharedInstance];
-        [client getObject:[LCUserFeedbackThread objectPath] withParameters:@{@"objectId":feedbackObjectId} block:^(id object, NSError *error) {
+        NSString *path = [[LCUserFeedbackThread objectPath] stringByAppendingPathComponent:feedbackObjectId];
+        [client getObject:path withParameters:nil block:^(id object, NSError *error) {
             if (error) {
                 [LCUtils callIdResultBlock:block object:nil error:error];
             } else {
-                NSArray* results = [(NSDictionary*)object objectForKey:@"results"];
-                if (results.count == 0) {
-                    [LCUtils callIdResultBlock:block object:nil error:nil];
-                } else {
-                    LCUserFeedbackThread *feedback = [[LCUserFeedbackThread alloc] initWithDictionary:results[0]];
+                if (object) {
+                    LCUserFeedbackThread *feedback = [[LCUserFeedbackThread alloc] initWithDictionary:object];
                     [LCUtils callIdResultBlock:block object:feedback error:nil];
+                } else {
+                    [LCUtils callIdResultBlock:block object:nil error:nil];
                 }
             }
         }];
