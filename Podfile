@@ -3,18 +3,17 @@
 # Uncomment this line if you're using Swift
 # use_frameworks!
 
+platform :ios, '8.0'
+
 workspace 'LeanCloudFeedback.xcworkspace'
 
-platform :ios, '6.0'
-
 target 'LeanCloudFeedback' do
-    xcodeproj 'LeanCloudFeedback.xcodeproj'
+    project 'LeanCloudFeedback.xcodeproj'
     pod 'AVOSCloud'
 end
 
 target 'LeanCloudFeedbackDemo' do
-    
-    xcodeproj 'LeanCloudFeedbackDemo/LeanCloudFeedbackDemo.xcodeproj'
+    project 'LeanCloudFeedbackDemo/LeanCloudFeedbackDemo.xcodeproj'
     pod 'AVOSCloud'
     pod 'LeanCloudFeedback', :path => '.'
 end
