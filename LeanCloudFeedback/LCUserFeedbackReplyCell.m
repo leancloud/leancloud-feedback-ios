@@ -245,6 +245,7 @@ static CGFloat const kBubbleArrowHeight = 14; /**< 气泡尖嘴的高度 */
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     // Initialization code
 }
 
