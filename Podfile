@@ -9,11 +9,11 @@ workspace 'LeanCloudFeedback.xcworkspace'
 
 target 'LeanCloudFeedback' do
     project 'LeanCloudFeedback.xcodeproj'
-    pod 'AVOSCloud'
+    pod 'AVOSCloud', '10.1.0'
 end
 
 target 'LeanCloudFeedbackDemo' do
     project 'LeanCloudFeedbackDemo/LeanCloudFeedbackDemo.xcodeproj'
-    pod 'AVOSCloud'
+    pod 'AVOSCloud', '10.1.0'
     pod 'LeanCloudFeedback', :path => '.'
 end
