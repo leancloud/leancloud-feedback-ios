@@ -308,8 +308,8 @@ static CGFloat const kSendButtonWidth = 60;
     UIImage *originImage = info[UIImagePickerControllerOriginalImage];
     [self prepareFeedbackWithBlock:^(BOOL succeeded, NSError *error) {
         if ([self filterError:error]) {
-            AVFile *attachment = [AVFile fileWithName:@"feedback.png" data:UIImageJPEGRepresentation(originImage, 0.6)];
-            [attachment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            AVFile *attachment = [AVFile fileWithData:UIImageJPEGRepresentation(originImage, 0.6) name:@"feedback.png"];
+            [attachment uploadWithCompletionHandler:^(BOOL succeeded, NSError *error) {
                 if ([self filterError:error]) {
                     LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithAttachment:attachment.url type:LCReplyTypeUser];
                     feedbackReply.attachmentImage = originImage;

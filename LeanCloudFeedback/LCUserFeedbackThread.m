@@ -54,7 +54,7 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
     if (_remarks) {
         [data setObject:self.remarks forKey:@"remarks"];
     }
-    _iid = [AVInstallation currentInstallation].objectId;
+    _iid = [AVInstallation defaultInstallation].objectId;
     if (_iid) {
         [data setObject:self.iid forKey:@"iid"];
     }
@@ -188,14 +188,11 @@ static NSString *const kLCUserFeedbackObjectId = @"LCUserFeedbackObjectId";
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             for (LCUserFeedbackReply *reply in replies) {
                 if (reply.attachment) {
-                    AVFile *attachmentFile = [AVFile fileWithURL:reply.attachment];
-                    NSError *error;
-                    NSData *data;
-                    data = [attachmentFile getData:&error];
-                    if (error) {
-                        FLog(@"attachment getData error");
-                    } else {
+                    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:reply.attachment]];
+                    if (data) {
                         reply.attachmentImage = [UIImage imageWithData:data];
+                    } else {
+                        FLog(@"attachment getData error");
                     }
                 }
             }
