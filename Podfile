@@ -8,12 +8,14 @@ platform :ios, '8.0'
 workspace 'LeanCloudFeedback.xcworkspace'
 
 target 'LeanCloudFeedback' do
+    inhibit_all_warnings!
     project 'LeanCloudFeedback.xcodeproj'
-    pod 'AVOSCloud', '10.1.0'
+    pod 'AVOSCloud', '11.4.9'
 end
 
 target 'LeanCloudFeedbackDemo' do
+    inhibit_all_warnings!
     project 'LeanCloudFeedbackDemo/LeanCloudFeedbackDemo.xcodeproj'
-    pod 'AVOSCloud', '10.1.0'
+    pod 'AVOSCloud', '11.4.9'
     pod 'LeanCloudFeedback', :path => '.'
 end
