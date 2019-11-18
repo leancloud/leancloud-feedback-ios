@@ -48,7 +48,10 @@
     NSURL *url = [NSURL URLWithString:path];
     
     if (!url.scheme.length) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         NSString *URLString = [[LCRouter sharedInstance] URLStringForPath:path];
+#pragma clang diagnostic pop
         url = [NSURL URLWithString:URLString];
     }
     
@@ -65,7 +68,6 @@
         [request setValue:[AVUser currentUser].sessionToken forHTTPHeaderField:@"X-LC-Session"];
     }
     
-    [request setTimeoutInterval:kAVDefaultNetworkTimeoutInterval];
     [request setHTTPMethod:method];
     if ([method isEqualToString:@"GET"] || [method isEqualToString:@"DELETE"]) {
         url = [NSURL URLWithString:[[url absoluteString] stringByAppendingFormat:@"?%@", [self queryStringFromParameters:parameters]]];
