@@ -211,11 +211,11 @@ static CGFloat const kSendButtonWidth = 60;
             block(nil, error);
         } else {
             if (feedback) {
-                _userFeedback = feedback;
+                self->_userFeedback = feedback;
                 if (self.contact == nil) {
                     self.contact = feedback.contact;
                 }
-                [_userFeedback fetchFeedbackRepliesInBackgroundWithBlock:block];
+                [self->_userFeedback fetchFeedbackRepliesInBackgroundWithBlock:block];
             } else {
                 block([NSArray array], nil);
             }
@@ -228,13 +228,13 @@ static CGFloat const kSendButtonWidth = 60;
         [_refreshControl beginRefreshing];
     }
     [self fetchRepliesWithBlock:^(NSArray *objects, NSError *error) {
-        [_refreshControl endRefreshing];
+        [self->_refreshControl endRefreshing];
         if ([self filterError:error]) {
             if (objects.count > 0) {
-                [_feedbackReplies removeAllObjects];
-                [_feedbackReplies addObjectsFromArray:objects];
+                [self->_feedbackReplies removeAllObjects];
+                [self->_feedbackReplies addObjectsFromArray:objects];
                 
-                [_tableView reloadData];
+                [self->_tableView reloadData];
                 [self scrollToBottom];
             }
         }
@@ -313,7 +313,7 @@ static CGFloat const kSendButtonWidth = 60;
                 if ([self filterError:error]) {
                     LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithAttachment:attachment.url type:LCReplyTypeUser];
                     feedbackReply.attachmentImage = originImage;
-                    [self saveFeedbackReply:feedbackReply AtFeedback:_userFeedback];
+                    [self saveFeedbackReply:feedbackReply AtFeedback:self->_userFeedback];
                 }
             }];
         }
@@ -340,7 +340,7 @@ static CGFloat const kSendButtonWidth = 60;
             if (error) {
                 block(NO, error);
             } else {
-                _userFeedback = object;
+                self->_userFeedback = object;
                 block(YES, nil);
             }
         }];
@@ -354,7 +354,7 @@ static CGFloat const kSendButtonWidth = 60;
         [self prepareFeedbackWithBlock:^(BOOL succeeded, NSError *error) {
             if ([self filterError:error]) {
                 LCUserFeedbackReply *feedbackReply = [LCUserFeedbackReply feedbackReplyWithContent:content type:LCReplyTypeUser];
-                [self saveFeedbackReply:feedbackReply AtFeedback:_userFeedback];
+                [self saveFeedbackReply:feedbackReply AtFeedback:self->_userFeedback];
             } else {
                 self.sendButton.enabled = YES;
             }
@@ -365,12 +365,12 @@ static CGFloat const kSendButtonWidth = 60;
 - (void)saveFeedbackReply:(LCUserFeedbackReply *)feedbackReply AtFeedback:(LCUserFeedbackThread *)feedback {
     [_userFeedback saveFeedbackReplyInBackground:feedbackReply withBlock:^(id object, NSError *error) {
         if ([self filterError:error]) {
-            [_feedbackReplies addObject:feedbackReply];
+            [self->_feedbackReplies addObject:feedbackReply];
             [self.tableView reloadData];
             [self scrollToBottom];
             
-            if ([_inputTextField.text length] > 0) {
-                _inputTextField.text = @"";
+            if ([self->_inputTextField.text length] > 0) {
+                self->_inputTextField.text = @"";
             }
         }
         self.sendButton.enabled = YES;

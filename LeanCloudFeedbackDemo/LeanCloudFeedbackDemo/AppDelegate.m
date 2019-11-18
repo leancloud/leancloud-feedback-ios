@@ -21,7 +21,7 @@
 #warning 用公共账号登录 https://leancloud.cn ，账号/密码：leancloud@163.com/Public123 即可查看用户反馈
     NSString *appId = @"sl9sxfb9d9x0sc5g8c5wsv00f4nvztrgo5qcx4i4sjk1myn3";
     NSString *appKey = @"ysz2l1zttl802m3qq8lvvqnmw8tnp4wiiuwe5xtydcjxrwtg";
-    [AVOSCloud setApplicationId:appId clientKey:appKey];
+    [AVOSCloud setApplicationId:appId clientKey:appKey serverURLString:@"https://sl9sxfb9.lc-cn-n1-shared.com"];
 
     [AVOSCloud setAllLogsEnabled:YES];
 
